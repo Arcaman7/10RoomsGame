@@ -6,7 +6,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#04070a">
-<title>Десять залов тьмы XV — охота боссов</title>
+<title>Десять залов тьмы XXIII — охота боссов</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
@@ -45,7 +45,8 @@ body.touch .prompt.tt{display:block}
 body.touch .prompt.kb{display:none}
 body.gpaused #touch .tbtn:not(#tPause):not(#tFull){display:none}
 #pauseOv{cursor:pointer}
-#codexOv{z-index:12}
+#codexOv,#helpOv{z-index:12}
+#codexOv{background:#030706;padding:12px;overflow:hidden}
 body.touch .hint.tt,body.touch .lead.tt{display:block}
 body.touch .lead.kb{display:none}
 .tbtn{position:fixed;pointer-events:auto;display:flex;align-items:center;justify-content:center;
@@ -57,12 +58,13 @@ box-shadow:0 4px 14px rgba(0,0,0,.45);transition:transform .06s,background .06s;
 .tbtn.big{width:var(--bs);height:var(--bs);font-size:24px}
 .tbtn.mid{width:var(--ms);height:var(--ms);font-size:20px}
 .tbtn.sm{width:var(--ss);height:var(--ss);font-size:15px}
-#tLeft {left:var(--edge);bottom:calc(var(--edge) + var(--safe))}
-#tRight{left:calc(var(--edge) + var(--bs) + var(--gap));bottom:calc(var(--edge) + var(--safe))}
-#tDown {left:calc(var(--edge) + var(--bs) - var(--ss)/2 + var(--gap)/2);bottom:calc(var(--edge) + var(--safe) + var(--bs) + var(--gap))}
+#tLeft,#tRight,#tJump,#tDown{width:var(--ms);height:var(--ms);font-size:20px;background:rgba(8,18,14,.62)}
+#tLeft {left:var(--edge);bottom:calc(var(--edge) + var(--safe) + var(--ms) + var(--gap))}
+#tRight{left:calc(var(--edge) + var(--ms) + var(--gap) + var(--ms) + var(--gap));bottom:calc(var(--edge) + var(--safe) + var(--ms) + var(--gap))}
+#tJump {left:calc(var(--edge) + var(--ms) + var(--gap));bottom:calc(var(--edge) + var(--safe) + var(--ms) + var(--gap) + var(--ms) + var(--gap));border-color:#3c5a9a;color:#9db8ff}
+#tDown {left:calc(var(--edge) + var(--ms) + var(--gap));bottom:calc(var(--edge) + var(--safe));border-color:#3c5a9a;color:#9db8ff}
 #tAtk  {right:var(--edge);bottom:calc(var(--edge) + var(--safe));border-color:#8a4d1f;color:#ffd9a0;font-size:26px}
 #tSkill{right:calc(var(--edge) + var(--bs) + var(--gap));bottom:calc(var(--edge) + var(--safe));border-color:#6e4a22;color:#ffb45e}
-#tJump {right:calc(var(--edge) + var(--bs)/2 - var(--ms)/2);bottom:calc(var(--edge) + var(--safe) + var(--bs) + var(--gap));border-color:#3c5a9a;color:#9db8ff}
 #tRoll {right:calc(var(--edge) + var(--bs) + var(--gap) + var(--bs)/2 - var(--ss)/2);bottom:calc(var(--edge) + var(--safe) + var(--bs) + var(--gap) + 6px);border-color:#4c7a3a;color:#a8d08d}
 #tParry{right:calc(var(--edge) + 2*(var(--bs) + var(--gap)));bottom:calc(var(--edge) + var(--safe));border-color:#3c5a9a;color:#9ad0ff}
 #tPause{left:calc(50% - 44px);top:8px;width:36px;height:36px;font-size:12px;border-radius:10px}
@@ -123,6 +125,23 @@ body.touch #waveBanner .bsub{font-size:9px;letter-spacing:2px}
 @keyframes wbanner{0%{opacity:0;transform:translate(-50%,-50%) scale(1.6)}15%{opacity:1;transform:translate(-50%,-50%) scale(1)}75%{opacity:1}100%{opacity:0;transform:translate(-50%,-60%) scale(1.02)}}
 .overlay{position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;background:radial-gradient(120% 120% at 50% 45%,rgba(6,12,10,.5) 0%,rgba(4,8,7,.92) 100%);transition:opacity .4s,visibility .4s;overflow:auto;padding:20px}
 .overlay.hidden{opacity:0;visibility:hidden;pointer-events:none}
+#startOv{background:
+radial-gradient(circle at 8% 47%,rgba(210,112,42,.22) 0,rgba(106,50,18,.1) 12%,transparent 27%),
+radial-gradient(circle at 92% 47%,rgba(210,112,42,.22) 0,rgba(106,50,18,.1) 12%,transparent 27%),
+repeating-linear-gradient(90deg,transparent 0 92px,rgba(123,153,136,.045) 93px 96px),
+linear-gradient(180deg,#101d17 0%,#09140f 48%,#030806 100%);background-color:#030806;
+box-shadow:inset 0 0 90px #000,inset 0 -70px 90px rgba(0,0,0,.72);isolation:isolate;
+gap:5px;padding-top:10px;padding-bottom:10px;overflow-y:auto;scrollbar-width:none}
+#startOv::-webkit-scrollbar{display:none}
+#startOv::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.34;
+background:repeating-linear-gradient(0deg,transparent 0 43px,rgba(155,184,165,.055) 44px,rgba(0,0,0,.13) 46px),
+linear-gradient(115deg,transparent 0 38%,rgba(180,215,193,.055) 50%,transparent 62%)}
+#startOv>.kicker,#startOv>.title,#startOv>.menuHelp,#startOv>.modeTabs,#startOv>.rwSection{z-index:1}
+#startOv>.title{margin:0 0 1px}
+#startOv>.menuHelp{margin:0;padding-top:1px;padding-bottom:1px}
+#startOv .rwLabel{color:#b8cec1;text-shadow:0 1px 2px #000,0 0 9px rgba(150,210,178,.22);margin:3px 0 4px}
+#startOv .kicker{color:#b7d0c1;text-shadow:0 1px 3px #000}
+#startOv .dim{color:#8ea79a}
 .kicker{font-size:11px;letter-spacing:6px;color:#8fae9c}
 .title{font-family:'Russo One';font-size:clamp(28px,5vw,58px);color:#ffd9a0;letter-spacing:3px;line-height:1.05;text-shadow:0 3px 0 #6e3b12,0 6px 0 rgba(0,0,0,.4),0 0 34px rgba(255,150,60,.35)}
 .title.small{font-size:clamp(22px,3vw,34px)}
@@ -261,7 +280,21 @@ body.touch #comboBar .cnum{font-size:19px}
 body.touch #soulChip{font-size:9px;padding:2px 7px}
 body.touch .mchip{font-size:7px}
 /* кодекс пробуждений */
-#codexList{width:100%;max-width:900px;display:flex;flex-direction:column;gap:6px;max-height:58vh;overflow:auto;padding:4px;scrollbar-width:thin}
+#codexList{width:100%;max-width:900px;display:flex;flex:1;min-height:0;box-sizing:border-box;
+flex-direction:column;gap:6px;overflow-y:auto;overflow-x:hidden;padding:4px 10px 4px 4px;
+scrollbar-width:auto;scrollbar-color:#a86f32 #07100c}
+#codexList::-webkit-scrollbar{width:12px}
+#codexList::-webkit-scrollbar-track{background:#07100c;border:1px solid #26332c;border-radius:8px;box-shadow:inset 0 0 6px #000}
+#codexList::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#d39a52,#8a4b22);border:2px solid #07100c;border-radius:8px;box-shadow:0 0 6px rgba(255,160,70,.3)}
+#codexList::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#ffd08a,#b9682d)}
+.codexPanel{position:relative;width:min(920px,calc(100% - 20px));max-height:calc(100% - 16px);box-sizing:border-box;
+display:flex;flex-direction:column;align-items:center;gap:10px;overflow:hidden;padding:18px 20px 16px;
+background:linear-gradient(180deg,#111c17 0%,#08110d 45%,#050b08 100%);border:2px solid #8a5a2d;border-radius:14px;
+box-shadow:0 0 0 1px #25170d,0 18px 55px #000,inset 0 0 40px rgba(0,0,0,.55),inset 0 1px rgba(255,220,160,.12)}
+.codexPanel::before{content:"";position:absolute;inset:5px;border:1px solid #34483e;border-radius:9px;pointer-events:none}
+.codexPanel>.kicker,.codexPanel>.title,.codexPanel>.lead,.codexPanel>#codexCount,.codexPanel>.btn{position:relative;z-index:1;flex-shrink:0}
+body.touch .codexPanel{width:calc(100% - 8px);max-height:calc(100% - 6px);padding:8px 10px 7px;gap:4px;border-radius:10px}
+body.touch #codexList::-webkit-scrollbar{width:8px}
 .evoBase{font-size:10px;letter-spacing:3px;color:#8fa79b;margin:8px 0 2px;text-align:left}
 .evoRow{display:flex;gap:10px;align-items:flex-start;background:linear-gradient(180deg,#101c17,#0a120e);
 border:1px solid #2c443a;border-radius:10px;padding:8px 10px;text-align:left}
@@ -295,6 +328,53 @@ font-size:9px;cursor:pointer;z-index:2;filter:none;opacity:1}
 .mitem .offBtn:hover{border-color:#ffb45e;color:#ffd9a0}
 .mitem.evoOff .offBtn{border-color:#7a4a4a;color:#ff9d9d}
 .offNote{flex:0 0 100%;font-size:8px;letter-spacing:1px;color:#6f8579;text-align:center;margin:2px 0 0}
+.menuHelp{border:0;background:none;color:#bfe6ff;font:600 10px 'IBM Plex Mono';letter-spacing:3px;
+text-transform:uppercase;text-decoration:underline;text-underline-offset:4px;cursor:pointer;padding:3px 10px}
+.menuHelp:hover{color:#ffe9c9}
+#helpSource{display:none}
+#helpBody{width:100%;max-width:820px;max-height:64vh;overflow:auto;padding:4px 10px;scrollbar-width:thin}
+#helpBody .lead{max-width:none;text-align:left;margin:0}
+.shrineActions{display:contents}
+.shrineActions #btnCodex,.shrineActions #btnStart{position:absolute;top:50%;z-index:3;transform:translateY(-50%)}
+.shrineActions #btnCodex{left:16px}
+.shrineActions #btnStart{right:16px}
+body.touch .shrineActions #btnCodex{left:8px}
+body.touch .shrineActions #btnStart{right:8px}
+#rollSection,#ascSection{position:absolute;top:14px;z-index:3;margin:0}
+#rollSection{left:14px;width:230px}
+#ascSection{right:14px;width:280px}
+#rollSection .rwLabel,#ascSection .rwLabel{margin-top:0;letter-spacing:3px}
+body.touch #rollSection{left:8px;top:8px;width:205px}
+body.touch #ascSection{right:8px;top:8px;width:245px}
+.journeyLoader{position:absolute;inset:0;z-index:40;display:flex;flex-direction:column;align-items:center;justify-content:center;
+gap:12px;background:radial-gradient(circle at 50% 46%,#15251d 0,#07100c 42%,#010302 78%);opacity:1;visibility:visible;
+transition:opacity .18s,visibility .18s;overflow:hidden}
+.journeyLoader.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.vortex{position:relative;width:180px;height:130px;filter:drop-shadow(0 0 20px rgba(255,159,71,.34))}
+.vortex span{position:absolute;left:50%;top:50%;border:3px solid transparent;border-top-color:#ffd08a;border-right-color:#8fd0ad;
+border-radius:50%;transform:translate(-50%,-50%) rotateX(67deg);animation:vortexSpin .62s linear infinite}
+.vortex span:nth-child(1){width:168px;height:100px;animation-duration:.82s}
+.vortex span:nth-child(2){width:122px;height:72px;animation-duration:.62s;animation-direction:reverse;border-top-color:#bfe6ff}
+.vortex span:nth-child(3){width:76px;height:44px;animation-duration:.42s;border-top-color:#ff9d6b}
+.vortex::after{content:"";position:absolute;left:50%;top:71%;width:18px;height:38px;transform:translateX(-50%);
+background:linear-gradient(180deg,rgba(255,198,120,.72),rgba(121,205,160,.22),transparent);clip-path:polygon(0 0,100% 0,58% 100%,42% 100%);filter:blur(1px)}
+@keyframes vortexSpin{to{transform:translate(-50%,-50%) rotateX(67deg) rotateZ(360deg)}}
+.journeyTitle{font-family:'Russo One';font-size:20px;letter-spacing:5px;color:#ffe2b7;text-shadow:0 2px #5a3017,0 0 20px rgba(255,155,70,.45)}
+.journeySub{font-size:10px;letter-spacing:6px;color:#9fc9b2;animation:pulse .7s ease-in-out infinite}
+body.touch .vortex{width:130px;height:92px;transform:scale(.8)}
+body.touch .journeyTitle{font-size:15px}
+.evoTools{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#0b120f;
+border:1px solid #3c5348;border-radius:10px;padding:9px 12px;margin-bottom:2px;text-align:left}
+.evoTools .ed{font-size:9px;color:#93a89c;line-height:1.4}
+.evoActions{display:flex;gap:6px;align-items:center;justify-content:flex-end;flex-wrap:wrap;margin-left:auto;max-width:280px}
+.evoAct{border:1px solid #3c5348;border-radius:6px;background:#101c17;color:#bfe6ff;
+font:600 8px 'IBM Plex Mono';letter-spacing:.7px;padding:5px 8px;cursor:pointer;white-space:nowrap}
+.evoAct:hover:not(:disabled){border-color:#ffb45e;color:#ffe9c9}
+.evoAct:disabled{opacity:.42;cursor:not-allowed}
+.evoAct.off{border-color:#7a4a4a;color:#ff9d9d;background:#1c0e0e}
+body.touch .evoRow{gap:6px;padding:6px}
+body.touch .evoActions{max-width:190px;gap:3px}
+body.touch .evoAct{font-size:7px;padding:4px 6px}
 </style>
 </head>
 <body>
@@ -319,12 +399,12 @@ font-size:9px;cursor:pointer;z-index:2;filter:none;opacity:1}
 </div>
 <div id="comboBar"><div class="cnum" id="comboNum">×2</div><div class="ctrack"><div id="comboFill"></div></div></div>
 <div id="touch">
-<div class="tbtn big" id="tLeft">◀<small>ВЛЕВО</small></div>
-<div class="tbtn big" id="tRight">▶<small>ВПРАВО</small></div>
-<div class="tbtn sm"  id="tDown">▼<small>СПУСК</small></div>
+<div class="tbtn mid" id="tJump" aria-label="Прыжок">▲</div>
+<div class="tbtn mid" id="tLeft" aria-label="Влево">◀</div>
+<div class="tbtn mid" id="tRight" aria-label="Вправо">▶</div>
+<div class="tbtn mid" id="tDown" aria-label="Спуск">▼</div>
 <div class="tbtn big" id="tAtk">⚔<small>АТАКА</small></div>
 <div class="tbtn mid" id="tSkill">✦<small>УМЕНИЕ</small></div>
-<div class="tbtn mid" id="tJump">▲<small>ПРЫЖОК</small></div>
 <div class="tbtn sm"  id="tRoll">💨<small>РЫВОК</small></div>
 <div class="tbtn mid" id="tParry">🛡<small>ПАРИР</small></div>
 <div class="tbtn" id="tPause">❚❚</div>
@@ -338,11 +418,13 @@ font-size:9px;cursor:pointer;z-index:2;filter:none;opacity:1}
 <div id="bossbar"><div class="bname">БОСС</div><div class="btrack"><div id="bossfill"></div></div></div>
 <div id="waveBanner"></div>
 <div class="overlay" id="startOv">
-<div class="kicker">ВЕРСИЯ XV · 10 КОМНАТ · 10 ПЕРЕРАБОТАННЫХ БОССОВ</div>
+<div class="kicker">ВЕРСИЯ XXIII · 10 КОМНАТ · 10 БОССОВ</div>
 <h1 class="title">ДЕСЯТЬ ЗАЛОВ ТЬМЫ</h1>
-<div class="orn">⚔ ⚔ ⚔</div>
+<div id="helpSource">
 <p class="lead kb">Выбери сложность и стартовое оружие. У каждого оружия есть умение на ПКМ. <b style="color:#ff9d6b">Всё оружие ближнего боя бьёт в сторону курсора</b> — герой сам разворачивается к прицелу. Двойное нажатие A или D (или CTRL, если включено в настройках) — <b style="color:#9ad0ff">кувырок с кадрами неуязвимости</b> (работает и в воздухе, КД 0.9с): сквозь атаку можно проходить насквозь. <b style="color:#ff9d6b">Ближний бой</b> бьёт сильнее дальнего: удары сбивают врагам замах, сильно отбрасывают, а в руках с ближним оружием есть 12% шанс поглотить входящий урон. Между залами восстанавливается только 2 ♥ — лечиться приходится сердечками с элитных тварей и боссов. <b style="color:#9ad0ff">SHIFT/Q — парирование</b>: попал в окно 0.15с — снаряд летит обратно с двойным уроном, а враг в упор получает по зубам и застывает. <b style="color:#ffd23f">Ближний бой идёт цепочкой из 3 ударов</b>: третий бьёт ×2.3 и сносит врага с ног, но дольше восстанавливается. Оружие <b style="color:#ffd23f">растёт в уровнях</b> и берёт модификаторы в слоты (зажигательный, цепной, вампирский…), а при совпадении условий <b style="color:#ffb0f0">пробуждается</b> в одну из 50 эволюций — см. «Кодекс пробуждений». <b style="color:#ffb0f0">Пробуждение никогда не выдаётся автоматически:</b> в походе необходимо одновременно собрать указанные для него бафы, а само пробуждение не должно быть отключено в святилище. Запись кодекса открывается после получения в бою или покупки в святилище. Стартовые баффы святилища качаются <b style="color:#ffd23f">до 20 уровней</b>. Баффы складываются в <b style="color:#ffb0f0">синергии</b> (яд+кровь = гниль, мороз+молния = цепь, шипы+броня = отражение, огонь+молния = перегрузка). Убийства одним классом оружия копят <b style="color:#c9a0ff">мастерство</b> — три бесплатных пассивки под ближний, дальний бой или магию. В наградах попадаются <b style="color:#8fb4ff">редкие</b> и <b style="color:#ffd23f">★ легендарные</b> дары, меняющие правила. У каждого босса — заучиваемые связки атак, три фазы и своя механика зала. С тварей падают <b style="color:#bfe6ff">души</b> — валюта для реролла наград, кузницы и торговца. Между залами — <b style="color:#9db8ff">выбор пути</b>: бой, элитный зал, сокровищница, кузница, лавка или алтарь со сделкой. В каждом зале — смешанные отряды тварей, затем босс, и у каждого зала <b style="color:#ffb45e">своя фишка</b>: грибы-батуты, обвал сталактитов, трясина, колья из пола, мрак, гололёд, струи пламени, порталы, подъёмники и волны огня. С каждым залом растёт <b style="color:#ff9d7a">угроза</b>: у тварей больше HP и скорости, их больше на арене, а боссы атакуют чаще.</p>
 <p class="lead tt">Выбери сложность и оружие. Ближний бой бьёт сильнее дальнего, сбивает врагам замах и даёт 12% шанс поглотить урон. Управление — кнопками на экране, прицел наводится сам. У каждого зала своя фишка, угроза растёт от зала к залу.</p>
+</div>
+<button class="menuHelp" id="btnHelp">Подсказка</button>
 <div class="modeTabs" id="modeTabs"></div>
 <div class="rwSection"><div class="rwLabel">— СЛОЖНОСТЬ —</div><div class="cards" id="diffCards"></div></div>
 <div class="rwSection"><div class="rwLabel">— СТАРТОВОЕ ОРУЖИЕ —</div><div class="cards" id="startWpnCards"></div></div>
@@ -351,21 +433,34 @@ font-size:9px;cursor:pointer;z-index:2;filter:none;opacity:1}
 <div class="ascRow" id="ascRow"></div><div class="ascList" id="ascList"></div></div>
 <div class="rwSection" id="lbSection" style="display:none"><div class="rwLabel">— ЛИДЕРБОРД ДНЯ —</div>
 <div class="cards"><div class="lb" id="lbList"></div></div></div>
-<div class="rwSection"><div class="rwLabel">— УПРАВЛЕНИЕ РЫВКОМ —</div><div class="modeTabs" id="rollTabs"></div></div>
+<div class="rwSection" id="rollSection"><div class="rwLabel">— УПРАВЛЕНИЕ РЫВКОМ —</div><div class="modeTabs" id="rollTabs"></div></div>
 <div class="rwSection"><div class="rwLabel">— СВЯТИЛИЩЕ ДУШ · <span id="metaSouls">0</span> 👻 —</div>
-<div class="metaGrid" id="metaGrid"></div></div>
-<div class="btnrow">
+<div class="metaGrid" id="metaGrid"></div>
+<div class="shrineActions">
 <button class="btn small ghost" id="btnCodex">📜 КОДЕКС ПРОБУЖДЕНИЙ</button>
 <button class="btn" id="btnStart">НАЧАТЬ ПОХОД<span>[ENTER]</span></button>
+</div></div>
+<div class="journeyLoader hidden" id="journeyLoader" aria-hidden="true">
+<div class="vortex"><span></span><span></span><span></span></div>
+<div class="journeyTitle">ПУТЬ ОТКРЫВАЕТСЯ</div>
+<div class="journeySub">ПЕРВЫЙ ЗАЛ</div>
 </div>
+</div>
+<div class="overlay hidden" id="helpOv">
+<div class="kicker">КАК ИГРАТЬ</div>
+<h2 class="title small">ПОДСКАЗКА</h2>
+<div id="helpBody"></div>
+<button class="btn" id="btnHelpClose">НАЗАД<span>[ESC]</span></button>
 </div>
 <div class="overlay hidden" id="codexOv">
+<div class="codexPanel">
 <div class="kicker">ЭВОЛЮЦИИ ОРУЖИЯ</div>
 <h2 class="title small">КОДЕКС ПРОБУЖДЕНИЙ</h2>
 <p class="lead" style="max-width:760px">Оружие пробуждается само, когда сходятся условия: подходящий бафф или модификатор, собранная синергия или стиль игры. В каждом забеге оружие пробуждается максимум один раз — первым срабатывает самое особое условие. <b style="color:#ffb0f0">Запись открывается только когда пробуждение получено в бою</b> — или куплено в святилище душ.</p>
 <div id="codexCount"></div>
 <div id="codexList"></div>
 <button class="btn" id="btnCodexClose">НАЗАД<span>[C]</span></button>
+</div>
 </div>
 <div class="overlay hidden" id="rewardOv">
 <div class="kicker" id="rwKicker">ЗАЛ 1 ЗАЧИЩЕН</div>
@@ -411,7 +506,7 @@ font-size:9px;cursor:pointer;z-index:2;filter:none;opacity:1}
 <div class="kicker">ВСЕ 10 ЗАЛОВ ПРОЙДЕНЫ</div>
 <h1 class="title win">ПОЗДРАВЛЯЕМ!</h1>
 <div class="medal">🏅</div>
-<div class="medalNote">Вот вам медаль за взятие за щеку)</div>
+<div class="medalNote">Медаль покорителя Десяти залов — ваша!</div>
 <div class="stats">
 <div class="stat"><div class="v" id="wKills">0</div><div class="k">УБИЙСТВ</div></div>
 <div class="stat"><div class="v" id="wTime">0:00</div><div class="k">ВРЕМЯ</div></div>
@@ -5880,31 +5975,18 @@ $('lbList').innerHTML=list.length
 <span>${r.kills} убийств · ${Math.floor(r.time/60)}:${String(Math.floor(r.time%60)).padStart(2,'0')}</span></div>`).join('')
 : '<div class="lrow"><span class="dim">Сегодня забегов ещё не было</span><span></span></div>';
 }
-/* НОВОЕ: карточка святилища — с уровнями (перки) и с пробуждениями */
+/* Карточки основной витрины святилища: оружие и уровни перков. */
 function metaCard(u){
 const lv=unlockLv(u.id),mx=unlockMax(u),maxed=lv>=mx;
 const cost=unlockCost(u),aff=(META.souls|0)>=cost;
-let ico=u.icon,name=u.name,desc=u.desc||'открыть оружие',off=false,offBtn='';
-if(u.kind==='evo'){
-const e=findEvo(u.ref);
-const known=evoSeen(u.ref);
-off=evoOff(u.ref);
-ico=known?evoIcon(e,30):evoIconLocked(e.base,30);
-name=known?e.name:'???';
-desc=known
-?WEAPONS[e.base].name+' · '+(maxed?'доступно при выполнении условия':'открыть запись и переключатель')
-:WEAPONS[e.base].name+' · тайное пробуждение';
-if(off)desc=WEAPONS[e.base].name+' · <span style="color:#ff9d9d">не сможет пробудиться в походе</span>';
-offBtn='<div class="offBtn" data-off="'+u.ref+'" title="'+(off?'Включить пробуждение':'Отключить пробуждение в походе')+'">'+(off?'✖':'⏻')+'</div>';
-}
+const ico=u.icon,name=u.name,desc=u.desc||'открыть оружие';
 let pips='';
 if(mx>1){pips='<div class="pips">';
 for(let i=0;i<mx;i++)pips+='<div class="pip'+(i<lv?' on':'')+'"></div>';
 pips+='</div>';}
-const cls='mitem'+(maxed?(mx>1?' max':' own'):(aff?'':' poor'))+(off?' evoOff':'');
+const cls='mitem'+(maxed?(mx>1?' max':' own'):(aff?'':' poor'));
 const price=maxed?(mx>1?'УР. '+mx+' — МАКС':'✔'):(mx>1?'УР. '+(lv+1)+' · '+cost+' 👻':cost+' 👻');
 return `<div class="${cls}" data-u="${u.id}">
-${offBtn}
 <div class="mi">${ico}</div>
 <div class="mn">${name}</div>
 <div>${desc}</div>
@@ -5912,20 +5994,9 @@ ${pips}
 <div style="color:${maxed?'#a8d08d':(aff?'#bfe6ff':'#8a5a5a')}">${price}</div>
 </div>`;
 }
-/* Карточка открытия случайной записи пробуждения за полцены */
+/* Открытие случайной записи пробуждения за полцены теперь живёт в кодексе. */
 let lastEvoRoll='';
 function evoRollPool(){return EVOS.filter(e=>!evoBought(e.id));}
-function evoRollCard(){
-const pool=evoRollPool(),done=!pool.length;
-const aff=!done&&(META.souls|0)>=EVO_ROLL_COST;
-return '<div class="mitem'+(done?' max':(aff?'':' poor'))+'" data-roll="1">'
-+'<div class="mi">🎲</div>'
-+'<div class="mn">Открыть запись пробуждения</div>'
-+'<div>'+(done?'все записи пробуждений уже открыты':'случайная из '+pool.length+' неоткрытых · полцены')+'</div>'
-+(lastEvoRoll?'<div style="color:#ffb0f0">'+lastEvoRoll+'</div>':'')
-+'<div style="color:'+(done?'#a8d08d':(aff?'#bfe6ff':'#8a5a5a'))+'">'+(done?'✔':EVO_ROLL_COST+' 👻')+'</div>'
-+'</div>';
-}
 function rollEvoUnlock(){
 const pool=evoRollPool();
 if(!pool.length||(META.souls|0)<EVO_ROLL_COST)return;
@@ -5934,50 +6005,56 @@ META.souls-=EVO_ROLL_COST;
 META.unlocked['e_'+e.id]=1;
 if(META.evoOff[e.id])delete META.evoOff[e.id];
 lastEvoRoll='открыто: '+e.name;
-saveMeta();markEvoSeen(e.id);sfx.reward();buildMenu();
+META.evoSeen[e.id]=1;
+saveMeta();sfx.reward();buildMetaShop();if(codexOpen)buildCodex();
 }
 function buildMetaShop(){
 $('metaSouls').textContent=META.souls|0;
-const grp=[['— ОРУЖИЕ —','wpn'],['— БАФФЫ ПОХОДА · до 20 уровней —','perk'],['— ПРОБУЖДЕНИЯ ОРУЖИЯ —','evo']];
+const grp=[['— ОРУЖИЕ —','wpn'],['— БАФФЫ ПОХОДА · до 20 уровней —','perk']];
 let h='';
 for(const [lbl,kind] of grp){
 const items=META_UNLOCKS.filter(u=>u.kind===kind);
 if(!items.length)continue;
-h+='<div class="mhead">'+lbl+(kind==='evo'?' <span class="dim">'+EVOS.filter(e=>evoBought(e.id)).length+'/'+EVOS.length+' записей открыто</span>':'')+'</div>';
-if(kind==='evo'){
-const offN=EVOS.filter(e=>evoOff(e.id)).length;
-h+='<div class="offNote">⏻ — отключить пробуждение: оно не сможет сработать в походе'+(offN?' · <span style="color:#ff9d9d">отключено '+offN+'</span>':'')+'</div>';
-h+=evoRollCard();
-}
+h+='<div class="mhead">'+lbl+'</div>';
 h+=items.map(metaCard).join('');
 }
 $('metaGrid').innerHTML=h;
 document.querySelectorAll('#metaGrid .mitem').forEach(el=>el.onclick=(ev)=>{
-if(el.dataset.roll){rollEvoUnlock();return;}
 const u=META_UNLOCKS.find(x=>x.id===el.dataset.u);
 if(!u)return;
-/* Кнопка ⏻ (или клик по уже открытой записи пробуждения) — вкл/выкл */
-const hitOff=ev&&ev.target&&ev.target.closest&&ev.target.closest('.offBtn');
-if(u.kind==='evo'&&(hitOff||unlockLv(u.id)>=unlockMax(u))){
-toggleEvoOff(u.ref);sfx.reward();buildMetaShop();return;
-}
 if(unlockLv(u.id)>=unlockMax(u))return;
 const cost=unlockCost(u);
 if((META.souls|0)<cost)return;
 META.souls-=cost;META.unlocked[u.id]=unlockLv(u.id)+1;
-if(u.kind==='evo')markEvoSeen(u.ref);
 saveMeta();sfx.reward();buildMenu();
 });
 }
 /* КОДЕКС ПРОБУЖДЕНИЙ — все 50 эволюций с условиями */
 let codexOpen=false;
+function buyEvoRecord(id){
+const e=findEvo(id),u=META_UNLOCKS.find(x=>x.id==='e_'+id);
+if(!e||!u||evoBought(id))return;
+const cost=unlockCost(u);
+if((META.souls|0)<cost)return;
+META.souls-=cost;META.unlocked[u.id]=1;META.evoSeen[id]=1;
+saveMeta();sfx.reward();buildMetaShop();buildCodex();
+}
 function buildCodex(){
 const bases={};
 for(const e of EVOS)(bases[e.base]=bases[e.base]||[]).push(e);
-const open=EVOS.filter(e=>evoSeen(e.id)).length;
-$('codexCount').innerHTML='ОТКРЫТО '+open+' / '+EVOS.length+
-(open<EVOS.length?' · <span class="dim">остальные скрыты, пока не пробудишь их сам</span>':' · <span style="color:#ffd23f">кодекс полон</span>');
+const seen=EVOS.filter(e=>evoSeen(e.id)).length,bought=EVOS.filter(e=>evoBought(e.id)).length;
+const offN=EVOS.filter(e=>evoOff(e.id)).length,shrine=state==='menu';
+$('codexCount').innerHTML='ИЗУЧЕНО '+seen+' / '+EVOS.length+' · ЗАПИСЕЙ '+bought+' / '+EVOS.length+
+(offN?' · <span style="color:#ff9d9d">НЕАКТИВНО '+offN+'</span>':'')+
+(shrine?' · <span style="color:#bfe6ff">'+(META.souls|0)+' 👻</span>':'');
 let h='';
+if(shrine){
+const pool=evoRollPool(),done=!pool.length,aff=(META.souls|0)>=EVO_ROLL_COST;
+h+='<div class="evoTools"><div><div class="en">🎲 СЛУЧАЙНАЯ ЗАПИСЬ</div>'
++'<div class="ed">'+(done?'Все записи уже открыты.':'Открыть одну из '+pool.length+' записей за половину обычной цены.')
++(lastEvoRoll?'<br><span style="color:#ffb0f0">'+lastEvoRoll+'</span>':'')+'</div></div>'
++'<button class="evoAct" id="btnEvoRoll"'+(done||!aff?' disabled':'')+'>'+(done?'ГОТОВО':EVO_ROLL_COST+' 👻')+'</button></div>';
+}
 for(const b in bases){
 const kn=bases[b].filter(e=>evoSeen(e.id)).length;
 h+='<div class="evoBase">'+WEAPONS[b].icon+' '+WEAPONS[b].name.toUpperCase()+
@@ -5985,34 +6062,47 @@ h+='<div class="evoBase">'+WEAPONS[b].icon+' '+WEAPONS[b].name.toUpperCase()+
 for(const e of bases[b]){
 /* НОВОЕ: неизученные пробуждения скрыты */
 if(!evoSeen(e.id)){
+const u=META_UNLOCKS.find(x=>x.id==='e_'+e.id),cost=unlockCost(u),aff=(META.souls|0)>=cost;
 h+='<div class="evoRow lock">'
 +'<div class="ei">'+evoIconLocked(e.base,34)+'</div>'
 +'<div style="flex:1">'
 +'<div class="en">'+WEAPONS[b].name+' → ???'
 +(e.rar==='legend'?' ★':(e.rar==='secret'?' · СЕКРЕТ':''))+'</div>'
 +'<div class="eh" style="color:#8a7a4a">УСЛОВИЕ: неизвестно</div>'
-+'<div class="ed">Запись ещё не открыта. Выполни условие пробуждения в бою — или открой запись в святилище душ.</div>'
-+'</div></div>';
++'<div class="ed">Запись ещё не открыта. Выполни условие пробуждения в бою — или открой её за души.</div>'
++'</div>'+(shrine?'<div class="evoActions"><button class="evoAct" data-buy-evo="'+e.id+'"'+(aff?'':' disabled')+'>ОТКРЫТЬ · '+cost+' 👻</button></div>':'')+'</div>';
 continue;
 }
 const rc=e.rar==='legend'?' legend':(e.rar==='secret'?' secret':'');
+const u=META_UNLOCKS.find(x=>x.id==='e_'+e.id),boughtNow=evoBought(e.id),cost=unlockCost(u),aff=(META.souls|0)>=cost,off=evoOff(e.id);
 h+='<div class="evoRow'+rc+'">'
 +'<div class="ei">'+evoIcon(e,34)+'</div>'
 +'<div style="flex:1">'
 +'<div class="en" style="color:'+e.col+'">'+WEAPONS[b].name+' → '+e.name
 +(e.rar==='legend'?' ★':(e.rar==='secret'?' · СЕКРЕТ':''))
-+(evoBought(e.id)?' <span style="color:#a8d08d;font-size:9px">· ЗАПИСЬ ОТКРЫТА</span>':'')
-+(evoOff(e.id)?' <span style="color:#ff9d9d;font-size:9px">· ОТКЛЮЧЕНО</span>':'')+'</div>'
++(boughtNow?' <span style="color:#a8d08d;font-size:9px">· ЗАПИСЬ ОТКРЫТА</span>':'')
++(off?' <span style="color:#ff9d9d;font-size:9px">· НЕАКТИВНО</span>':' <span style="color:#a8d08d;font-size:9px">· АКТИВНО</span>')+'</div>'
 +'<div class="eh">УСЛОВИЕ: '+e.how+'</div>'
 +'<div class="ed">'+e.desc+'</div>'
 +'<div class="ea">УМЕНИЕ: '+e.abil+'</div>'
-+'</div></div>';
++'</div>'+(shrine?'<div class="evoActions">'
++(!boughtNow?'<button class="evoAct" data-buy-evo="'+e.id+'"'+(aff?'':' disabled')+'>ОТКРЫТЬ ЗАПИСЬ · '+cost+' 👻</button>':'')
++'<button class="evoAct'+(off?' off':'')+'" data-toggle-evo="'+e.id+'">'+(off?'НЕАКТИВНО':'АКТИВНО')+'</button>'
++'</div>':'')+'</div>';
 }
 }
 $('codexList').innerHTML=h;
+$('btnEvoRoll')?.addEventListener('click',rollEvoUnlock);
+document.querySelectorAll('#codexList [data-buy-evo]').forEach(btn=>btn.onclick=()=>buyEvoRecord(btn.dataset.buyEvo));
+document.querySelectorAll('#codexList [data-toggle-evo]').forEach(btn=>btn.onclick=()=>{
+toggleEvoOff(btn.dataset.toggleEvo);sfx.reward();buildCodex();
+});
 }
 function openCodex(){codexOpen=true;buildCodex();$('codexOv').classList.remove('hidden');}
 function closeCodex(){codexOpen=false;$('codexOv').classList.add('hidden');}
+let helpOpen=false;
+function openHelp(){helpOpen=true;$('helpBody').innerHTML=$('helpSource').innerHTML;$('helpOv').classList.remove('hidden');}
+function closeHelp(){helpOpen=false;$('helpOv').classList.add('hidden');}
 function buildMenu(){
 buildModeTabs();
 $('diffCards').innerHTML=
@@ -6519,8 +6609,17 @@ return '<div class="deathBlock"><div class="deathHead">ПОСЛЕДНИЕ МГН
 'Модификаторы: <b>'+(mods.join(', ')||'нет')+'</b> · Дары: <b>'+(buffList.join(', ')||'нет')+'</b><br>'+
 'Реликвии: <b>'+(relicList.join(', ')||'нет')+'</b> · Проклятия: <b>'+(curses.map(id=>(CURSES.find(c=>c.id===id)||{}).name||id).join(', ')||'нет')+'</b></div></div>';
 }
+let journeyLoading=false,journeyTimer=0;
+function beginJourney(){
+if(state!=='menu'||journeyLoading||helpOpen||codexOpen)return;
+journeyLoading=true;initAudio();
+const loader=$('journeyLoader'),btn=$('btnStart');
+btn.disabled=true;loader.setAttribute('aria-hidden','false');loader.classList.remove('hidden');
+journeyTimer=setTimeout(()=>{journeyTimer=0;loader.classList.add('hidden');loader.setAttribute('aria-hidden','true');startGame();},1050);
+}
 function startGame(){
 if(state==='playing')return;
+journeyLoading=false;$('btnStart').disabled=false;$('journeyLoader').classList.add('hidden');$('journeyLoader').setAttribute('aria-hidden','true');
 switching=false;hitStop=0;holdAtk=false;for(const k in keys)keys[k]=false;
 difficulty=menuDiff;
 ascLevel=menuAsc;
@@ -6552,17 +6651,19 @@ pickups=[];challengeSel=false;challengeRoom=false;extraReward=false;pickedBuffs=
 hudHp=-99;hudKills=-1;hudRoom=-1;hudWpn='';hudDiff='';hudSouls=-1;hudMods='';
 loadRoom(1);
 state='playing';
-/* Локальный стенд художника/баланса: game_15.html?testboss=1..10. */
+/* Локальный стенд художника/баланса: game_23.html?testboss=1..10. */
 const testBoss=+(new URLSearchParams(location.search).get('testboss')||0);
 if(testBoss>=1&&testBoss<=10){room=testBoss;loadRoom(room);mobs=[];projs=[];bossEvents=[];queue=[];spawnBoss();player.hp=Math.max(player.hp,20);S.maxHp=Math.max(S.maxHp,20);if(new URLSearchParams(location.search).has('testberserk'))bossRef.hp=bossRef.maxHp*.24;}
 $('startOv').classList.add('hidden');$('overOv').classList.add('hidden');
 $('winOv').classList.add('hidden');$('pauseOv').classList.add('hidden');
 $('rewardOv').classList.add('hidden');$('mapOv').classList.add('hidden');$('siteOv').classList.add('hidden');
-$('codexOv').classList.add('hidden');codexOpen=false;
+$('codexOv').classList.add('hidden');codexOpen=false;$('helpOv').classList.add('hidden');helpOpen=false;
 triggerEasyStartEvo();
 buffChips();
 }
 function backToMenu(){
+if(journeyTimer){clearTimeout(journeyTimer);journeyTimer=0;}journeyLoading=false;$('btnStart').disabled=false;
+$('journeyLoader').classList.add('hidden');$('journeyLoader').setAttribute('aria-hidden','true');
 state='menu';unseedRng();endless=false;setPaused(false);
 clearT=0;overT=0;hitStop=0;holdAtk=false;for(const k in keys)keys[k]=false;
 mobs=[];projs=[];pickups=[];particles=[];popups=[];fxList=[];strikes=[];bossEvents=[];queue=[];bossRef=null;CORPSES.length=0;
@@ -6572,7 +6673,7 @@ $('buffRow').innerHTML='';$('modRow').innerHTML='';$('comboBar').style.display='
 hudRoom=-1;hudWpn='';hudSouls=-1;
 if(menuAsc>(META.asc||0))menuAsc=META.asc||0;
 $('overOv').classList.add('hidden');$('winOv').classList.add('hidden');
-$('codexOv').classList.add('hidden');codexOpen=false;
+$('codexOv').classList.add('hidden');codexOpen=false;$('helpOv').classList.add('hidden');helpOpen=false;
 $('startOv').classList.remove('hidden');
 buildMenu();
 }
@@ -6623,13 +6724,18 @@ if(state==='playing'&&!paused&&(c==='ControlLeft'||c==='ControlRight')&&META.rol
 tryStrafe(keys.KeyA?-1:(keys.KeyD?1:player.face));
 }
 /* Открытый кодекс перехватывает ввод и в меню, и во время паузы. */
+if(helpOpen){
+if(c==='Escape'||c==='Enter'||c==='Space'){closeHelp();return;}
+return;
+}
 if(codexOpen){
 if(c==='KeyC'||c==='Escape'||c==='Enter'||c==='Space'){closeCodex();return;}
 return;
 }
+if(journeyLoading)return;
 if(state==='menu'){
 if(c==='KeyC'){openCodex();return;}
-if(c==='Space'||c==='Enter'){startGame();return;}
+if(c==='Space'||c==='Enter'){beginJourney();return;}
 }
 if((state==='over'||state==='win')&&(c==='Space'||c==='Enter'||c==='KeyR')){backToMenu();return;}
 if(c==='KeyR'&&state==='playing'){backToMenu();return;}
@@ -6672,7 +6778,9 @@ $('btnSkip').addEventListener('click',()=>confirmReward(true));
 $('btnReroll').addEventListener('click',doReroll);
 $('btnSiteLeave').addEventListener('click',leaveSite);
 $('btnEndless').addEventListener('click',goEndless);
-$('btnStart').addEventListener('click',startGame);
+$('btnStart').addEventListener('click',beginJourney);
+$('btnHelp').addEventListener('click',openHelp);
+$('btnHelpClose').addEventListener('click',closeHelp);
 $('btnCodex').addEventListener('click',openCodex);      /* НОВОЕ */
 $('btnPauseCodex').addEventListener('click',e=>{e.stopPropagation();if(state==='playing'&&paused)openCodex();});
 $('btnCodexClose').addEventListener('click',closeCodex); /* НОВОЕ */
@@ -6752,7 +6860,7 @@ document.addEventListener('gesturestart',e=>e.preventDefault());
 document.addEventListener('dblclick',e=>e.preventDefault());
 /* ================= ЦИКЛ ================= */
 let last=performance.now();
-const OVIDS=['startOv','overOv','winOv','rewardOv','mapOv','siteOv','pauseOv','codexOv'];
+const OVIDS=['startOv','overOv','winOv','rewardOv','mapOv','siteOv','pauseOv','codexOv','helpOv'];
 let noOvT=0;
 function watchdog(dt){
 if(state==='playing'||paused){noOvT=0;return;}
