@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#04070a">
+<title>Десять залов тьмы {{VERSION_ROMAN}} — охота боссов</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Russo+One&family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>{{TEN_ROOMS_STYLES}}</style>
+</head>
+<body>
+<div id="stage">
+<canvas id="game" width="960" height="540"></canvas>
+<div id="hud">
+<div>
+<div class="hlabel">ЗДОРОВЬЕ</div>
+<div id="hearts"></div>
+<div id="buffRow"></div>
+<div class="hint tt">Кнопки внизу · ×2 нажатия ◀/▶ — рывок · прицел сам · 🛡 — парирование · ⚔ трижды подряд — комбо с финишером</div>
+<div class="hint kb" id="hintKb">A D — движение (×2 нажатия — кувырок) · W / ПРОБЕЛ — прыжок ×2 · S — спуск · ЛКМ — атака в сторону курсора (комбо из 3: третий — финишер) · ПКМ — умение · SHIFT / Q — парирование · P — пауза · R — выйти в святилище</div>
+</div>
+<div class="hright">
+<div id="roomLbl">КОМНАТА 1/20</div>
+<div id="killsLbl">УБИЙСТВ: 0</div>
+<div><span id="soulChip">👻 <b id="soulNum">0</b> ДУШ</span></div>
+<div><span id="wpnChip">🗡 Меч</span></div>
+<div id="modRow"></div>
+<div id="mastBar"></div>
+</div>
+</div>
+<div id="comboBar"><div class="cnum" id="comboNum">×2</div><div class="ctrack"><div id="comboFill"></div></div></div>
+<div id="touch">
+<div class="tbtn mid" id="tJump" aria-label="Прыжок">▲</div>
+<div class="tbtn mid" id="tLeft" aria-label="Влево">◀</div>
+<div class="tbtn mid" id="tRight" aria-label="Вправо">▶</div>
+<div class="tbtn mid" id="tDown" aria-label="Спуск">▼</div>
+<div class="tbtn big" id="tAtk">⚔<small>АТАКА</small></div>
+<div class="tbtn mid" id="tSkill">✦<small>УМЕНИЕ</small></div>
+<div class="tbtn sm"  id="tRoll">💨<small>РЫВОК</small></div>
+<div class="tbtn mid" id="tParry">🛡<small>ПАРИР</small></div>
+<div class="tbtn" id="tPause">❚❚</div>
+<div class="tbtn" id="tFull">⛶</div>
+</div>
+<div id="rotate">
+<div class="ph">📱</div>
+<div class="title small">ПОВЕРНИ ТЕЛЕФОН</div>
+<div class="lead">Игра рассчитана на горизонтальный экран</div>
+</div>
+<div id="bossbar"><div class="bname">БОСС</div><div class="btrack"><div id="bossfill"></div></div></div>
+<div id="waveBanner"></div>
+<div class="overlay" id="startOv">
+<div class="kicker">ВЕРСИЯ {{VERSION_ROMAN}} · 2 УРОВНЯ · 20 КОМНАТ · 20 БОССОВ</div>
+<h1 class="title">ДЕСЯТЬ ЗАЛОВ ТЬМЫ</h1>
+<div id="helpSource">
+<p class="lead kb">Выбери сложность и стартовое оружие. У каждого оружия есть умение на ПКМ. <b style="color:#ff9d6b">Всё оружие ближнего боя бьёт в сторону курсора</b> — герой сам разворачивается к прицелу. Двойное нажатие A или D (или CTRL, если включено в настройках) — <b style="color:#9ad0ff">кувырок с кадрами неуязвимости</b> (работает и в воздухе, КД 0.9с): сквозь атаку можно проходить насквозь. <b style="color:#ff9d6b">Ближний бой</b> бьёт сильнее дальнего: удары сбивают врагам замах, сильно отбрасывают, а в руках с ближним оружием есть 12% шанс поглотить входящий урон. Между залами восстанавливается только 2 ♥ — лечиться приходится сердечками с элитных тварей и боссов. <b style="color:#9ad0ff">SHIFT/Q — парирование</b>: попал в окно 0.15с — снаряд летит обратно с двойным уроном, а враг в упор получает по зубам и застывает. <b style="color:#ffd23f">Ближний бой идёт цепочкой из 3 ударов</b>: третий бьёт ×2.3 и сносит врага с ног, но дольше восстанавливается. Оружие <b style="color:#ffd23f">растёт в уровнях</b> и берёт модификаторы в слоты (зажигательный, цепной, вампирский…), а при совпадении условий <b style="color:#ffb0f0">пробуждается</b> в одну из 50 эволюций — см. «Кодекс пробуждений». <b style="color:#ffb0f0">Пробуждение никогда не выдаётся автоматически:</b> в походе необходимо одновременно собрать указанные для него бафы, а само пробуждение не должно быть отключено в святилище. Запись кодекса открывается после получения в бою или покупки в святилище. Стартовые баффы святилища качаются <b style="color:#ffd23f">до 20 уровней</b>. Баффы складываются в <b style="color:#ffb0f0">синергии</b> (яд+кровь = гниль, мороз+молния = цепь, шипы+броня = отражение, огонь+молния = перегрузка). Убийства одним классом оружия копят <b style="color:#c9a0ff">мастерство</b> — три бесплатных пассивки под ближний, дальний бой или магию. В наградах попадаются <b style="color:#8fb4ff">редкие</b> и <b style="color:#ffd23f">★ легендарные</b> дары, меняющие правила. У каждого босса — заучиваемые связки атак, три фазы и своя механика зала. С тварей падают <b style="color:#bfe6ff">души</b> — валюта для реролла наград, кузницы и торговца. Между залами — <b style="color:#9db8ff">выбор пути</b>: бой, элитный зал, сокровищница, кузница, лавка или алтарь со сделкой. В каждом зале — смешанные отряды тварей, затем босс, и у каждого зала <b style="color:#ffb45e">своя фишка</b>: грибы-батуты, обвал сталактитов, трясина, колья из пола, мрак, гололёд, струи пламени, порталы, подъёмники и волны огня. С каждым залом растёт <b style="color:#ff9d7a">угроза</b>: у тварей больше HP и скорости, их больше на арене, а боссы атакуют чаще.</p>
+<p class="lead tt">Выбери сложность и оружие. Ближний бой бьёт сильнее дальнего, сбивает врагам замах и даёт 12% шанс поглотить урон. Управление — кнопками на экране, прицел наводится сам. У каждого зала своя фишка, угроза растёт от зала к залу.</p>
+</div>
+<button class="menuHelp" id="btnHelp">Подсказка</button>
+<div class="modeTabs" id="modeTabs"></div>
+<div class="rwSection"><div class="rwLabel">— СЛОЖНОСТЬ —</div><div class="cards" id="diffCards"></div></div>
+<div class="rwSection"><div class="rwLabel">— СТАРТОВОЕ ОРУЖИЕ —</div><div class="cards" id="startWpnCards"></div></div>
+<div class="rwSection" id="startEvoSection" style="display:none"><div class="rwLabel">— СТАРТОВОЕ ПРОБУЖДЕНИЕ —</div><div class="cards" id="startEvoCards"></div></div>
+<div class="rwSection" id="ascSection"><div class="rwLabel">— УРОВЕНЬ ТЬМЫ —</div>
+<div class="ascRow" id="ascRow"></div><div class="ascList" id="ascList"></div></div>
+<div class="rwSection" id="lbSection" style="display:none"><div class="rwLabel">— ЛИДЕРБОРД ДНЯ —</div>
+<div class="cards"><div class="lb" id="lbList"></div></div></div>
+<div class="rwSection" id="rollSection"><div class="rwLabel">— УПРАВЛЕНИЕ РЫВКОМ —</div><div class="modeTabs" id="rollTabs"></div></div>
+<div class="rwSection"><div class="rwLabel">— СВЯТИЛИЩЕ ДУШ · <span id="metaSouls">0</span> 👻 —</div>
+<div class="metaGrid" id="metaGrid"></div>
+<div class="shrineActions">
+<button class="btn small ghost" id="btnCodex">📜 КОДЕКС ПРОБУЖДЕНИЙ</button>
+<button class="btn" id="btnStart">НАЧАТЬ ПОХОД<span>[ENTER]</span></button>
+</div></div>
+<div class="journeyLoader hidden" id="journeyLoader" aria-hidden="true">
+<div class="vortex"><span></span><span></span><span></span></div>
+<div class="journeyTitle">ПУТЬ ОТКРЫВАЕТСЯ</div>
+<div class="journeySub">ПЕРВЫЙ ЗАЛ</div>
+</div>
+</div>
+<div class="overlay hidden" id="helpOv">
+<div class="codexPanel helpPanel">
+<div class="kicker">КАК ИГРАТЬ</div>
+<h2 class="title small">ПОДСКАЗКА</h2>
+<div class="helpIntro"><div class="helpSigil">✦</div><div>Краткий путеводитель по Святилищу и походу. Освой движение, собирай связанные дары и читай телеграфы — во втором акте одна только сила уже не спасает.</div></div>
+<div id="helpBody">
+<section class="helpCard"><div class="helpIcon">⌨</div><h3>ДВИЖЕНИЕ</h3><p><b>A / D</b> — ходьба, <b>W / пробел</b> — двойной прыжок, <b>S</b> — спуск. Дважды нажми направление или используй CTRL — кувырок с короткой неуязвимостью.</p><div class="helpKeys"><span class="helpKey">A D</span><span class="helpKey">W / SPACE ×2</span><span class="helpKey">S</span><span class="helpKey">CTRL</span></div></section>
+<section class="helpCard hot"><div class="helpIcon">⚔</div><h3>БОЙ И ПАРИРОВАНИЕ</h3><p><b>ЛКМ</b> атакует к курсору, третий удар серии — мощный финишер. <b>ПКМ</b> применяет умение оружия. <span class="blue">SHIFT / Q</span> отражает снаряд в короткое окно и оглушает врага в упор.</p><div class="helpKeys"><span class="helpKey">ЛКМ ×3</span><span class="helpKey">ПКМ</span><span class="helpKey">SHIFT / Q</span></div></section>
+<section class="helpCard"><div class="helpIcon">👻</div><h3>СВЯТИЛИЩЕ ДУШ</h3><p>Души остаются между походами. Открывай оружие, улучшай стартовые дары до <span class="gold">20 уровней</span> и покупай записи Кодекса. Перед стартом выбери сложность, управление рывком и уровень Тьмы.</p></section>
+<section class="helpCard"><div class="helpIcon">📜</div><h3>ПРОБУЖДЕНИЯ</h3><p>Оружие пробуждается только в походе, когда одновременно выполнено его условие: нужные баффы, модификаторы, синергия или стиль игры. Отключённые в Кодексе формы не выпадают.</p></section>
+<section class="helpCard"><div class="helpIcon">✧</div><h3>ДАРЫ И СИНЕРГИИ</h3><p>Связывай эффекты: <span class="rose">яд + кровь</span> создают гниль, мороз + молния — цепь, шипы + броня — отражение, огонь + молния — перегрузку. Редкие и легендарные дары меняют правила сборки.</p></section>
+<section class="helpCard"><div class="helpIcon">⌁</div><h3>МАРШРУТ</h3><p>После зала выбирай путь: бой, элита, сокровищница, кузница, лавка или алтарь. Между комнатами возвращается только <b>2 ♥</b>, поэтому сердца и безопасные сделки особенно ценны.</p></section>
+<section class="helpCard hot"><div class="helpIcon">♛</div><h3>БОССЫ</h3><p>У каждого босса три фазы и собственная механика. Пунктир и пульс показывают будущий удар; бирюзовое ядро отмечает парируемый снаряд. В берсерке ищи подсказку над полосой здоровья.</p></section>
+<section class="helpCard act2"><div class="helpIcon">Ⅱ</div><h3>ВТОРОЙ АКТ</h3><p>После десятой комнаты открывается пропуск на следующий уровень. В комнатах 11–20 новые противники, ловушки и сложные боссы. Бездна остаётся закрытой до завершения обоих актов.</p></section>
+</div>
+<button class="btn" id="btnHelpClose">НАЗАД<span>[ESC]</span></button>
+</div>
+</div>
+<div class="overlay hidden" id="codexOv">
+<div class="codexPanel">
+<div class="kicker">ЭВОЛЮЦИИ ОРУЖИЯ</div>
+<h2 class="title small">КОДЕКС ПРОБУЖДЕНИЙ</h2>
+<p class="lead" style="max-width:760px">Оружие пробуждается само, когда сходятся условия: подходящий бафф или модификатор, собранная синергия или стиль игры. В каждом забеге оружие пробуждается максимум один раз — первым срабатывает самое особое условие. <b style="color:#ffb0f0">Запись открывается только когда пробуждение получено в бою</b> — или куплено в святилище душ.</p>
+<div id="codexCount"></div>
+<div id="codexList"></div>
+<button class="btn" id="btnCodexClose">НАЗАД<span>[C]</span></button>
+</div>
+</div>
+<div class="overlay hidden" id="rewardOv">
+<div class="kicker" id="rwKicker">ЗАЛ 1 ЗАЧИЩЕН</div>
+<h2 class="title small">ВЫБЕРИ ДАРЫ</h2>
+<div class="rwSection"><div class="rwLabel">— ОРУЖИЕ —</div><div class="cards" id="wpnCards"></div></div>
+<div class="rwSection" id="mastSection" style="display:none"><div class="rwLabel">— МАСТЕРСТВО ОРУЖИЯ —</div><div class="cards" id="mastCards"></div></div>
+<div class="rwSection"><div class="rwLabel" id="buffLabel">— ДАР —</div><div class="cards" id="buffCards"></div></div>
+<div class="rwNote" id="rwNote">✚ Перед следующим залом восстановится 2 ♥</div>
+<div class="btnrow">
+<button class="btn small ghost" id="btnReroll">⟳ РЕРОЛЛ<span id="rrCost">12 👻</span></button>
+<button class="btn" id="btnNext">ДАЛЬШЕ<span>[ENTER]</span></button>
+<button class="btn small ghost" id="btnSkip">ОТКАЗАТЬСЯ<span>+15 👻</span></button>
+</div>
+</div>
+<div class="overlay hidden" id="mapOv">
+<div class="kicker" id="mapKicker">ПУТЬ ВГЛУБЬ</div>
+<h2 class="title small">КУДА ПОЙДЁШЬ?</h2>
+<div id="mapTrack"></div>
+<div class="rwSection"><div class="cards" id="pathCards"></div></div>
+<div class="rwNote" id="mapNote"></div>
+</div>
+<div class="overlay hidden" id="siteOv">
+<div class="kicker" id="siteKicker">КУЗНИЦА</div>
+<h2 class="title small" id="siteTitle">ЗВОН МОЛОТА</h2>
+<div class="rwNote" id="siteNote"></div>
+<div class="rwSection"><div class="cards" id="siteCards"></div></div>
+<button class="btn" id="btnSiteLeave">УЙТИ ДАЛЬШЕ<span>[ENTER]</span></button>
+</div>
+<div class="overlay hidden" id="overOv">
+<div class="kicker">ТЬМА ПОГЛОТИЛА ГЕРОЯ</div>
+<h1 class="title lose">ГЕРОЙ ПАЛ</h1>
+<div class="stats">
+<div class="stat"><div class="v" id="fRoom">1</div><div class="k">ЗАЛ</div></div>
+<div class="stat"><div class="v" id="fKills">0</div><div class="k">УБИЙСТВ</div></div>
+<div class="stat gold"><div class="v" id="fBest">1</div><div class="k">РЕКОРД ЗАЛА</div></div>
+<div class="stat gold"><div class="v" id="fSouls">0</div><div class="k">ДУШ В БАНК</div></div>
+</div>
+<div class="deathDetails" id="fDetails"></div>
+<div class="rwNote" id="fNote"></div>
+<button class="btn" id="btnRestart">В СВЯТИЛИЩЕ<span>[R]</span></button>
+</div>
+<div class="overlay hidden" id="winOv">
+<div class="kicker" id="winKicker">ВСЕ 20 ЗАЛОВ ПРОЙДЕНЫ</div>
+<h1 class="title win" id="winTitle">ПОЗДРАВЛЯЕМ!</h1>
+<div class="medal" id="winMedal">🏅</div>
+<div class="medalNote" id="winMedalNote">Оба уровня покорены — Бездна открыта!</div>
+<div class="stats">
+<div class="stat"><div class="v" id="wKills">0</div><div class="k">УБИЙСТВ</div></div>
+<div class="stat"><div class="v" id="wTime">0:00</div><div class="k">ВРЕМЯ</div></div>
+<div class="stat gold"><div class="v" id="wSouls">0</div><div class="k">ДУШ В БАНК</div></div>
+</div>
+<div class="rwNote" id="wNote"></div>
+<div class="btnrow">
+<button class="btn" id="btnEndless">⬇ В БЕЗДНУ<span>бесконечный босс-раш</span></button>
+<button class="btn small ghost" id="btnWinRestart">В СВЯТИЛИЩЕ<span>[R]</span></button>
+</div>
+</div>
+<div class="overlay hidden" id="pauseOv">
+<h1 class="title" style="font-size:40px">ПАУЗА</h1>
+<div class="prompt kb">НАЖМИ P, ЧТОБЫ ПРОДОЛЖИТЬ</div>
+<div class="prompt tt">КОСНИСЬ ЭКРАНА, ЧТОБЫ ПРОДОЛЖИТЬ</div>
+<button class="btn small ghost" id="btnPauseCodex">📜 КОДЕКС ПРОБУЖДЕНИЙ<span>[C]</span></button>
+<button class="btn" id="btnResume" style="margin-top:10px">ПРОДОЛЖИТЬ</button>
+</div>
+</div>
+<script>{{TEN_ROOMS_SCRIPTS}}</script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+# Local numbered release archives
+game_*.html
+
+# Local Codex workflow configuration
+AGENTS.md
+.agents/
+.git-local-exclude

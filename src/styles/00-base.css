@@ -1,0 +1,23 @@
+
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{background:#04070a;background-image:radial-gradient(1100px 700px at 50% 38%,#0b1512 0%,#04070a 72%);display:flex;align-items:center;justify-content:center;overflow:hidden;font-family:'IBM Plex Mono',monospace;color:#dfe8e2;user-select:none}
+#stage{position:relative;width:min(97vw,calc(97vh*16/9));aspect-ratio:16/9;border-radius:10px;overflow:hidden;box-shadow:0 40px 90px rgba(0,0,0,.75),0 0 0 1px #1b2a24,0 0 60px rgba(255,140,60,.05)}
+canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:crosshair}
+#hud{position:absolute;inset:0;padding:14px 20px;display:flex;justify-content:space-between;align-items:flex-start;pointer-events:none;z-index:5}
+.hlabel{font-size:9px;letter-spacing:3px;color:#7d938a;margin-bottom:3px}
+#hearts{font-size:20px;letter-spacing:2px;line-height:1}
+.heart{color:#ff5d5d;text-shadow:0 0 10px rgba(255,70,70,.55);display:inline-block}
+.heart.off{color:#33262c;text-shadow:none}
+.heart.half{color:#a04048;text-shadow:0 0 8px rgba(255,70,70,.3)}
+#hearts.pop .heart:not(.off){animation:hpop .35s ease}
+@keyframes hpop{40%{transform:scale(1.35)}}
+#buffRow{display:flex;flex-wrap:wrap;gap:4px;max-width:330px;margin-top:8px}
+.chip{font-size:9px;letter-spacing:.5px;color:#cfe0d4;background:rgba(14,26,22,.78);border:1px solid #33493f;padding:2px 7px;border-radius:99px;white-space:nowrap}
+.chip b{color:#ffd9a0}
+.hint{font-size:9px;color:#57695f;margin-top:8px}
+.hright{text-align:right}
+#roomLbl{font-family:'Russo One';font-size:15px;color:#a9c2b4;letter-spacing:1px}
+#killsLbl{font-size:11px;color:#8fa79b;margin-top:5px;letter-spacing:1px}
+#wpnChip{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-size:11px;color:#ffd9a0;background:rgba(24,16,8,.7);border:1px solid #6e4a22;padding:4px 10px;border-radius:8px}
+html,body{overscroll-behavior:none;touch-action:none;-webkit-tap-highlight-color:transparent;-webkit-user-select:none}

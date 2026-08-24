@@ -1,0 +1,81 @@
+/* ==== души, комбо, синергии, карта, лавки ==== */
+#soulChip{display:inline-flex;align-items:center;gap:5px;margin-top:6px;font-size:11px;color:#bfe6ff;
+background:rgba(10,22,32,.72);border:1px solid #2f5a72;padding:3px 10px;border-radius:8px}
+#modRow{display:flex;gap:4px;justify-content:flex-end;margin-top:5px;flex-wrap:wrap}
+.mchip{font-size:8px;letter-spacing:.5px;color:#ffd9a0;background:rgba(30,18,8,.75);border:1px solid #6e4a22;padding:1px 6px;border-radius:99px}
+.mchip.empty{color:#4c5a52;border-color:#26332c;background:rgba(10,16,14,.6)}
+#comboBar{position:absolute;left:50%;top:12px;transform:translateX(-50%);z-index:6;display:none;text-align:center;pointer-events:none}
+#comboBar .cnum{font-family:'Russo One';font-size:26px;color:#ffb45e;text-shadow:0 2px 0 #6e3413,0 0 22px rgba(255,140,50,.5);line-height:1}
+#comboBar .ctrack{width:104px;height:4px;background:rgba(0,0,0,.55);border:1px solid #6e4a22;border-radius:4px;overflow:hidden;margin-top:3px}
+#comboFill{height:100%;background:linear-gradient(90deg,#ffd23f,#ff7a2f)}
+.chip.syn{color:#ffb0f0;border-color:#7a3a72;background:rgba(30,12,28,.8)}
+.chip.curse{color:#ff8a7a;border-color:#7a2a24;background:rgba(34,10,8,.82)}
+.card.curse{background:linear-gradient(180deg,#22100e,#150807);border-color:#7a2a24}
+.card.curse:hover{border-color:#ff7a5c;box-shadow:0 10px 24px rgba(120,20,10,.5)}
+.card.curse.picked{border-color:#ff5d3a;box-shadow:0 0 0 1px #ff5d3a,0 0 26px rgba(255,60,40,.4)}
+.card.upg{background:linear-gradient(180deg,#1a1608,#0d0b05);border-color:#6e5a22}
+.card.rare{background:linear-gradient(180deg,#0d1626,#070c14);border-color:#3c5a9a;box-shadow:inset 0 0 22px rgba(60,110,190,.16)}
+.card.rare:hover{border-color:#8fb4ff}
+.card.rare.picked{border-color:#8fb4ff;box-shadow:0 0 0 1px #8fb4ff,0 0 26px rgba(90,140,255,.4)}
+.card.legend{background:linear-gradient(180deg,#221607,#120b04);border-color:#a07a20;box-shadow:inset 0 0 26px rgba(255,190,60,.18)}
+.card.legend:hover{border-color:#ffd23f}
+.card.legend.picked{border-color:#ffd23f;box-shadow:0 0 0 1px #ffd23f,0 0 30px rgba(255,200,60,.5)}
+.card.mast{background:linear-gradient(180deg,#16101f,#0b0810);border-color:#6a4a8a}
+.card.mast:hover{border-color:#c9a0ff}
+.t-rare{color:#8fb4ff;border-color:#3c5a9a}
+.t-legend{color:#ffd23f;border-color:#a07a20}
+.t-mast{color:#c9a0ff;border-color:#6a4a8a}
+.chip.relic{color:#8fb4ff;border-color:#3c5a9a;background:rgba(10,20,36,.8)}
+.chip.leg{color:#ffd23f;border-color:#8a7420;background:rgba(30,22,6,.85)}
+.chip.mast{color:#c9a0ff;border-color:#5a3a7a;background:rgba(22,14,30,.8)}
+#mastBar{display:flex;gap:5px;align-items:center;margin-top:5px;justify-content:flex-end;font-size:8px;color:#8fa79b}
+#mastBar .mt{width:52px;height:3px;background:rgba(0,0,0,.55);border:1px solid #3c5348;border-radius:3px;overflow:hidden}
+#mastBar .mf{height:100%;background:linear-gradient(90deg,#c9a0ff,#7a5aa8)}
+.card.upg:hover{border-color:#ffd23f}
+.card.dis{opacity:.35;cursor:not-allowed}
+.card.dis:hover{transform:none;border-color:#2c443a;box-shadow:none}
+.t-curse{color:#ff7a5c;border-color:#7a2a24}
+.t-upg{color:#ffd23f;border-color:#8a7420}
+.t-mod{color:#ff9d6b;border-color:#8a4d2a}
+.t-elite{color:#ff5d6b;border-color:#7a2430}
+.t-site{color:#9db8ff;border-color:#3c5a9a}
+.good{color:#aef2b0}.bad{color:#ff8a7a}
+.price{font-size:10px;color:#bfe6ff;letter-spacing:1px;margin-top:auto}
+.price.no{color:#8a5a5a}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;align-items:center}
+button.btn.small{font-size:11px;padding:8px 16px;border-bottom-width:3px}
+button.btn.ghost{border-color:#3c5348;color:#a9c2b4;background:linear-gradient(180deg,#141d19,#0b110e)}
+button.btn.ghost:hover:not(:disabled){background:linear-gradient(180deg,#2b3d34,#1a2620);color:#dfe8e2;box-shadow:none}
+#mapTrack{display:flex;gap:3px;justify-content:center;align-items:center;flex-wrap:wrap;margin:4px 0 10px}
+.mnode{width:22px;height:22px;border-radius:6px;border:1px solid #2c443a;background:#0b120f;display:flex;
+align-items:center;justify-content:center;font-size:10px;color:#5f7a6c}
+.mnode.done{border-color:#4c7a3a;color:#a8d08d;background:#0e1a12}
+.mnode.cur{border-color:#ffb45e;color:#ffd9a0;background:#1d1409;box-shadow:0 0 12px rgba(255,160,70,.4)}
+.mlink{width:9px;height:1px;background:#26332c}
+.modeTabs{display:flex;gap:6px;justify-content:center}
+.tab{font-size:10px;letter-spacing:2px;padding:5px 12px;border-radius:7px;border:1px solid #2c443a;
+color:#8fa79b;cursor:pointer;background:#0b120f}
+.tab.on{border-color:#ffb45e;color:#ffd9a0;background:#1d1409}
+.metaGrid{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;max-width:900px}
+.mitem{width:132px;background:linear-gradient(180deg,#101c17,#0a120e);border:1px solid #2c443a;border-radius:8px;
+padding:7px 6px;font-size:9px;color:#93a89c;cursor:pointer;transition:.15s;display:flex;flex-direction:column;gap:3px;align-items:center;text-align:center}
+.mitem:hover{border-color:#6e8a7c}
+.mitem.own{border-color:#4c7a3a;color:#a8d08d;cursor:default}
+.mitem .mn{font-family:'Russo One';font-size:10px;color:#ffe9c9;letter-spacing:.3px}
+.mitem .mi{font-size:17px}
+.lb{font-size:10px;color:#93a89c;max-width:420px;width:100%;text-align:left}
+.lb .lrow{display:flex;justify-content:space-between;padding:2px 8px;border-bottom:1px solid #1a2620}
+.lb .lrow.me{color:#ffd9a0;background:rgba(255,180,90,.08)}
+.ascRow{display:flex;gap:4px;flex-wrap:wrap;justify-content:center;align-items:center}
+.ascBtn{width:26px;height:26px;border-radius:6px;border:1px solid #2c443a;background:#0b120f;color:#7d938a;
+font-size:10px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.ascBtn.on{border-color:#ff5d3a;color:#ff9d7a;background:#20100c}
+.ascBtn.lock{opacity:.3;cursor:not-allowed}
+.ascList{font-size:9px;color:#a9857a;max-width:560px;line-height:1.6}
+.dim{color:#6d8276}
+body.touch .mitem{width:104px;font-size:8px}
+body.touch .mnode{width:16px;height:16px;font-size:8px}
+body.touch .lb{font-size:8px}
+body.touch #comboBar .cnum{font-size:19px}
+body.touch #soulChip{font-size:9px;padding:2px 7px}
+body.touch .mchip{font-size:7px}
