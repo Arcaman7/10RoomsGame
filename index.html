@@ -6,7 +6,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#04070a">
-<title>Десять залов тьмы XXXII — охота боссов</title>
+<title>Десять залов тьмы XXXIII — охота боссов</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
@@ -509,7 +509,7 @@ body.touch .skinsPanel{width:calc(100% - 8px);max-height:calc(100% - 6px);paddin
 <div id="bossbar"><div class="bname">БОСС</div><div class="btrack"><div id="bossfill"></div></div></div>
 <div id="waveBanner"></div>
 <div class="overlay" id="startOv">
-<div class="kicker">ВЕРСИЯ XXXII · 2 УРОВНЯ · 20 КОМНАТ · 20 БОССОВ</div>
+<div class="kicker">ВЕРСИЯ XXXIII · 2 УРОВНЯ · 20 КОМНАТ · 20 БОССОВ</div>
 <h1 class="title">ДЕСЯТЬ ЗАЛОВ ТЬМЫ</h1>
 <div id="helpSource">
 <p class="lead kb">Выбери сложность и стартовое оружие. У каждого оружия есть умение на ПКМ. <b style="color:#ff9d6b">Всё оружие ближнего боя бьёт в сторону курсора</b> — герой сам разворачивается к прицелу. Двойное нажатие A или D (или CTRL, если включено в настройках) — <b style="color:#9ad0ff">кувырок с кадрами неуязвимости</b> (работает и в воздухе, КД 0.9с): сквозь атаку можно проходить насквозь. <b style="color:#ff9d6b">Ближний бой</b> бьёт сильнее дальнего: удары сбивают врагам замах, сильно отбрасывают, а в руках с ближним оружием есть 12% шанс поглотить входящий урон. Между залами восстанавливается только 2 ♥ — лечиться приходится сердечками с элитных тварей и боссов. <b style="color:#9ad0ff">SHIFT/Q — парирование</b>: попал в окно 0.15с — снаряд летит обратно с двойным уроном, а враг в упор получает по зубам и застывает. <b style="color:#ffd23f">Ближний бой идёт цепочкой из 3 ударов</b>: третий бьёт ×2.3 и сносит врага с ног, но дольше восстанавливается. Оружие <b style="color:#ffd23f">растёт в уровнях</b> и берёт модификаторы в слоты (зажигательный, цепной, вампирский…), а при совпадении условий <b style="color:#ffb0f0">пробуждается</b> в одну из 50 эволюций — см. «Кодекс пробуждений». <b style="color:#ffb0f0">Пробуждение никогда не выдаётся автоматически:</b> в походе необходимо одновременно собрать указанные для него бафы, а само пробуждение не должно быть отключено в святилище. Запись кодекса открывается после получения в бою или покупки в святилище. Стартовые баффы святилища качаются <b style="color:#ffd23f">до 20 уровней</b>. Баффы складываются в <b style="color:#ffb0f0">синергии</b> (яд+кровь = гниль, мороз+молния = цепь, шипы+броня = отражение, огонь+молния = перегрузка). Убийства одним классом оружия копят <b style="color:#c9a0ff">мастерство</b> — три бесплатных пассивки под ближний, дальний бой или магию. В наградах попадаются <b style="color:#8fb4ff">редкие</b> и <b style="color:#ffd23f">★ легендарные</b> дары, меняющие правила. У каждого босса — заучиваемые связки атак, три фазы и своя механика зала. С тварей падают <b style="color:#bfe6ff">души</b> — валюта для реролла наград, кузницы и торговца. Между залами — <b style="color:#9db8ff">выбор пути</b>: бой, элитный зал, сокровищница, кузница, лавка или алтарь со сделкой. В каждом зале — смешанные отряды тварей, затем босс, и у каждого зала <b style="color:#ffb45e">своя фишка</b>: грибы-батуты, обвал сталактитов, трясина, колья из пола, мрак, гололёд, струи пламени, порталы, подъёмники и волны огня. С каждым залом растёт <b style="color:#ff9d7a">угроза</b>: у тварей больше HP и скорости, их больше на арене, а боссы атакуют чаще.</p>
@@ -1130,6 +1130,13 @@ function prophecyEnsureMeta(){
  if(!Array.isArray(p.offers)||p.offers.length!==6||p.offers.some(id=>!PROPHECY_POOL.some(x=>x.id===id)))p.offers=prophecyDraw([]);
  if(p.selected&&!p.offers.includes(p.selected))p.selected='';
  if(!META.skins||typeof META.skins!=='object')META.skins={};
+ /* Миграция: выполненное Предначертание всегда является источником истины.
+    Восстанавливает награду в старых или рассинхронизированных сохранениях. */
+ const hasCompleted=Object.keys(p.completed).length>0;
+ if(hasCompleted&&!META.skins.prophecy_knight){
+  META.skins.prophecy_knight=1;META.selectedSkin='prophecy_knight';
+ }
+ if(hasCompleted||META.skins.prophecy_knight)p.rewardGranted=1;
  return p;
 }
 function prophecyDraw(previous){
@@ -1170,7 +1177,9 @@ function prophecyComplete(id){
  const p=prophecyEnsureMeta(),def=prophecyById(id);if(!def||p.completed[id])return false;
  p.completed[id]=Date.now();
  let skinUnlocked=false;
- if(!p.rewardGranted){p.rewardGranted=1;META.skins.prophecy_knight=1;skinUnlocked=true;}
+ if(!p.rewardGranted||!META.skins.prophecy_knight){
+  p.rewardGranted=1;META.skins.prophecy_knight=1;META.selectedSkin='prophecy_knight';skinUnlocked=true;
+ }
  prophecyRunDone=true;prophecyEvent={type:'completed',id,skinUnlocked,skinId:skinUnlocked?'prophecy_knight':''};
  if(typeof banner==='function')banner('ПРЕДНАЧЕРТАНИЕ ИСПОЛНЕНО',skinUnlocked?'ОТКРЫТ СКИН «РЫЦАРЬ ПРЕДНАЧЕРТАНИЯ»':def.name.toUpperCase());
  try{sfx.reward();}catch(e){}
@@ -6689,7 +6698,7 @@ b.classList.remove('show');void b.offsetWidth;b.classList.add('show');
 }
 /* Общая таблица рекордов. Публичный ключ Supabase предназначен для браузера;
    service_role и другие секреты здесь хранить нельзя. */
-const GAME_VERSION=Number('32');
+const GAME_VERSION=Number('33');
 const PUBLIC_LEADERBOARD={
 url:'https://vwcfsummyzoesvxsnnlo.supabase.co',
 anonKey:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ3Y2ZzdW1teXpvZXN2eHNubmxvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc1OTQ4MTEsImV4cCI6MjEwMzE3MDgxMX0.61Fs_MaS7heZiVG5fxp8-Rc5LBnxp2QHJH9G_6pFjos',
@@ -7579,7 +7588,7 @@ pickups=[];challengeSel=false;challengeRoom=false;extraReward=false;act2GatePass
 hudHp=-99;hudKills=-1;hudRoom=-1;hudWpn='';hudDiff='';hudSouls=-1;hudMods='';
 loadRoom(1);
 state='playing';
-/* Локальный стенд художника/баланса: game_32.html?testboss=1..20. */
+/* Локальный стенд художника/баланса: game_33.html?testboss=1..20. */
 const testBoss=+(new URLSearchParams(location.search).get('testboss')||0);
 if(testBoss>=1&&testBoss<=RUN_LEN){room=testBoss;loadRoom(room);mobs=[];projs=[];bossEvents=[];queue=[];spawnBoss();player.hp=Math.max(player.hp,20);S.maxHp=Math.max(S.maxHp,20);if(new URLSearchParams(location.search).has('testberserk'))bossRef.hp=bossRef.maxHp*.24;}
 const testQ=new URLSearchParams(location.search),localTest=location.protocol==='file:'||location.hostname==='localhost'||location.hostname==='127.0.0.1';

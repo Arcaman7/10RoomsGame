@@ -50,6 +50,13 @@ function prophecyEnsureMeta(){
  if(!Array.isArray(p.offers)||p.offers.length!==6||p.offers.some(id=>!PROPHECY_POOL.some(x=>x.id===id)))p.offers=prophecyDraw([]);
  if(p.selected&&!p.offers.includes(p.selected))p.selected='';
  if(!META.skins||typeof META.skins!=='object')META.skins={};
+ /* Миграция: выполненное Предначертание всегда является источником истины.
+    Восстанавливает награду в старых или рассинхронизированных сохранениях. */
+ const hasCompleted=Object.keys(p.completed).length>0;
+ if(hasCompleted&&!META.skins.prophecy_knight){
+  META.skins.prophecy_knight=1;META.selectedSkin='prophecy_knight';
+ }
+ if(hasCompleted||META.skins.prophecy_knight)p.rewardGranted=1;
  return p;
 }
 function prophecyDraw(previous){
@@ -90,7 +97,9 @@ function prophecyComplete(id){
  const p=prophecyEnsureMeta(),def=prophecyById(id);if(!def||p.completed[id])return false;
  p.completed[id]=Date.now();
  let skinUnlocked=false;
- if(!p.rewardGranted){p.rewardGranted=1;META.skins.prophecy_knight=1;skinUnlocked=true;}
+ if(!p.rewardGranted||!META.skins.prophecy_knight){
+  p.rewardGranted=1;META.skins.prophecy_knight=1;META.selectedSkin='prophecy_knight';skinUnlocked=true;
+ }
  prophecyRunDone=true;prophecyEvent={type:'completed',id,skinUnlocked,skinId:skinUnlocked?'prophecy_knight':''};
  if(typeof banner==='function')banner('ПРЕДНАЧЕРТАНИЕ ИСПОЛНЕНО',skinUnlocked?'ОТКРЫТ СКИН «РЫЦАРЬ ПРЕДНАЧЕРТАНИЯ»':def.name.toUpperCase());
  try{sfx.reward();}catch(e){}
