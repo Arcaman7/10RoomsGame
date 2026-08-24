@@ -82,12 +82,20 @@ body.touch .helpCard h3{font-size:9px;margin-bottom:3px}body.touch .helpCard p{f
 .shrineActions #btnStart{right:16px}
 body.touch .shrineActions #btnCodex{left:8px}
 body.touch .shrineActions #btnStart{right:8px}
-#rollSection,#ascSection{position:absolute;top:14px;z-index:3;margin:0}
+#rollSection,#playerNameSection,#ascSection{position:absolute;top:14px;z-index:3;margin:0}
 #rollSection{left:14px;width:230px}
+#playerNameSection{left:14px;top:76px;width:230px}
 #ascSection{right:14px;width:280px}
-#rollSection .rwLabel,#ascSection .rwLabel{margin-top:0;letter-spacing:3px}
+#rollSection .rwLabel,#playerNameSection .rwLabel,#ascSection .rwLabel{display:block;margin-top:0;letter-spacing:3px}
+#playerNameInput{width:100%;height:28px;box-sizing:border-box;border:1px solid #2c443a;border-radius:7px;
+background:#0b120f;color:#ffe9c9;box-shadow:inset 0 1px 6px rgba(0,0,0,.55);outline:none;padding:5px 9px;
+font:10px 'IBM Plex Mono';letter-spacing:1.5px;text-align:center;text-transform:none}
+#playerNameInput::placeholder{color:#52675c;letter-spacing:2px}
+#playerNameInput:focus{border-color:#ffb45e;box-shadow:0 0 0 1px rgba(255,180,94,.18),inset 0 1px 6px rgba(0,0,0,.55)}
 body.touch #rollSection{left:8px;top:8px;width:205px}
+body.touch #playerNameSection{left:8px;top:65px;width:205px}
 body.touch #ascSection{right:8px;top:8px;width:245px}
+body.touch #playerNameInput{height:23px;font-size:8px;padding:3px 7px}
 .journeyLoader{position:absolute;inset:0;z-index:40;display:flex;flex-direction:column;align-items:center;justify-content:center;
 gap:12px;background:radial-gradient(circle at 50% 46%,#15251d 0,#07100c 42%,#010302 78%);opacity:1;visibility:visible;
 transition:opacity .18s,visibility .18s;overflow:hidden}

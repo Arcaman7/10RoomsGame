@@ -23,6 +23,16 @@ META.rollKey=t.dataset.r==='ctrl'?'ctrl':'double';saveMeta();buildRollTabs();upd
 try{sfx.reward();}catch(e){}
 });
 }
+function buildPlayerName(){
+const input=$('playerNameInput');if(!input)return;
+input.value=META.playerName||'';
+input.oninput=()=>{META.playerName=input.value.slice(0,20);saveMeta();};
+input.onblur=()=>{
+const name=input.value.trim().slice(0,20);
+if(input.value!==name)input.value=name;
+if(META.playerName!==name){META.playerName=name;saveMeta();}
+};
+}
 function updHint(){
 const el=$('hintKb');if(!el)return;
 const armor=(state==='menu'?menuWpn:player.weapon)==='thornarmor';
@@ -219,5 +229,6 @@ document.querySelectorAll('#startEvoCards .card').forEach(c=>c.onclick=()=>{menu
 buildAsc();
 buildMetaShop();
 buildRollTabs(); /* НОВОЕ: настройка кувырка */
+buildPlayerName();
 updHint();
 }

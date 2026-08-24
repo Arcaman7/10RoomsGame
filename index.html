@@ -6,7 +6,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#04070a">
-<title>Десять залов тьмы XXVII — охота боссов</title>
+<title>Десять залов тьмы XXVIII — охота боссов</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
@@ -363,12 +363,20 @@ body.touch .helpCard h3{font-size:9px;margin-bottom:3px}body.touch .helpCard p{f
 .shrineActions #btnStart{right:16px}
 body.touch .shrineActions #btnCodex{left:8px}
 body.touch .shrineActions #btnStart{right:8px}
-#rollSection,#ascSection{position:absolute;top:14px;z-index:3;margin:0}
+#rollSection,#playerNameSection,#ascSection{position:absolute;top:14px;z-index:3;margin:0}
 #rollSection{left:14px;width:230px}
+#playerNameSection{left:14px;top:76px;width:230px}
 #ascSection{right:14px;width:280px}
-#rollSection .rwLabel,#ascSection .rwLabel{margin-top:0;letter-spacing:3px}
+#rollSection .rwLabel,#playerNameSection .rwLabel,#ascSection .rwLabel{display:block;margin-top:0;letter-spacing:3px}
+#playerNameInput{width:100%;height:28px;box-sizing:border-box;border:1px solid #2c443a;border-radius:7px;
+background:#0b120f;color:#ffe9c9;box-shadow:inset 0 1px 6px rgba(0,0,0,.55);outline:none;padding:5px 9px;
+font:10px 'IBM Plex Mono';letter-spacing:1.5px;text-align:center;text-transform:none}
+#playerNameInput::placeholder{color:#52675c;letter-spacing:2px}
+#playerNameInput:focus{border-color:#ffb45e;box-shadow:0 0 0 1px rgba(255,180,94,.18),inset 0 1px 6px rgba(0,0,0,.55)}
 body.touch #rollSection{left:8px;top:8px;width:205px}
+body.touch #playerNameSection{left:8px;top:65px;width:205px}
 body.touch #ascSection{right:8px;top:8px;width:245px}
+body.touch #playerNameInput{height:23px;font-size:8px;padding:3px 7px}
 .journeyLoader{position:absolute;inset:0;z-index:40;display:flex;flex-direction:column;align-items:center;justify-content:center;
 gap:12px;background:radial-gradient(circle at 50% 46%,#15251d 0,#07100c 42%,#010302 78%);opacity:1;visibility:visible;
 transition:opacity .18s,visibility .18s;overflow:hidden}
@@ -441,7 +449,7 @@ body.touch .evoAct{font-size:7px;padding:4px 6px}
 <div id="bossbar"><div class="bname">БОСС</div><div class="btrack"><div id="bossfill"></div></div></div>
 <div id="waveBanner"></div>
 <div class="overlay" id="startOv">
-<div class="kicker">ВЕРСИЯ XXVII · 2 УРОВНЯ · 20 КОМНАТ · 20 БОССОВ</div>
+<div class="kicker">ВЕРСИЯ XXVIII · 2 УРОВНЯ · 20 КОМНАТ · 20 БОССОВ</div>
 <h1 class="title">ДЕСЯТЬ ЗАЛОВ ТЬМЫ</h1>
 <div id="helpSource">
 <p class="lead kb">Выбери сложность и стартовое оружие. У каждого оружия есть умение на ПКМ. <b style="color:#ff9d6b">Всё оружие ближнего боя бьёт в сторону курсора</b> — герой сам разворачивается к прицелу. Двойное нажатие A или D (или CTRL, если включено в настройках) — <b style="color:#9ad0ff">кувырок с кадрами неуязвимости</b> (работает и в воздухе, КД 0.9с): сквозь атаку можно проходить насквозь. <b style="color:#ff9d6b">Ближний бой</b> бьёт сильнее дальнего: удары сбивают врагам замах, сильно отбрасывают, а в руках с ближним оружием есть 12% шанс поглотить входящий урон. Между залами восстанавливается только 2 ♥ — лечиться приходится сердечками с элитных тварей и боссов. <b style="color:#9ad0ff">SHIFT/Q — парирование</b>: попал в окно 0.15с — снаряд летит обратно с двойным уроном, а враг в упор получает по зубам и застывает. <b style="color:#ffd23f">Ближний бой идёт цепочкой из 3 ударов</b>: третий бьёт ×2.3 и сносит врага с ног, но дольше восстанавливается. Оружие <b style="color:#ffd23f">растёт в уровнях</b> и берёт модификаторы в слоты (зажигательный, цепной, вампирский…), а при совпадении условий <b style="color:#ffb0f0">пробуждается</b> в одну из 50 эволюций — см. «Кодекс пробуждений». <b style="color:#ffb0f0">Пробуждение никогда не выдаётся автоматически:</b> в походе необходимо одновременно собрать указанные для него бафы, а само пробуждение не должно быть отключено в святилище. Запись кодекса открывается после получения в бою или покупки в святилище. Стартовые баффы святилища качаются <b style="color:#ffd23f">до 20 уровней</b>. Баффы складываются в <b style="color:#ffb0f0">синергии</b> (яд+кровь = гниль, мороз+молния = цепь, шипы+броня = отражение, огонь+молния = перегрузка). Убийства одним классом оружия копят <b style="color:#c9a0ff">мастерство</b> — три бесплатных пассивки под ближний, дальний бой или магию. В наградах попадаются <b style="color:#8fb4ff">редкие</b> и <b style="color:#ffd23f">★ легендарные</b> дары, меняющие правила. У каждого босса — заучиваемые связки атак, три фазы и своя механика зала. С тварей падают <b style="color:#bfe6ff">души</b> — валюта для реролла наград, кузницы и торговца. Между залами — <b style="color:#9db8ff">выбор пути</b>: бой, элитный зал, сокровищница, кузница, лавка или алтарь со сделкой. В каждом зале — смешанные отряды тварей, затем босс, и у каждого зала <b style="color:#ffb45e">своя фишка</b>: грибы-батуты, обвал сталактитов, трясина, колья из пола, мрак, гололёд, струи пламени, порталы, подъёмники и волны огня. С каждым залом растёт <b style="color:#ff9d7a">угроза</b>: у тварей больше HP и скорости, их больше на арене, а боссы атакуют чаще.</p>
@@ -457,6 +465,8 @@ body.touch .evoAct{font-size:7px;padding:4px 6px}
 <div class="rwSection" id="lbSection" style="display:none"><div class="rwLabel">— ЛИДЕРБОРД ДНЯ —</div>
 <div class="cards"><div class="lb" id="lbList"></div></div></div>
 <div class="rwSection" id="rollSection"><div class="rwLabel">— УПРАВЛЕНИЕ РЫВКОМ —</div><div class="modeTabs" id="rollTabs"></div></div>
+<div class="rwSection" id="playerNameSection"><label class="rwLabel" for="playerNameInput">— НИКНЕЙМ ИГРОКА —</label>
+<input id="playerNameInput" type="text" maxlength="20" autocomplete="nickname" spellcheck="false" placeholder="СТРАННИК" aria-label="Никнейм игрока"></div>
 <div class="rwSection"><div class="rwLabel">— СВЯТИЛИЩЕ ДУШ · <span id="metaSouls">0</span> 👻 —</div>
 <div class="metaGrid" id="metaGrid"></div>
 <div class="shrineActions">
@@ -722,13 +732,14 @@ const ASC_DESC=[
 'Цены торговца и кузницы ×1.6',
 'Обычные враги не роняют сердца'
 ];
-let META={souls:0,unlocked:{},evoSeen:{},evoOff:{},bestRoom:1,bestEndless:0,asc:0,wins:0,act2Pass:0,rollKey:'double'};
+let META={souls:0,unlocked:{},evoSeen:{},evoOff:{},bestRoom:1,bestEndless:0,asc:0,wins:0,act2Pass:0,rollKey:'double',playerName:''};
 function loadMeta(){
 try{const r=localStorage.getItem(META_KEY);if(r)META=Object.assign(META,JSON.parse(r));}catch(e){}
 if(!META.unlocked)META.unlocked={};
 if(!META.evoSeen)META.evoSeen={};
 if(!META.evoOff)META.evoOff={};
 if(META.rollKey!=='ctrl')META.rollKey='double';
+META.playerName=typeof META.playerName==='string'?META.playerName.slice(0,20):'';
 }
 function saveMeta(){try{localStorage.setItem(META_KEY,JSON.stringify(META));}catch(e){}}
 function hasUnlock(id){return (META.unlocked[id]|0)>0;}
@@ -6449,6 +6460,16 @@ META.rollKey=t.dataset.r==='ctrl'?'ctrl':'double';saveMeta();buildRollTabs();upd
 try{sfx.reward();}catch(e){}
 });
 }
+function buildPlayerName(){
+const input=$('playerNameInput');if(!input)return;
+input.value=META.playerName||'';
+input.oninput=()=>{META.playerName=input.value.slice(0,20);saveMeta();};
+input.onblur=()=>{
+const name=input.value.trim().slice(0,20);
+if(input.value!==name)input.value=name;
+if(META.playerName!==name){META.playerName=name;saveMeta();}
+};
+}
 function updHint(){
 const el=$('hintKb');if(!el)return;
 const armor=(state==='menu'?menuWpn:player.weapon)==='thornarmor';
@@ -6645,6 +6666,7 @@ document.querySelectorAll('#startEvoCards .card').forEach(c=>c.onclick=()=>{menu
 buildAsc();
 buildMetaShop();
 buildRollTabs(); /* НОВОЕ: настройка кувырка */
+buildPlayerName();
 updHint();
 }
 /* ================= НАГРАДЫ ================= */
@@ -7167,7 +7189,7 @@ pickups=[];challengeSel=false;challengeRoom=false;extraReward=false;act2GatePass
 hudHp=-99;hudKills=-1;hudRoom=-1;hudWpn='';hudDiff='';hudSouls=-1;hudMods='';
 loadRoom(1);
 state='playing';
-/* Локальный стенд художника/баланса: game_27.html?testboss=1..20. */
+/* Локальный стенд художника/баланса: game_28.html?testboss=1..20. */
 const testBoss=+(new URLSearchParams(location.search).get('testboss')||0);
 if(testBoss>=1&&testBoss<=RUN_LEN){room=testBoss;loadRoom(room);mobs=[];projs=[];bossEvents=[];queue=[];spawnBoss();player.hp=Math.max(player.hp,20);S.maxHp=Math.max(S.maxHp,20);if(new URLSearchParams(location.search).has('testberserk'))bossRef.hp=bossRef.maxHp*.24;}
 const testQ=new URLSearchParams(location.search),localTest=location.protocol==='file:'||location.hostname==='localhost'||location.hostname==='127.0.0.1';
@@ -7251,6 +7273,10 @@ openMap();
 /* ================= ВВОД ================= */
 addEventListener('keydown',e=>{
 const c=e.code;
+if(e.target&&e.target.matches('input,textarea,[contenteditable="true"]')){
+if(c==='Enter'){e.preventDefault();e.target.blur();}
+return;
+}
 if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(c))e.preventDefault();
 if(keys[c])return void(keys[c]=true);
 keys[c]=true;initAudio();

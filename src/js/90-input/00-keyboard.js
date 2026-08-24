@@ -1,6 +1,10 @@
 /* ================= ВВОД ================= */
 addEventListener('keydown',e=>{
 const c=e.code;
+if(e.target&&e.target.matches('input,textarea,[contenteditable="true"]')){
+if(c==='Enter'){e.preventDefault();e.target.blur();}
+return;
+}
 if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(c))e.preventDefault();
 if(keys[c])return void(keys[c]=true);
 keys[c]=true;initAudio();
