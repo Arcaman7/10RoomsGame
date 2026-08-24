@@ -35,7 +35,7 @@ border:1px solid #2c443a;border-radius:10px;padding:8px 10px;text-align:left}
 .pips{display:flex;gap:2px;justify-content:center;flex-wrap:wrap}
 .pip{width:4px;height:4px;border-radius:1px;background:#22332b;border:1px solid #2c443a}
 .pip.on{background:#ffb45e;border-color:#ffd9a0}
-#metaGrid{max-height:44vh;overflow:auto;padding:2px 4px 6px;scrollbar-width:thin}
+#metaGrid{width:100%;max-height:58vh;overflow:auto;padding:2px 4px 6px;scrollbar-width:thin;box-sizing:border-box}
 .mitem.poor{opacity:.62}
 /* НОВОЕ: отключённое пробуждение */
 .mitem{position:relative}
@@ -76,12 +76,19 @@ body.touch #helpBody{gap:5px;padding:2px 7px 3px 2px}body.touch #helpBody::-webk
 body.touch .helpCard{min-height:82px;padding:7px 8px 7px 39px}body.touch .helpIcon{left:8px;top:8px;width:24px;height:24px;font-size:13px}
 body.touch .helpCard h3{font-size:9px;margin-bottom:3px}body.touch .helpCard p{font-size:7px;line-height:1.38}body.touch .helpKeys{display:none}
 @media(max-width:700px){#helpBody{grid-template-columns:1fr}}
+#shrineLaunchSection{height:0;margin:0}
 .shrineActions{display:contents}
-.shrineActions #btnCodex,.shrineActions #btnStart{position:absolute;top:50%;z-index:3;transform:translateY(-50%)}
-.shrineActions #btnCodex{left:16px}
-.shrineActions #btnStart{right:16px}
-body.touch .shrineActions #btnCodex{left:8px}
+.shrineMenuButtons{position:absolute;left:16px;top:50%;z-index:3;display:flex;flex-direction:column;align-items:stretch;gap:8px;transform:translateY(-50%)}
+.shrineMenuButtons .btn{width:100%}
+.shrineActions #btnStart{position:absolute;right:16px;top:50%;z-index:3;transform:translateY(-50%)}
+body.touch .shrineMenuButtons{left:8px;gap:5px}
 body.touch .shrineActions #btnStart{right:8px}
+#merchantOv{z-index:13;background:rgba(2,6,5,.94);padding:12px}
+.merchantPanel{width:min(940px,calc(100% - 20px))}
+.merchantBalance{position:relative;z-index:1;flex-shrink:0;color:#bfe6ff;font:10px 'Russo One';letter-spacing:3px}
+.merchantPanel #metaGrid{position:relative;z-index:1;flex:1;min-height:0;align-content:flex-start}
+body.touch .merchantPanel{width:calc(100% - 8px)}
+body.touch .merchantBalance{font-size:8px;letter-spacing:2px}
 #rollSection,#playerNameSection,#ascSection{position:absolute;top:14px;z-index:3;margin:0}
 #rollSection{left:14px;width:230px}
 #playerNameSection{left:14px;top:76px;width:230px}

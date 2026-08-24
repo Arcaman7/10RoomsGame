@@ -26,6 +26,10 @@ if(leaderboardOpen){
 if(c==='Escape'||c==='Enter'||c==='Space'){closeLeaderboard();return;}
 return;
 }
+if(merchantOpen){
+if(c==='Escape'||c==='Enter'||c==='Space'){closeMerchant();return;}
+return;
+}
 if(codexOpen){
 if(c==='KeyC'||c==='Escape'||c==='Enter'||c==='Space'){closeCodex();return;}
 return;
@@ -81,6 +85,8 @@ $('btnHelp').addEventListener('click',openHelp);
 $('btnHelpClose').addEventListener('click',closeHelp);
 $('btnLeaderboard').addEventListener('click',openLeaderboard);
 $('btnLeaderboardClose').addEventListener('click',closeLeaderboard);
+$('btnTreatMerchant').addEventListener('click',openMerchant);
+$('btnMerchantClose').addEventListener('click',closeMerchant);
 $('btnCodex').addEventListener('click',openCodex);      /* НОВОЕ */
 $('btnPauseCodex').addEventListener('click',e=>{e.stopPropagation();if(state==='playing'&&paused)openCodex();});
 $('btnCodexClose').addEventListener('click',closeCodex); /* НОВОЕ */

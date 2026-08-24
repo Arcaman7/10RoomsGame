@@ -56,7 +56,7 @@ return '<div class="deathBlock"><div class="deathHead">ПОСЛЕДНИЕ МГН
 }
 let journeyLoading=false,journeyTimer=0;
 function beginJourney(){
-if(state!=='menu'||journeyLoading||helpOpen||codexOpen)return;
+if(state!=='menu'||journeyLoading||helpOpen||codexOpen||merchantOpen)return;
 journeyLoading=true;initAudio();
 const loader=$('journeyLoader'),btn=$('btnStart');
 btn.disabled=true;loader.setAttribute('aria-hidden','false');loader.classList.remove('hidden');
@@ -109,7 +109,7 @@ if(localTest&&!testBoss){const tr=+(testQ.get('testroom')||0),tm=testQ.get('test
 $('startOv').classList.add('hidden');$('overOv').classList.add('hidden');
 $('winOv').classList.add('hidden');$('pauseOv').classList.add('hidden');
 $('rewardOv').classList.add('hidden');$('mapOv').classList.add('hidden');$('siteOv').classList.add('hidden');
-$('codexOv').classList.add('hidden');codexOpen=false;$('helpOv').classList.add('hidden');helpOpen=false;
+$('codexOv').classList.add('hidden');codexOpen=false;$('merchantOv').classList.add('hidden');merchantOpen=false;$('helpOv').classList.add('hidden');helpOpen=false;
 triggerEasyStartEvo();
 buffChips();
 }
@@ -125,7 +125,7 @@ $('buffRow').innerHTML='';$('modRow').innerHTML='';$('comboBar').style.display='
 hudRoom=-1;hudWpn='';hudSouls=-1;
 if(menuAsc>(META.asc||0))menuAsc=META.asc||0;
 $('overOv').classList.add('hidden');$('winOv').classList.add('hidden');
-$('codexOv').classList.add('hidden');codexOpen=false;$('helpOv').classList.add('hidden');helpOpen=false;
+$('codexOv').classList.add('hidden');codexOpen=false;$('merchantOv').classList.add('hidden');merchantOpen=false;$('helpOv').classList.add('hidden');helpOpen=false;
 $('startOv').classList.remove('hidden');
 buildMenu();
 }

@@ -195,6 +195,12 @@ toggleEvoOff(btn.dataset.toggleEvo);sfx.reward();buildCodex();
 }
 function openCodex(){codexOpen=true;buildCodex();$('codexOv').classList.remove('hidden');}
 function closeCodex(){codexOpen=false;$('codexOv').classList.add('hidden');}
+let merchantOpen=false;
+function openMerchant(){
+if(state!=='menu')return;
+merchantOpen=true;buildMetaShop();$('metaGrid').scrollTop=0;$('merchantOv').classList.remove('hidden');
+}
+function closeMerchant(){merchantOpen=false;$('merchantOv').classList.add('hidden');}
 let helpOpen=false;
 function openHelp(){helpOpen=true;$('helpBody').scrollTop=0;$('helpOv').classList.remove('hidden');}
 function closeHelp(){helpOpen=false;$('helpOv').classList.add('hidden');}

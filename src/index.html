@@ -72,10 +72,12 @@
 <div class="rwSection" id="rollSection"><div class="rwLabel">— УПРАВЛЕНИЕ РЫВКОМ —</div><div class="modeTabs" id="rollTabs"></div></div>
 <div class="rwSection" id="playerNameSection"><label class="rwLabel" for="playerNameInput">— НИКНЕЙМ ИГРОКА —</label>
 <input id="playerNameInput" type="text" maxlength="20" autocomplete="nickname" spellcheck="false" placeholder="СТРАННИК" aria-label="Никнейм игрока"></div>
-<div class="rwSection"><div class="rwLabel">— СВЯТИЛИЩЕ ДУШ · <span id="metaSouls">0</span> 👻 —</div>
-<div class="metaGrid" id="metaGrid"></div>
+<div class="rwSection" id="shrineLaunchSection">
 <div class="shrineActions">
+<div class="shrineMenuButtons">
+<button class="btn small ghost" id="btnTreatMerchant">🍬 ТОРГОВЕЦ ВКУСНЯШКАМИ</button>
 <button class="btn small ghost" id="btnCodex">📜 КОДЕКС ПРОБУЖДЕНИЙ</button>
+</div>
 <button class="btn" id="btnStart">НАЧАТЬ ПОХОД<span>[ENTER]</span></button>
 </div></div>
 <div class="journeyLoader hidden" id="journeyLoader" aria-hidden="true">
@@ -100,6 +102,15 @@
 <section class="helpCard act2"><div class="helpIcon">Ⅱ</div><h3>ВТОРОЙ АКТ</h3><p>После десятой комнаты открывается пропуск на следующий уровень. В комнатах 11–20 новые противники, ловушки и сложные боссы. Бездна остаётся закрытой до завершения обоих актов.</p></section>
 </div>
 <button class="btn" id="btnHelpClose">НАЗАД<span>[ESC]</span></button>
+</div>
+</div>
+<div class="overlay hidden" id="merchantOv">
+<div class="codexPanel merchantPanel">
+<div class="kicker">ЛАВКА СВЯТИЛИЩА</div>
+<h2 class="title small">🍬 ТОРГОВЕЦ ВКУСНЯШКАМИ</h2>
+<div class="merchantBalance">СВЯТИЛИЩЕ ДУШ · <span id="metaSouls">0</span> 👻</div>
+<div class="metaGrid" id="metaGrid"></div>
+<button class="btn" id="btnMerchantClose">НАЗАД<span>[ESC]</span></button>
 </div>
 </div>
 <div class="overlay hidden" id="leaderboardOv">

@@ -1,6 +1,6 @@
 /* ================= ЦИКЛ ================= */
 let last=performance.now();
-const OVIDS=['startOv','overOv','winOv','rewardOv','mapOv','siteOv','pauseOv','codexOv','helpOv'];
+const OVIDS=['startOv','overOv','winOv','rewardOv','mapOv','siteOv','pauseOv','codexOv','merchantOv','helpOv'];
 let noOvT=0;
 function watchdog(dt){
 if(state==='playing'||paused){noOvT=0;return;}
