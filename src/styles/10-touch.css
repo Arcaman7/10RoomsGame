@@ -10,7 +10,7 @@ body.touch .prompt.tt{display:block}
 body.touch .prompt.kb{display:none}
 body.gpaused #touch .tbtn:not(#tPause):not(#tFull){display:none}
 #pauseOv{cursor:pointer}
-#codexOv,#helpOv{z-index:12}
+#codexOv,#helpOv,#leaderboardOv{z-index:12}
 #codexOv{background:#030706;padding:12px;overflow:hidden}
 body.touch .hint.tt,body.touch .lead.tt{display:block}
 body.touch .lead.kb{display:none}

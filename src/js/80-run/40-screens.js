@@ -67,6 +67,7 @@ if(state==='playing')return;
 journeyLoading=false;$('btnStart').disabled=false;$('journeyLoader').classList.add('hidden');$('journeyLoader').setAttribute('aria-hidden','true');
 switching=false;hitStop=0;holdAtk=false;for(const k in keys)keys[k]=false;
 difficulty=menuDiff;
+leaderboardRunSubmittedFloor=0;
 ascLevel=menuAsc;
 endless=false;
 if(mode==='daily'){
@@ -133,6 +134,7 @@ state='over';
 let best=1;try{best=+localStorage.getItem('halls-best')||1;}catch(e){}
 if(room>best){best=room;try{localStorage.setItem('halls-best',best);}catch(e){}}
 recordDaily(false);
+submitPublicRecord(room);
 const gain=bankSouls(false);
 $('fRoom').textContent=room+(endless?' (бездна)':'/'+RUN_LEN);
 $('fKills').textContent=kills;$('fBest').textContent=best;$('fSouls').textContent='+'+gain;
@@ -143,6 +145,7 @@ $('overOv').classList.remove('hidden');
 function showWin(){
 state='win';
 recordDaily(true);
+submitPublicRecord(room);
 const gain=bankSouls(true);
 $('wKills').textContent=kills;
 $('wTime').textContent=Math.floor(runTime/60)+':'+String(Math.floor(runTime%60)).padStart(2,'0');

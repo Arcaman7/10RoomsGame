@@ -22,6 +22,10 @@ if(helpOpen){
 if(c==='Escape'||c==='Enter'||c==='Space'){closeHelp();return;}
 return;
 }
+if(leaderboardOpen){
+if(c==='Escape'||c==='Enter'||c==='Space'){closeLeaderboard();return;}
+return;
+}
 if(codexOpen){
 if(c==='KeyC'||c==='Escape'||c==='Enter'||c==='Space'){closeCodex();return;}
 return;
@@ -75,6 +79,8 @@ $('btnEndless').addEventListener('click',goEndless);
 $('btnStart').addEventListener('click',beginJourney);
 $('btnHelp').addEventListener('click',openHelp);
 $('btnHelpClose').addEventListener('click',closeHelp);
+$('btnLeaderboard').addEventListener('click',openLeaderboard);
+$('btnLeaderboardClose').addEventListener('click',closeLeaderboard);
 $('btnCodex').addEventListener('click',openCodex);      /* НОВОЕ */
 $('btnPauseCodex').addEventListener('click',e=>{e.stopPropagation();if(state==='playing'&&paused)openCodex();});
 $('btnCodexClose').addEventListener('click',closeCodex); /* НОВОЕ */

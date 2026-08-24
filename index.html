@@ -6,7 +6,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#04070a">
-<title>Десять залов тьмы XXVIII — охота боссов</title>
+<title>Десять залов тьмы XXIX — охота боссов</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
@@ -45,7 +45,7 @@ body.touch .prompt.tt{display:block}
 body.touch .prompt.kb{display:none}
 body.gpaused #touch .tbtn:not(#tPause):not(#tFull){display:none}
 #pauseOv{cursor:pointer}
-#codexOv,#helpOv{z-index:12}
+#codexOv,#helpOv,#leaderboardOv{z-index:12}
 #codexOv{background:#030706;padding:12px;overflow:hidden}
 body.touch .hint.tt,body.touch .lead.tt{display:block}
 body.touch .lead.kb{display:none}
@@ -272,10 +272,26 @@ font-size:10px;display:flex;align-items:center;justify-content:center;cursor:poi
 .ascBtn.on{border-color:#ff5d3a;color:#ff9d7a;background:#20100c}
 .ascBtn.lock{opacity:.3;cursor:not-allowed}
 .ascList{font-size:9px;color:#a9857a;max-width:560px;line-height:1.6}
+.leaderboardOpen{margin-top:8px}
+#leaderboardOv{z-index:13;background:rgba(2,6,5,.94);padding:12px}
+.leaderboardPanel{width:min(760px,94vw);max-height:92%;display:flex;flex-direction:column;align-items:center;gap:12px;
+padding:24px;border:1px solid #405e50;border-radius:14px;background:linear-gradient(180deg,#111d18,#070c0a);box-shadow:0 18px 70px #000}
+.leaderboardTableWrap{width:100%;min-height:0;flex:1;overflow:auto;border:1px solid #2c443a;border-radius:9px;background:#07100c}
+.leaderboardTable{width:100%;border-collapse:collapse;font-size:11px;color:#b7c9bf;text-align:left}
+.leaderboardTable th{position:sticky;top:0;background:#14231c;color:#ffd9a0;font-family:'Russo One';font-size:10px;letter-spacing:1px;padding:10px 12px;border-bottom:1px solid #4b6a5b}
+.leaderboardTable td{padding:9px 12px;border-bottom:1px solid #1a2a22}
+.leaderboardTable tbody tr:nth-child(-n+3){color:#ffd9a0;background:rgba(255,180,90,.055)}
+.leaderboardTable th:last-child,.leaderboardTable td:last-child{text-align:right;color:#ffb45e;font-family:'Russo One'}
+.leaderboardEmpty{text-align:center!important;color:#758b7f!important;font-family:'IBM Plex Mono'!important;padding:24px!important}
+.leaderboardStatus{min-height:16px;font-size:9px;letter-spacing:1px;color:#8fa79b}
 .dim{color:#6d8276}
 body.touch .mitem{width:104px;font-size:8px}
 body.touch .mnode{width:16px;height:16px;font-size:8px}
 body.touch .lb{font-size:8px}
+body.touch .leaderboardPanel{padding:12px;gap:6px;max-height:96%}
+body.touch .leaderboardTable{font-size:8px}
+body.touch .leaderboardTable th{font-size:7px;padding:6px}
+body.touch .leaderboardTable td{padding:6px}
 body.touch #comboBar .cnum{font-size:19px}
 body.touch #soulChip{font-size:9px;padding:2px 7px}
 body.touch .mchip{font-size:7px}
@@ -449,7 +465,7 @@ body.touch .evoAct{font-size:7px;padding:4px 6px}
 <div id="bossbar"><div class="bname">БОСС</div><div class="btrack"><div id="bossfill"></div></div></div>
 <div id="waveBanner"></div>
 <div class="overlay" id="startOv">
-<div class="kicker">ВЕРСИЯ XXVIII · 2 УРОВНЯ · 20 КОМНАТ · 20 БОССОВ</div>
+<div class="kicker">ВЕРСИЯ XXIX · 2 УРОВНЯ · 20 КОМНАТ · 20 БОССОВ</div>
 <h1 class="title">ДЕСЯТЬ ЗАЛОВ ТЬМЫ</h1>
 <div id="helpSource">
 <p class="lead kb">Выбери сложность и стартовое оружие. У каждого оружия есть умение на ПКМ. <b style="color:#ff9d6b">Всё оружие ближнего боя бьёт в сторону курсора</b> — герой сам разворачивается к прицелу. Двойное нажатие A или D (или CTRL, если включено в настройках) — <b style="color:#9ad0ff">кувырок с кадрами неуязвимости</b> (работает и в воздухе, КД 0.9с): сквозь атаку можно проходить насквозь. <b style="color:#ff9d6b">Ближний бой</b> бьёт сильнее дальнего: удары сбивают врагам замах, сильно отбрасывают, а в руках с ближним оружием есть 12% шанс поглотить входящий урон. Между залами восстанавливается только 2 ♥ — лечиться приходится сердечками с элитных тварей и боссов. <b style="color:#9ad0ff">SHIFT/Q — парирование</b>: попал в окно 0.15с — снаряд летит обратно с двойным уроном, а враг в упор получает по зубам и застывает. <b style="color:#ffd23f">Ближний бой идёт цепочкой из 3 ударов</b>: третий бьёт ×2.3 и сносит врага с ног, но дольше восстанавливается. Оружие <b style="color:#ffd23f">растёт в уровнях</b> и берёт модификаторы в слоты (зажигательный, цепной, вампирский…), а при совпадении условий <b style="color:#ffb0f0">пробуждается</b> в одну из 50 эволюций — см. «Кодекс пробуждений». <b style="color:#ffb0f0">Пробуждение никогда не выдаётся автоматически:</b> в походе необходимо одновременно собрать указанные для него бафы, а само пробуждение не должно быть отключено в святилище. Запись кодекса открывается после получения в бою или покупки в святилище. Стартовые баффы святилища качаются <b style="color:#ffd23f">до 20 уровней</b>. Баффы складываются в <b style="color:#ffb0f0">синергии</b> (яд+кровь = гниль, мороз+молния = цепь, шипы+броня = отражение, огонь+молния = перегрузка). Убийства одним классом оружия копят <b style="color:#c9a0ff">мастерство</b> — три бесплатных пассивки под ближний, дальний бой или магию. В наградах попадаются <b style="color:#8fb4ff">редкие</b> и <b style="color:#ffd23f">★ легендарные</b> дары, меняющие правила. У каждого босса — заучиваемые связки атак, три фазы и своя механика зала. С тварей падают <b style="color:#bfe6ff">души</b> — валюта для реролла наград, кузницы и торговца. Между залами — <b style="color:#9db8ff">выбор пути</b>: бой, элитный зал, сокровищница, кузница, лавка или алтарь со сделкой. В каждом зале — смешанные отряды тварей, затем босс, и у каждого зала <b style="color:#ffb45e">своя фишка</b>: грибы-батуты, обвал сталактитов, трясина, колья из пола, мрак, гололёд, струи пламени, порталы, подъёмники и волны огня. С каждым залом растёт <b style="color:#ff9d7a">угроза</b>: у тварей больше HP и скорости, их больше на арене, а боссы атакуют чаще.</p>
@@ -461,7 +477,8 @@ body.touch .evoAct{font-size:7px;padding:4px 6px}
 <div class="rwSection"><div class="rwLabel">— СТАРТОВОЕ ОРУЖИЕ —</div><div class="cards" id="startWpnCards"></div></div>
 <div class="rwSection" id="startEvoSection" style="display:none"><div class="rwLabel">— СТАРТОВОЕ ПРОБУЖДЕНИЕ —</div><div class="cards" id="startEvoCards"></div></div>
 <div class="rwSection" id="ascSection"><div class="rwLabel">— УРОВЕНЬ ТЬМЫ —</div>
-<div class="ascRow" id="ascRow"></div><div class="ascList" id="ascList"></div></div>
+<div class="ascRow" id="ascRow"></div><div class="ascList" id="ascList"></div>
+<button class="btn small ghost leaderboardOpen" id="btnLeaderboard">🏆 ТАБЛИЦА РЕКОРДОВ</button></div>
 <div class="rwSection" id="lbSection" style="display:none"><div class="rwLabel">— ЛИДЕРБОРД ДНЯ —</div>
 <div class="cards"><div class="lb" id="lbList"></div></div></div>
 <div class="rwSection" id="rollSection"><div class="rwLabel">— УПРАВЛЕНИЕ РЫВКОМ —</div><div class="modeTabs" id="rollTabs"></div></div>
@@ -495,6 +512,20 @@ body.touch .evoAct{font-size:7px;padding:4px 6px}
 <section class="helpCard act2"><div class="helpIcon">Ⅱ</div><h3>ВТОРОЙ АКТ</h3><p>После десятой комнаты открывается пропуск на следующий уровень. В комнатах 11–20 новые противники, ловушки и сложные боссы. Бездна остаётся закрытой до завершения обоих актов.</p></section>
 </div>
 <button class="btn" id="btnHelpClose">НАЗАД<span>[ESC]</span></button>
+</div>
+</div>
+<div class="overlay hidden" id="leaderboardOv">
+<div class="leaderboardPanel">
+<div class="kicker">ЛУЧШИЕ ИЗ СПУСТИВШИХСЯ</div>
+<h2 class="title small">ТАБЛИЦА РЕКОРДОВ</h2>
+<div class="leaderboardTableWrap">
+<table class="leaderboardTable" aria-label="Общая таблица рекордов">
+<thead><tr><th>НИК</th><th>ВЕРСИЯ</th><th>ДАТА</th><th>ЭТАЖ</th></tr></thead>
+<tbody id="leaderboardBody"></tbody>
+</table>
+</div>
+<div class="leaderboardStatus" id="leaderboardStatus" role="status"></div>
+<button class="btn" id="btnLeaderboardClose">НАЗАД<span>[ESC]</span></button>
 </div>
 </div>
 <div class="overlay hidden" id="codexOv">
@@ -6435,6 +6466,66 @@ const b=$('waveBanner');
 b.innerHTML=t+(sub?`<span class="bsub">${sub}</span>`:'');
 b.classList.remove('show');void b.offsetWidth;b.classList.add('show');
 }
+/* Общая таблица рекордов. Публичный ключ Supabase предназначен для браузера;
+   service_role и другие секреты здесь хранить нельзя. */
+const GAME_VERSION=Number('29');
+const PUBLIC_LEADERBOARD={
+url:'https://vwcfsummyzoesvxsnnlo.supabase.co',
+anonKey:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ3Y2ZzdW1teXpvZXN2eHNubmxvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc1OTQ4MTEsImV4cCI6MjEwMzE3MDgxMX0.61Fs_MaS7heZiVG5fxp8-Rc5LBnxp2QHJH9G_6pFjos',
+table:'ten_rooms_records',
+submitRpc:'submit_ten_rooms_record'
+};
+let leaderboardOpen=false,leaderboardLoading=false,leaderboardRunSubmittedFloor=0;
+function leaderboardConfigured(){return !!(PUBLIC_LEADERBOARD.url&&PUBLIC_LEADERBOARD.anonKey);}
+function leaderboardHeaders(){return {apikey:PUBLIC_LEADERBOARD.anonKey,Authorization:'Bearer '+PUBLIC_LEADERBOARD.anonKey};}
+function leaderboardDate(value){
+const d=new Date(value);if(Number.isNaN(d.getTime()))return '—';
+return d.toLocaleDateString('ru-RU',{day:'2-digit',month:'2-digit',year:'numeric'});
+}
+function renderLeaderboardRows(rows){
+const body=$('leaderboardBody');if(!body)return;
+body.textContent='';
+if(!rows.length){
+const tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=4;td.className='leaderboardEmpty';td.textContent='Рекордов пока нет';tr.appendChild(td);body.appendChild(tr);return;
+}
+for(const row of rows){
+const tr=document.createElement('tr');
+for(const value of [row.nickname,'v'+row.game_version,leaderboardDate(row.achieved_at),row.floor]){
+const td=document.createElement('td');td.textContent=String(value);tr.appendChild(td);
+}
+body.appendChild(tr);
+}
+}
+async function loadPublicLeaderboard(){
+if(leaderboardLoading)return;
+const status=$('leaderboardStatus');
+if(!leaderboardConfigured()){
+renderLeaderboardRows([]);status.textContent='Общая таблица будет доступна после подключения сервера.';return;
+}
+leaderboardLoading=true;status.textContent='ЗАГРУЖАЕМ РЕКОРДЫ…';
+try{
+const base=PUBLIC_LEADERBOARD.url.replace(/\/$/,'');
+const query='select=nickname,game_version,achieved_at,floor&order=floor.desc,achieved_at.asc&limit=100';
+const res=await fetch(base+'/rest/v1/'+PUBLIC_LEADERBOARD.table+'?'+query,{headers:leaderboardHeaders()});
+if(!res.ok)throw new Error('HTTP '+res.status);
+const rows=await res.json();renderLeaderboardRows(Array.isArray(rows)?rows:[]);status.textContent='';
+}catch(e){renderLeaderboardRows([]);status.textContent='Не удалось загрузить рекорды. Попробуй ещё раз.';}
+finally{leaderboardLoading=false;}
+}
+function openLeaderboard(){leaderboardOpen=true;$('leaderboardOv').classList.remove('hidden');loadPublicLeaderboard();}
+function closeLeaderboard(){leaderboardOpen=false;$('leaderboardOv').classList.add('hidden');}
+async function submitPublicRecord(floor){
+floor=Math.max(1,Math.floor(Number(floor)||1));
+if(!leaderboardConfigured()||floor<=leaderboardRunSubmittedFloor)return;
+const nickname=String(META.playerName||'').trim().slice(0,20);if(!nickname)return;
+leaderboardRunSubmittedFloor=floor;
+try{
+const base=PUBLIC_LEADERBOARD.url.replace(/\/$/,'');
+const headers=leaderboardHeaders();headers['Content-Type']='application/json';
+const res=await fetch(base+'/rest/v1/rpc/'+PUBLIC_LEADERBOARD.submitRpc,{method:'POST',headers,body:JSON.stringify({p_nickname:nickname,p_game_version:GAME_VERSION,p_floor:floor})});
+if(!res.ok)throw new Error('HTTP '+res.status);
+}catch(e){leaderboardRunSubmittedFloor=0;}
+}
 /* ================= МЕНЮ ================= */
 function wpnUnlocked(k){
 if(k==='archmage')return wpnUnlocked('fire')&&wpnUnlocked('ice')&&wpnUnlocked('summoner')&&wpnUnlocked('bolt');
@@ -7160,6 +7251,7 @@ if(state==='playing')return;
 journeyLoading=false;$('btnStart').disabled=false;$('journeyLoader').classList.add('hidden');$('journeyLoader').setAttribute('aria-hidden','true');
 switching=false;hitStop=0;holdAtk=false;for(const k in keys)keys[k]=false;
 difficulty=menuDiff;
+leaderboardRunSubmittedFloor=0;
 ascLevel=menuAsc;
 endless=false;
 if(mode==='daily'){
@@ -7189,7 +7281,7 @@ pickups=[];challengeSel=false;challengeRoom=false;extraReward=false;act2GatePass
 hudHp=-99;hudKills=-1;hudRoom=-1;hudWpn='';hudDiff='';hudSouls=-1;hudMods='';
 loadRoom(1);
 state='playing';
-/* Локальный стенд художника/баланса: game_28.html?testboss=1..20. */
+/* Локальный стенд художника/баланса: game_29.html?testboss=1..20. */
 const testBoss=+(new URLSearchParams(location.search).get('testboss')||0);
 if(testBoss>=1&&testBoss<=RUN_LEN){room=testBoss;loadRoom(room);mobs=[];projs=[];bossEvents=[];queue=[];spawnBoss();player.hp=Math.max(player.hp,20);S.maxHp=Math.max(S.maxHp,20);if(new URLSearchParams(location.search).has('testberserk'))bossRef.hp=bossRef.maxHp*.24;}
 const testQ=new URLSearchParams(location.search),localTest=location.protocol==='file:'||location.hostname==='localhost'||location.hostname==='127.0.0.1';
@@ -7226,6 +7318,7 @@ state='over';
 let best=1;try{best=+localStorage.getItem('halls-best')||1;}catch(e){}
 if(room>best){best=room;try{localStorage.setItem('halls-best',best);}catch(e){}}
 recordDaily(false);
+submitPublicRecord(room);
 const gain=bankSouls(false);
 $('fRoom').textContent=room+(endless?' (бездна)':'/'+RUN_LEN);
 $('fKills').textContent=kills;$('fBest').textContent=best;$('fSouls').textContent='+'+gain;
@@ -7236,6 +7329,7 @@ $('overOv').classList.remove('hidden');
 function showWin(){
 state='win';
 recordDaily(true);
+submitPublicRecord(room);
 const gain=bankSouls(true);
 $('wKills').textContent=kills;
 $('wTime').textContent=Math.floor(runTime/60)+':'+String(Math.floor(runTime%60)).padStart(2,'0');
@@ -7294,6 +7388,10 @@ if(helpOpen){
 if(c==='Escape'||c==='Enter'||c==='Space'){closeHelp();return;}
 return;
 }
+if(leaderboardOpen){
+if(c==='Escape'||c==='Enter'||c==='Space'){closeLeaderboard();return;}
+return;
+}
 if(codexOpen){
 if(c==='KeyC'||c==='Escape'||c==='Enter'||c==='Space'){closeCodex();return;}
 return;
@@ -7347,6 +7445,8 @@ $('btnEndless').addEventListener('click',goEndless);
 $('btnStart').addEventListener('click',beginJourney);
 $('btnHelp').addEventListener('click',openHelp);
 $('btnHelpClose').addEventListener('click',closeHelp);
+$('btnLeaderboard').addEventListener('click',openLeaderboard);
+$('btnLeaderboardClose').addEventListener('click',closeLeaderboard);
 $('btnCodex').addEventListener('click',openCodex);      /* НОВОЕ */
 $('btnPauseCodex').addEventListener('click',e=>{e.stopPropagation();if(state==='playing'&&paused)openCodex();});
 $('btnCodexClose').addEventListener('click',closeCodex); /* НОВОЕ */

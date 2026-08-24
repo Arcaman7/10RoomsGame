@@ -65,7 +65,8 @@
 <div class="rwSection"><div class="rwLabel">— СТАРТОВОЕ ОРУЖИЕ —</div><div class="cards" id="startWpnCards"></div></div>
 <div class="rwSection" id="startEvoSection" style="display:none"><div class="rwLabel">— СТАРТОВОЕ ПРОБУЖДЕНИЕ —</div><div class="cards" id="startEvoCards"></div></div>
 <div class="rwSection" id="ascSection"><div class="rwLabel">— УРОВЕНЬ ТЬМЫ —</div>
-<div class="ascRow" id="ascRow"></div><div class="ascList" id="ascList"></div></div>
+<div class="ascRow" id="ascRow"></div><div class="ascList" id="ascList"></div>
+<button class="btn small ghost leaderboardOpen" id="btnLeaderboard">🏆 ТАБЛИЦА РЕКОРДОВ</button></div>
 <div class="rwSection" id="lbSection" style="display:none"><div class="rwLabel">— ЛИДЕРБОРД ДНЯ —</div>
 <div class="cards"><div class="lb" id="lbList"></div></div></div>
 <div class="rwSection" id="rollSection"><div class="rwLabel">— УПРАВЛЕНИЕ РЫВКОМ —</div><div class="modeTabs" id="rollTabs"></div></div>
@@ -99,6 +100,20 @@
 <section class="helpCard act2"><div class="helpIcon">Ⅱ</div><h3>ВТОРОЙ АКТ</h3><p>После десятой комнаты открывается пропуск на следующий уровень. В комнатах 11–20 новые противники, ловушки и сложные боссы. Бездна остаётся закрытой до завершения обоих актов.</p></section>
 </div>
 <button class="btn" id="btnHelpClose">НАЗАД<span>[ESC]</span></button>
+</div>
+</div>
+<div class="overlay hidden" id="leaderboardOv">
+<div class="leaderboardPanel">
+<div class="kicker">ЛУЧШИЕ ИЗ СПУСТИВШИХСЯ</div>
+<h2 class="title small">ТАБЛИЦА РЕКОРДОВ</h2>
+<div class="leaderboardTableWrap">
+<table class="leaderboardTable" aria-label="Общая таблица рекордов">
+<thead><tr><th>НИК</th><th>ВЕРСИЯ</th><th>ДАТА</th><th>ЭТАЖ</th></tr></thead>
+<tbody id="leaderboardBody"></tbody>
+</table>
+</div>
+<div class="leaderboardStatus" id="leaderboardStatus" role="status"></div>
+<button class="btn" id="btnLeaderboardClose">НАЗАД<span>[ESC]</span></button>
 </div>
 </div>
 <div class="overlay hidden" id="codexOv">
