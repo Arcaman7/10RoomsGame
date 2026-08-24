@@ -63,6 +63,10 @@
 <div class="modeTabs" id="modeTabs"></div>
 <div class="rwSection"><div class="rwLabel">— СЛОЖНОСТЬ —</div><div class="cards" id="diffCards"></div></div>
 <div class="rwSection"><div class="rwLabel">— СТАРТОВОЕ ОРУЖИЕ —</div><div class="cards" id="startWpnCards"></div></div>
+<div class="rwSection prophecySection" id="prophecySection">
+<div class="rwLabel">— ПРЕДНАЧЕРТАНИЕ · ВЫБЕРИ ОДНО —</div>
+<div class="prophecyCards" id="prophecyCards" role="radiogroup" aria-label="Доступные предначертания"></div>
+</div>
 <div class="rwSection" id="startEvoSection" style="display:none"><div class="rwLabel">— СТАРТОВОЕ ПРОБУЖДЕНИЕ —</div><div class="cards" id="startEvoCards"></div></div>
 <div class="rwSection" id="ascSection"><div class="rwLabel">— УРОВЕНЬ ТЬМЫ —</div>
 <div class="ascRow" id="ascRow"></div><div class="ascList" id="ascList"></div>
@@ -77,6 +81,7 @@
 <div class="shrineMenuButtons">
 <button class="btn small ghost" id="btnTreatMerchant">🍬 ТОРГОВЕЦ ВКУСНЯШКАМИ</button>
 <button class="btn small ghost" id="btnCodex">📜 КОДЕКС ПРОБУЖДЕНИЙ</button>
+<button class="btn small ghost" id="btnSkins">🛡 СКИНЧИКИ</button>
 </div>
 <button class="btn" id="btnStart">НАЧАТЬ ПОХОД<span>[ENTER]</span></button>
 </div></div>
@@ -135,6 +140,15 @@
 <div id="codexCount"></div>
 <div id="codexList"></div>
 <button class="btn" id="btnCodexClose">НАЗАД<span>[C]</span></button>
+</div>
+</div>
+<div class="overlay hidden" id="skinsOv" aria-hidden="true">
+<div class="skinsPanel" role="dialog" aria-modal="true" aria-labelledby="skinsTitle">
+<div class="kicker">ОБЛИКИ ВОИНА</div>
+<h2 class="title small" id="skinsTitle">СКИНЧИКИ</h2>
+<p class="skinsLead">Выбери облик для следующего похода. Базовый облик выключает наградной скин.</p>
+<div class="skinsGrid" id="skinsGrid"></div>
+<button class="btn" id="btnSkinsClose">НАЗАД<span>[ESC]</span></button>
 </div>
 </div>
 <div class="overlay hidden" id="rewardOv">

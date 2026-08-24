@@ -204,6 +204,73 @@ function closeMerchant(){merchantOpen=false;$('merchantOv').classList.add('hidde
 let helpOpen=false;
 function openHelp(){helpOpen=true;$('helpBody').scrollTop=0;$('helpOv').classList.remove('hidden');}
 function closeHelp(){helpOpen=false;$('helpOv').classList.add('hidden');}
+
+/* ПРЕДНАЧЕРТАНИЯ — шесть случайных целей текущего цикла святилища. */
+function menuEsc(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function prophecyOffers(){
+try{return typeof getProphecyOffers==='function'?(getProphecyOffers()||[]):[];}catch(e){return [];}
+}
+function prophecySelected(){
+try{return typeof getSelectedProphecyId==='function'?getSelectedProphecyId():null;}catch(e){return null;}
+}
+function prophecyDone(id){
+try{return typeof isProphecyCompleted==='function'&&isProphecyCompleted(id);}catch(e){return false;}
+}
+function buildProphecyOffers(){
+const host=$('prophecyCards');if(!host)return;
+const offers=prophecyOffers().slice(0,6),selected=prophecySelected();
+if(!offers.length){
+host.innerHTML=Array.from({length:6},(_,i)=>`<div class="prophecyCard locked" aria-disabled="true"><div class="prophecySigil">${i===0?'◇':'✧'}</div><div class="prophecyCopy"><div class="prophecyName">НЕЯСНОЕ ЗНАМЕНИЕ</div><div class="prophecyDesc">Святилище ещё не открыло эту судьбу.</div></div></div>`).join('');
+return;
+}
+host.innerHTML=offers.map((p,i)=>{
+const id=p.id,done=prophecyDone(id),active=String(selected)===String(id),locked=p.locked===true||p.available===false;
+const progress=p.progressText||(p.progress&&p.progress.current!=null?p.progress.current+' / '+p.progress.target:'');
+return `<button type="button" class="prophecyCard${active?' active':''}${done?' complete':''}${locked?' locked':''}" data-prophecy="${menuEsc(id)}" role="radio" aria-checked="${active}"${locked?' disabled aria-disabled="true"':''}>
+<span class="prophecySigil">${menuEsc(locked?'🔒':(p.icon||p.sigil||['✦','♜','☽','⚔','♢','✧'][i]))}</span>
+<span class="prophecyCopy"><span class="prophecyName">${menuEsc(p.name||p.title||'НЕИЗВЕСТНАЯ СУДЬБА')}</span><span class="prophecyDesc">${menuEsc(p.desc||p.description||p.condition||'Условие скрыто туманом.')}</span>${progress?`<span class="prophecyProgress">${menuEsc(progress)}</span>`:''}</span>
+<span class="prophecyState">${done?'ИСПОЛНЕНО':(active?'ВЫБРАНО':'ВЫБРАТЬ')}</span></button>`;
+}).join('');
+host.querySelectorAll('[data-prophecy]').forEach(card=>card.onclick=()=>{
+if(card.disabled||typeof selectProphecy!=='function')return;
+selectProphecy(card.dataset.prophecy);try{sfx.reward();}catch(e){}buildProphecyOffers();
+});
+}
+
+/* СКИНЧИКИ — редкая вторичная настройка скрыта в отдельной модалке. */
+const SHRINE_SKINS=[
+{id:'basic',name:'СТРАННИК',tag:'БАЗОВЫЙ',desc:'Знакомый облик воина, прошедшего первые залы.'},
+{id:'prophecy_knight',name:'РЫЦАРЬ ПРЕДНАЧЕРТАНИЯ',tag:'НАГРАДА',desc:'Детализированная реликтовая броня. Откроется после первого исполненного предначертания.'}
+];
+let skinsOpen=false;
+function skinUnlocked(id){
+if(id==='basic')return true;
+try{return typeof isSkinUnlocked==='function'&&isSkinUnlocked(id);}catch(e){return false;}
+}
+function selectedSkin(){
+try{return typeof getSelectedSkinId==='function'?(getSelectedSkinId()||'basic'):'basic';}catch(e){return 'basic';}
+}
+function buildSkins(){
+const host=$('skinsGrid');if(!host)return;const current=selectedSkin();
+host.innerHTML=SHRINE_SKINS.map(s=>{const unlocked=skinUnlocked(s.id),active=current===s.id;
+return `<button type="button" class="skinCard${active?' active':''}${unlocked?'':' locked'}" data-skin="${s.id}"${unlocked?'':' disabled'} aria-pressed="${active}">
+<span class="skinPortrait ${s.id}"><span class="skinGlow"></span>${s.id==='prophecy_knight'?'<img class="skinRaster" alt="Рыцарь Предначертания">':`<span class="skinHelm">◈</span>`}</span>
+<span class="skinInfo"><span class="skinTag">${unlocked?s.tag:'🔒 ЗАКРЫТО'}</span><span class="skinName">${s.name}</span><span class="skinDesc">${s.desc}</span><span class="skinAction">${unlocked?(active?'ВКЛЮЧЁН':'ВКЛЮЧИТЬ'):'ИСПОЛНИ ПРЕДНАЧЕРТАНИЕ'}</span></span></button>`;
+}).join('');
+const raster=host.querySelector('.skinRaster');if(raster&&typeof PROPHECY_KNIGHT_IMG!=='undefined')raster.src=PROPHECY_KNIGHT_IMG.src;
+host.querySelectorAll('[data-skin]').forEach(card=>card.onclick=()=>{
+if(card.disabled||typeof selectSkin!=='function')return;
+selectSkin(card.dataset.skin);try{sfx.reward();}catch(e){}buildSkins();
+});
+}
+function openSkins(){if(state!=='menu')return;skinsOpen=true;buildSkins();$('skinsOv').classList.remove('hidden');$('skinsOv').setAttribute('aria-hidden','false');}
+function closeSkins(){skinsOpen=false;$('skinsOv').classList.add('hidden');$('skinsOv').setAttribute('aria-hidden','true');}
+function bindSkinMenu(){
+const open=$('btnSkins'),close=$('btnSkinsClose'),ov=$('skinsOv');
+if(open)open.onclick=openSkins;if(close)close.onclick=closeSkins;
+if(ov)ov.onpointerdown=e=>{if(e.target===ov)closeSkins();};
+}
+addEventListener('keydown',e=>{if(skinsOpen&&e.code==='Escape'){e.preventDefault();e.stopImmediatePropagation();closeSkins();}},true);
 function buildMenu(){
 buildModeTabs();
 $('diffCards').innerHTML=
@@ -221,6 +288,7 @@ return `<div class="card sm${menuWpn===k?' picked':''}${un?'':' dis'}" data-w="$
 <div class="tag t-${w.cat}">${un?CATNAME[w.cat]:'ЗАКРЫТО'}</div></div>`;}).join('');
 document.querySelectorAll('#startWpnCards .card').forEach(c=>c.onclick=()=>{
 if(!wpnUnlocked(c.dataset.w))return;menuWpn=c.dataset.w;buildMenu();});
+buildProphecyOffers();
 const evoBases=menuWpn==='archmage'?['fire','ice','bolt']:[menuWpn];
 const startEvos=EVOS.filter(e=>evoBases.includes(e.base)&&evoBought(e.id)&&!evoOff(e.id));
 const showStartEvos=menuDiff==='easy'&&startEvos.length>0;
@@ -236,5 +304,6 @@ buildAsc();
 buildMetaShop();
 buildRollTabs(); /* НОВОЕ: настройка кувырка */
 buildPlayerName();
+bindSkinMenu();
 updHint();
 }

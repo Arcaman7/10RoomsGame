@@ -2,6 +2,7 @@
 let regenT=0,bulwarkUsed=false,abyssGuard=0;
 function update(dt){
 runTime+=dt;
+prophecyCheckpoint(dt,false);
 const p=player;
 autoAim();
 p.aim=Math.atan2(mouse.y-(p.y-30),mouse.x-p.x);

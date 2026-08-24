@@ -132,3 +132,40 @@ font:600 8px 'IBM Plex Mono';letter-spacing:.7px;padding:5px 8px;cursor:pointer;
 body.touch .evoRow{gap:6px;padding:6px}
 body.touch .evoActions{max-width:190px;gap:3px}
 body.touch .evoAct{font-size:7px;padding:4px 6px}
+
+/* Предначертания: компактная руническая лента под стартовым оружием. */
+.prophecySection{max-width:900px!important}
+.prophecyCards{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+.prophecyCard{position:relative;min-width:0;min-height:76px;display:grid;grid-template-columns:30px minmax(0,1fr);grid-template-rows:1fr auto;gap:2px 7px;align-items:center;padding:7px 7px 6px;border:1px solid #3a5046;border-radius:8px;background:linear-gradient(145deg,rgba(19,31,26,.96),rgba(7,13,10,.98));color:#dcebe2;text-align:left;cursor:pointer;overflow:hidden;box-shadow:inset 0 1px rgba(255,235,195,.05);transition:transform .14s,border-color .14s,box-shadow .14s}
+.prophecyCard::before{content:"";position:absolute;inset:3px;border:1px solid rgba(122,159,139,.1);border-radius:5px;pointer-events:none}
+.prophecyCard:hover:not(:disabled){transform:translateY(-2px);border-color:#9fc5af;box-shadow:0 8px 20px rgba(0,0,0,.35)}
+.prophecyCard.active{border-color:#ffb45e;background:linear-gradient(145deg,rgba(45,30,17,.98),rgba(12,14,9,.98));box-shadow:0 0 0 1px rgba(255,180,94,.42),0 0 18px rgba(255,153,64,.18)}
+.prophecyCard.complete{border-color:#6d9a73}.prophecyCard.locked{filter:saturate(.45);opacity:.48;cursor:not-allowed}
+.prophecySigil{grid-row:1/3;display:grid;place-items:center;width:29px;height:46px;color:#ffcc85;font:20px 'Russo One';text-shadow:0 0 12px rgba(255,174,80,.5);border-right:1px solid rgba(125,157,140,.22)}
+.prophecyCopy{display:flex;min-width:0;flex-direction:column;gap:2px}.prophecyName{overflow:hidden;color:#ffe5bd;font:8px 'Russo One';line-height:1.2;letter-spacing:.5px;text-overflow:ellipsis}
+.prophecyDesc{display:-webkit-box;overflow:hidden;color:#81998c;font:7.5px 'IBM Plex Mono';line-height:1.25;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.prophecyProgress{color:#bfe6ff;font:7px 'IBM Plex Mono'}.prophecyState{grid-column:2;color:#71877b;font:6.5px 'Russo One';letter-spacing:1px}
+.prophecyCard.active .prophecyState{color:#ffb45e}.prophecyCard.complete .prophecyState{color:#9ed6a6}
+
+/* Модалка скинов: витрина доспехов, не конкурирующая с игровым полем. */
+#skinsOv{z-index:15;background:rgba(2,5,4,.95);padding:12px}
+.skinsPanel{position:relative;width:min(820px,calc(100% - 24px));max-height:calc(100% - 20px);display:flex;flex-direction:column;align-items:center;gap:9px;padding:18px;border:1px solid #52685c;border-radius:14px;background:radial-gradient(circle at 50% 10%,rgba(128,87,38,.2),transparent 35%),linear-gradient(160deg,#122019,#070d0a 72%);box-shadow:0 25px 80px #000,inset 0 0 40px rgba(76,113,91,.12);overflow:auto}
+.skinsPanel::before{content:"";position:absolute;inset:5px;border:1px solid rgba(225,196,148,.12);border-radius:10px;pointer-events:none}
+.skinsLead{position:relative;z-index:1;color:#91a89b;font-size:10px;line-height:1.45}
+.skinsGrid{position:relative;z-index:1;width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.skinCard{min-width:0;display:grid;grid-template-columns:145px minmax(0,1fr);align-items:stretch;min-height:190px;padding:0;border:1px solid #40574b;border-radius:11px;background:linear-gradient(145deg,#14221c,#080f0c);color:#dfe8e2;text-align:left;cursor:pointer;overflow:hidden;transition:transform .16s,border-color .16s,box-shadow .16s}
+.skinCard:hover:not(:disabled){transform:translateY(-3px);border-color:#d49a55;box-shadow:0 12px 30px rgba(0,0,0,.45)}.skinCard.active{border-color:#ffb45e;box-shadow:0 0 0 1px rgba(255,180,94,.45),0 0 28px rgba(255,160,70,.18)}
+.skinCard.locked{filter:grayscale(.75);opacity:.55;cursor:not-allowed}
+.skinPortrait{position:relative;display:grid;place-items:center;overflow:hidden;background:radial-gradient(circle at 50% 32%,#536d5d 0,#1c2c24 32%,#080d0b 75%);font:52px 'Russo One';color:#cfd9d2;text-shadow:0 4px #17211c,0 0 18px rgba(190,220,200,.35)}
+.skinPortrait::before,.skinPortrait::after{content:"";position:absolute;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,#26342d,#adbaa9 45%,#34433a);border:1px solid #869487;box-shadow:inset 0 0 10px #101712,0 5px 14px #000}
+.skinPortrait::before{bottom:7px;width:86px;height:96px;clip-path:polygon(18% 0,82% 0,100% 100%,0 100%)}.skinPortrait::after{top:35px;width:68px;height:61px;border-radius:48% 48% 30% 30%;clip-path:polygon(10% 0,90% 0,100% 70%,70% 100%,30% 100%,0 70%)}
+.skinPortrait.prophecy_knight{background:radial-gradient(circle at 50% 30%,#936633 0,#2d2521 30%,#090b0b 73%);color:#ffe2a6}.skinPortrait.prophecy_knight::before,.skinPortrait.prophecy_knight::after{background:linear-gradient(100deg,#3b3027,#e2c47f 35%,#655039 63%,#ede0b1);border-color:#dbb96f;box-shadow:inset 0 0 11px #2a1b10,0 5px 16px #000,0 0 15px rgba(255,190,85,.22)}
+.skinPortrait.prophecy_knight::before,.skinPortrait.prophecy_knight::after{display:none}.skinRaster{position:absolute;z-index:2;inset:5px;width:calc(100% - 10px);height:calc(100% - 10px);object-fit:contain;object-position:center bottom;filter:drop-shadow(0 8px 8px #000) drop-shadow(0 0 8px rgba(85,190,255,.22))}
+.skinGlow{position:absolute;inset:12%;border:1px solid rgba(255,205,120,.18);transform:rotate(45deg);box-shadow:0 0 28px rgba(255,178,74,.12)}.skinHelm{position:relative;z-index:2;margin-top:-17px}
+.skinInfo{display:flex;min-width:0;flex-direction:column;padding:17px 14px}.skinTag{align-self:flex-start;margin-bottom:12px;padding:3px 7px;border:1px solid #6b5d3d;border-radius:99px;color:#ffc979;font:7px 'Russo One';letter-spacing:1.5px}.skinName{color:#ffe2b7;font:13px 'Russo One';line-height:1.25}.skinDesc{margin-top:9px;color:#8da297;font:9px 'IBM Plex Mono';line-height:1.45}.skinAction{margin-top:auto;padding-top:12px;color:#95bba5;font:8px 'Russo One';letter-spacing:1.5px}.skinCard.active .skinAction{color:#ffb45e}
+
+@media(max-width:760px){.prophecyCards{grid-template-columns:repeat(3,minmax(0,1fr))}.skinCard{grid-template-columns:105px minmax(0,1fr);min-height:150px}.skinPortrait::before{width:65px;height:76px}.skinPortrait::after{top:27px;width:52px;height:50px}.skinInfo{padding:11px 10px}.skinTag{margin-bottom:7px}}
+body.touch .prophecySection{max-width:650px!important}body.touch .prophecyCards{grid-template-columns:repeat(6,minmax(0,1fr));gap:3px}
+body.touch .prophecyCard{min-height:43px;display:flex;justify-content:center;padding:3px}.touch .prophecySigil{width:auto;height:auto;border:0;font-size:14px}.touch .prophecyCopy{display:none}.touch .prophecyState{position:absolute;right:2px;bottom:1px;font-size:0}.touch .prophecyCard.active .prophecyState::after{content:"✓";font-size:8px;color:#ffb45e}
+body.touch .skinsPanel{width:calc(100% - 8px);max-height:calc(100% - 6px);padding:8px;gap:4px}.touch .skinsLead{font-size:7px}.touch .skinsGrid{gap:6px}.touch .skinCard{grid-template-columns:80px minmax(0,1fr);min-height:105px}.touch .skinPortrait{font-size:27px}.touch .skinPortrait::before{width:52px;height:61px}.touch .skinPortrait::after{top:16px;width:42px;height:40px}.touch .skinInfo{padding:7px}.touch .skinTag{margin-bottom:4px;font-size:6px;padding:2px 5px}.touch .skinName{font-size:9px}.touch .skinDesc{font-size:7px;line-height:1.25;margin-top:4px}.touch .skinAction{font-size:6px;padding-top:4px}
+@media(prefers-reduced-motion:reduce){.prophecyCard,.skinCard{transition:none}}
