@@ -47,6 +47,7 @@ finally{leaderboardLoading=false;}
 function openLeaderboard(){leaderboardOpen=true;$('leaderboardOv').classList.remove('hidden');loadPublicLeaderboard();}
 function closeLeaderboard(){leaderboardOpen=false;$('leaderboardOv').classList.add('hidden');}
 async function submitPublicRecord(floor){
+if(difficulty!=='hard')return;
 floor=Math.max(1,Math.floor(Number(floor)||1));
 if(!leaderboardConfigured()||floor<=leaderboardRunSubmittedFloor)return;
 const nickname=String(META.playerName||'').trim().slice(0,20);if(!nickname)return;
