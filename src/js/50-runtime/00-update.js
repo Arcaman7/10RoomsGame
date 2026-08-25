@@ -53,7 +53,7 @@ if(ghostT<=0){ghostT=.035;rollGhosts.push({x:p.x,y:p.y,face:p.face,life:.26,max:
 }else{
 let enemyBogged=false,bogged=activeCfg.flight?false:onBogSurface(p);
 if(!activeCfg.flight)for(const f of fxList)if(f.type==='mire'&&f.enemy&&p.grounded&&Math.abs(p.x-f.x)<86){bogged=true;enemyBogged=true;break;}
-const iceGrip=HZ.iceT>0?Math.max(.7,2.1/enemyDebuffPower()):2.1;
+const iceGrip=HZ.iceT>0?Math.max(.7,1.05/enemyDebuffPower()):1.05;
 const grip=activeCfg.directionalFlight?12:(p.grounded?((HZ.id==='slip'||HZ.iceT>0)?iceGrip:14):8);
 let moveMul=activeCfg.flight?.5:1;
 if(HZ.id==='slip'&&onUpperSurface(p))moveMul*=.5;

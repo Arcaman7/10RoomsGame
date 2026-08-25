@@ -250,7 +250,7 @@ if(c.thornStun&&src.hp>0){if(src.type==='boss')src.bT=Math.max(src.bT,c.thornStu
 fxList.push({type:'thornretaliate',x:player.x,y:player.y-28,tx:src.x,ty:src.y-src.h*.5,col:(findEvo(curEvoId())||{}).col||'#b8d08a',life:.38,max:.38});
 popup(player.x,player.y-72,blocked?'ШИПЫ · БЛОК':'ШИПЫ ОТВЕЧАЮТ','#b8d08a');
 }
-function damagePlayer(from,m,dmg,rage,bossSource,mobSource,abilitySource){
+function damagePlayer(from,m,dmg,rage,bossSource,mobSource,abilitySource,highImpact){
 const p=player;
 if(p.inv>0||p.dead)return;
 /* ЭВОЛЮЦИИ: получение урона сбрасывает серии стиля */
@@ -301,7 +301,7 @@ return;
 }
 let take=(difficulty==='easy'?DMG*.5:DMG)*S.takeMul;
 const dep=endless?Math.max(0,room-ABYSS_START):0;
-const hitCap=S.maxHp*(endless?Math.min(.9,.55+dep*.01):.5);
+const hitCap=S.maxHp*(highImpact ? .9 : (endless?Math.min(.9,.55+dep*.01):.5));
 take=Math.min(take,Math.max(1,hitCap));
 p.hp-=take;
 DMG=take;

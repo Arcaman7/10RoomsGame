@@ -80,6 +80,7 @@ if(ascOn(1))RS.boss*=.8;
 buildDeco(theme);
 plats=[{x:-40,y:GROUND,w:W+80,h:80,ground:true},...LAYOUTS[theme.layout].map(p=>({...p}))];
 initHazard(cyc(i)+1);
+if(HZ.id==='conveyor')plats.forEach((pl,k)=>{if(!pl.ground)pl.convDir=k%2?1:-1;});
 if(HZ.id==='lifts'){
 /* Первая низкая платформа — постоянная точка входа; остальные пять работают как подъёмники. */
 plats.forEach((pl,k)=>{if(k>1)pl.mv={y0:pl.y,amp:k===2?60:88,sp:.6+k*.13,ph:k*2.1};});
