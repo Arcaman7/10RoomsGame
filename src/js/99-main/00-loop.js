@@ -22,5 +22,6 @@ try{render();}catch(e){console.error('render',e);}
 try{syncHud();}catch(e){console.error('syncHud',e);}
 watchdog(dt);
 }
-calcStats();buildMenu();syncHud();buildCodex();
+const initialShrineResult=typeof prophecyEnterShrine==='function'?prophecyEnterShrine():null;
+calcStats();buildMenu();syncHud();buildCodex();announceShrineReward(initialShrineResult);
 requestAnimationFrame(loop);

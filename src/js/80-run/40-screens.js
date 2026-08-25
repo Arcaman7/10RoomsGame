@@ -128,11 +128,18 @@ if(menuAsc>(META.asc||0))menuAsc=META.asc||0;
 $('overOv').classList.add('hidden');$('winOv').classList.add('hidden');
 $('codexOv').classList.add('hidden');codexOpen=false;$('merchantOv').classList.add('hidden');merchantOpen=false;$('helpOv').classList.add('hidden');helpOpen=false;
 $('startOv').classList.remove('hidden');
+const shrineResult=typeof prophecyEnterShrine==='function'?prophecyEnterShrine():null;
 buildMenu();
+announceShrineReward(shrineResult);
+}
+function announceShrineReward(result){
+if(!result||!Array.isArray(result.rewards)||!result.rewards.length)return;
+const names=result.rewards.map(r=>r.name).join(' · ');
+setTimeout(()=>{banner(result.rewards.length>1?'НАГРАДЫ ПРЕДНАЧЕРТАНИЙ':'НОВЫЙ СКИН ПОЛУЧЕН',names);try{sfx.reward();}catch(e){}},80);
 }
 function showOver(){
 state='over';
-prophecyFinishRun(false);prophecyRotateAfterDeath();
+prophecyFinishRun(false);
 const prophecyResult=PROPHECY_API.consumeEvent();
 let best=1;try{best=+localStorage.getItem('halls-best')||1;}catch(e){}
 if(room>best){best=room;try{localStorage.setItem('halls-best',best);}catch(e){}}
@@ -142,7 +149,7 @@ const gain=bankSouls(false);
 $('fRoom').textContent=room+(endless?' (бездна)':'/'+RUN_LEN);
 $('fKills').textContent=kills;$('fBest').textContent=best;$('fSouls').textContent='+'+gain;
 $('fDetails').innerHTML=deathDetailsHtml(gain);
-$('fNote').innerHTML=(prophecyResult?'<b style="color:#ffcc85">✦ Предначертание исполнено'+(prophecyResult.skinUnlocked?' — открыт скин «Рыцарь Предначертания»':'')+'.</b><br>':'')+'Часть душ осела в святилище: всего <b style="color:#bfe6ff">'+(META.souls|0)+'</b> 👻 — трать их на новое оружие, уровни перков и пробуждения.';
+$('fNote').innerHTML=(prophecyResult?'<b style="color:#ffcc85">✦ Предначертание исполнено — случайный скин ждёт возвращения в святилище.</b><br>':'')+'Часть душ осела в святилище: всего <b style="color:#bfe6ff">'+(META.souls|0)+'</b> 👻 — трать их на новое оружие, уровни перков и пробуждения.';
 $('overOv').classList.remove('hidden');
 }
 function showWin(){
@@ -158,7 +165,7 @@ $('wSouls').textContent='+'+gain;
 $('winKicker').textContent='ВСЕ 20 ЗАЛОВ ПРОЙДЕНЫ';$('winTitle').textContent='ПОЗДРАВЛЯЕМ!';$('winMedal').textContent='🏅';$('winMedalNote').textContent='Оба уровня покорены — Бездна открыта!';
 $('btnEndless').innerHTML='⬇ В БЕЗДНУ<span>бесконечный босс-раш</span>';
 $('btnEndless').style.display=(mode==='daily')?'none':'';
-$('wNote').innerHTML=(prophecyResult?'<b style="color:#ffcc85">✦ Предначертание исполнено'+(prophecyResult.skinUnlocked?' — открыт скин «Рыцарь Предначертания»':'')+'.</b><br>':'')+'В святилище <b style="color:#bfe6ff">'+(META.souls|0)+'</b> 👻 · открыт <b style="color:#ff9d7a">уровень Тьмы '+(META.asc|0)+'</b>';
+$('wNote').innerHTML=(prophecyResult?'<b style="color:#ffcc85">✦ Предначертание исполнено — случайный скин ждёт возвращения в святилище.</b><br>':'')+'В святилище <b style="color:#bfe6ff">'+(META.souls|0)+'</b> 👻 · открыт <b style="color:#ff9d7a">уровень Тьмы '+(META.asc|0)+'</b>';
 $('winOv').classList.remove('hidden');
 }
 function showActPass(){

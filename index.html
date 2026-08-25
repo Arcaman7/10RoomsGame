@@ -6,7 +6,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#04070a">
-<title>Десять залов тьмы XXXIV — охота боссов</title>
+<title>Десять залов тьмы XXXV — охота боссов</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
@@ -550,7 +550,7 @@ body.touch .skinsPanel{width:calc(100% - 8px);max-height:calc(100% - 6px);paddin
 <div id="bossbar"><div class="bname">БОСС</div><div class="btrack"><div id="bossfill"></div></div></div>
 <div id="waveBanner"></div>
 <div class="overlay" id="startOv">
-<div class="kicker">ВЕРСИЯ XXXIV · 2 УРОВНЯ · 20 КОМНАТ · 20 БОССОВ</div>
+<div class="kicker">ВЕРСИЯ XXXV · 2 УРОВНЯ · 20 КОМНАТ · 20 БОССОВ</div>
 <h1 class="title">ДЕСЯТЬ ЗАЛОВ ТЬМЫ</h1>
 <div id="helpSource">
 <p class="lead kb">Выбери сложность и стартовое оружие. У каждого оружия есть умение на ПКМ. <b style="color:#ff9d6b">Всё оружие ближнего боя бьёт в сторону курсора</b> — герой сам разворачивается к прицелу. Двойное нажатие A или D (или CTRL, если включено в настройках) — <b style="color:#9ad0ff">кувырок с кадрами неуязвимости</b> (работает и в воздухе, КД 0.9с): сквозь атаку можно проходить насквозь. <b style="color:#ff9d6b">Ближний бой</b> бьёт сильнее дальнего: удары сбивают врагам замах, сильно отбрасывают, а в руках с ближним оружием есть 12% шанс поглотить входящий урон. Между залами восстанавливается только 2 ♥ — лечиться приходится сердечками с элитных тварей и боссов. <b style="color:#9ad0ff">SHIFT/Q — парирование</b>: попал в окно 0.15с — снаряд летит обратно с двойным уроном, а враг в упор получает по зубам и застывает. <b style="color:#ffd23f">Ближний бой идёт цепочкой из 3 ударов</b>: третий бьёт ×2.3 и сносит врага с ног, но дольше восстанавливается. Оружие <b style="color:#ffd23f">растёт в уровнях</b> и берёт модификаторы в слоты (зажигательный, цепной, вампирский…), а при совпадении условий <b style="color:#ffb0f0">пробуждается</b> в одну из 50 эволюций — см. «Кодекс пробуждений». <b style="color:#ffb0f0">Пробуждение никогда не выдаётся автоматически:</b> в походе необходимо одновременно собрать указанные для него бафы, а само пробуждение не должно быть отключено в святилище. Запись кодекса открывается после получения в бою или покупки в святилище. Стартовые баффы святилища качаются <b style="color:#ffd23f">до 20 уровней</b>. Баффы складываются в <b style="color:#ffb0f0">синергии</b> (яд+кровь = гниль, мороз+молния = цепь, шипы+броня = отражение, огонь+молния = перегрузка). Убийства одним классом оружия копят <b style="color:#c9a0ff">мастерство</b> — три бесплатных пассивки под ближний, дальний бой или магию. В наградах попадаются <b style="color:#8fb4ff">редкие</b> и <b style="color:#ffd23f">★ легендарные</b> дары, меняющие правила. У каждого босса — заучиваемые связки атак, три фазы и своя механика зала. С тварей падают <b style="color:#bfe6ff">души</b> — валюта для реролла наград, кузницы и торговца. Между залами — <b style="color:#9db8ff">выбор пути</b>: бой, элитный зал, сокровищница, кузница, лавка или алтарь со сделкой. В каждом зале — смешанные отряды тварей, затем босс, и у каждого зала <b style="color:#ffb45e">своя фишка</b>: грибы-батуты, обвал сталактитов, трясина, колья из пола, мрак, гололёд, струи пламени, порталы, подъёмники и волны огня. С каждым залом растёт <b style="color:#ff9d7a">угроза</b>: у тварей больше HP и скорости, их больше на арене, а боссы атакуют чаще.</p>
@@ -643,7 +643,7 @@ body.touch .skinsPanel{width:calc(100% - 8px);max-height:calc(100% - 6px);paddin
 <div class="skinsPanel" role="dialog" aria-modal="true" aria-labelledby="skinsTitle">
 <div class="kicker">ОБЛИКИ ВОИНА</div>
 <h2 class="title small" id="skinsTitle">СКИНЧИКИ</h2>
-<p class="skinsLead">Выбери облик для следующего похода. Базовый облик выключает наградной скин.</p>
+<p class="skinsLead">Исполни выбранное Предначертание и вернись в святилище за случайным новым скином. Облики героя и оружия выбираются независимо.</p>
 <div class="skinsGrid" id="skinsGrid"></div>
 <button class="btn" id="btnSkinsClose">НАЗАД<span>[ESC]</span></button>
 </div>
@@ -1164,36 +1164,41 @@ const PROPHECY_POOL=[
  {id:'victory',icon:'🏆',name:'Неизбежная победа',desc:'Заверши все 20 залов похода.',kind:'victory',target:1}
 ];
 
-/* Наградные облики. requirement остаётся id Предначертания: это позволяет
-   безопасно восстановить открытия из старого completed без повторного забега. */
+/* Все наградные облики входят в единый случайный пул. Предначертание не
+   определяет конкретный скин: оно создаёт одну отложенную награду. */
 const PROPHECY_SKIN_REWARDS=[
- {id:'oathblade',slot:'weapon',weapon:'sword',requirement:'parry_15',icon:'⚔',name:'КЛИНОК КЛЯТВЫ',tag:'МЕЧ',desc:'Рунный меч стражей, закалённый пятнадцатью безупречными ответами.'},
- {id:'moon_katana',slot:'weapon',weapon:'katana',requirement:'dodge_15',icon:'☾',name:'ЛУННАЯ КАТАНА',tag:'КАТАНА',desc:'Серебряный клинок, оставляющий холодный след между ударами.'},
- {id:'verdant_bow',slot:'weapon',weapon:'bow',requirement:'kills_120',icon:'❧',name:'ИЗУМРУДНЫЙ ЛУК',tag:'ЛУК',desc:'Живой тис и светящиеся жилы пробуждаются после великой жатвы.'},
- {id:'astral_staff',slot:'weapon',weapon:'magic',requirement:'damage_750',icon:'✦',name:'АСТРАЛЬНЫЙ ПОСОХ',tag:'МАГИЯ',desc:'Созвездия вращаются вокруг навершия, напитанного разрушительной силой.'},
- {id:'astral_mage',slot:'hero',requirement:'awaken',icon:'✧',name:'АСТРАЛЬНЫЙ МАГ',tag:'ГЕРОЙ',desc:'Высокий звёздный ворот и мантия Пробуждённого мерцают в движении.'},
- {id:'dusk_ranger',slot:'hero',requirement:'flawless_5',icon:'◐',name:'СУМЕРЕЧНЫЙ СЛЕДОПЫТ',tag:'ГЕРОЙ',desc:'Лёгкий плащ и маска охотника, прошедшего пять залов без царапины.'}
+ {id:'oathblade',slot:'weapon',weapon:'sword',icon:'⚔',name:'КЛИНОК КЛЯТВЫ',tag:'МЕЧ',desc:'Рунный меч стражей из случайной награды Предначертания.'},
+ {id:'moon_katana',slot:'weapon',weapon:'katana',icon:'☾',name:'ЛУННАЯ КАТАНА',tag:'КАТАНА',desc:'Серебряный клинок, оставляющий холодный след между ударами.'},
+ {id:'verdant_bow',slot:'weapon',weapon:'bow',icon:'❧',name:'ИЗУМРУДНЫЙ ЛУК',tag:'ЛУК',desc:'Живой тис и светящиеся жилы случайной награды.'},
+ {id:'astral_staff',slot:'weapon',weapon:'magic',icon:'✦',name:'АСТРАЛЬНЫЙ ПОСОХ',tag:'МАГИЯ',desc:'Созвездия вращаются вокруг навершия реликтового посоха.'},
+ {id:'astral_mage',slot:'hero',icon:'✧',name:'АСТРАЛЬНЫЙ МАГ',tag:'ГЕРОЙ',desc:'Высокий звёздный ворот и мантия мерцают в движении.'},
+ {id:'dusk_ranger',slot:'hero',icon:'◐',name:'СУМЕРЕЧНЫЙ СЛЕДОПЫТ',tag:'ГЕРОЙ',desc:'Лёгкий плащ и маска охотника, отмеченного судьбой.'}
 ];
 function prophecySkinReward(id){return PROPHECY_SKIN_REWARDS.find(s=>s.id===id)||null;}
+const PROPHECY_SKIN_POOL=[{id:'prophecy_knight',name:'РЫЦАРЬ ПРЕДНАЧЕРТАНИЯ',slot:'hero'},...PROPHECY_SKIN_REWARDS];
 
 function prophecyEnsureMeta(){
  if(!META.prophecies||typeof META.prophecies!=='object')META.prophecies={};
  const p=META.prophecies;
  if(!p.completed||typeof p.completed!=='object')p.completed={};
+ if(!p.completionCounts||typeof p.completionCounts!=='object')p.completionCounts={};
  if(!Array.isArray(p.offers)||p.offers.length!==6||p.offers.some(id=>!PROPHECY_POOL.some(x=>x.id===id)))p.offers=prophecyDraw([]);
  if(p.selected&&!p.offers.includes(p.selected))p.selected='';
  if(!META.skins||typeof META.skins!=='object')META.skins={};
  if(!META.skinLoadout||typeof META.skinLoadout!=='object')META.skinLoadout={};
  if(typeof META.skinLoadout.hero!=='string')META.skinLoadout.hero=typeof META.selectedSkin==='string'?META.selectedSkin:'basic';
  if(typeof META.skinLoadout.weapon!=='string')META.skinLoadout.weapon='';
- /* Миграция: выполненное Предначертание всегда является источником истины.
-    Восстанавливает награду в старых или рассинхронизированных сохранениях. */
- const hasCompleted=Object.keys(p.completed).length>0;
- if(hasCompleted&&!META.skins.prophecy_knight){
-  META.skins.prophecy_knight=1;META.selectedSkin='prophecy_knight';META.skinLoadout.hero='prophecy_knight';
+ /* Миграция v34: уже выданные скины сохраняются. Если выполненных
+    Предначертаний больше, чем реально открытых наград, недостающее число
+    переносится в отложенные награды следующего входа в святилище. */
+ if((p.rewardLogicVersion|0)<2){
+ const completedCount=Object.keys(p.completed).length;
+  for(const id of Object.keys(p.completed))if(!(p.completionCounts[id]>0))p.completionCounts[id]=1;
+  p.totalCompletions=Math.max(p.totalCompletions|0,Object.values(p.completionCounts).reduce((sum,n)=>sum+(n|0),0));
+  const unlockedCount=PROPHECY_SKIN_POOL.filter(s=>META.skins[s.id]).length;
+  p.pendingSkinRewards=Math.max(p.pendingSkinRewards|0,Math.min(PROPHECY_SKIN_POOL.length-unlockedCount,Math.max(0,completedCount-unlockedCount)));
+  p.rewardLogicVersion=2;
  }
- if(hasCompleted||META.skins.prophecy_knight)p.rewardGranted=1;
- PROPHECY_SKIN_REWARDS.forEach(s=>{if(p.completed[s.requirement])META.skins[s.id]=1;});
  const heroReward=prophecySkinReward(META.skinLoadout.hero),weaponReward=prophecySkinReward(META.skinLoadout.weapon);
  if(META.skinLoadout.hero!=='basic'&&META.skinLoadout.hero!=='prophecy_knight'&&(!heroReward||heroReward.slot!=='hero'))META.skinLoadout.hero='basic';
  if(META.skinLoadout.weapon&&(!weaponReward||weaponReward.slot!=='weapon'))META.skinLoadout.weapon='';
@@ -1235,17 +1240,12 @@ function prophecyProgress(id,win){
   text:def.kind==='cleanRoom'?(Math.min(room,def.target)+'/'+def.target+' зал · '+RUNSTAT.hitsTaken+'/'+def.limit+' уд.'):(Math.min(value,def.target)+'/'+def.target)};
 }
 function prophecyComplete(id){
- const p=prophecyEnsureMeta(),def=prophecyById(id);if(!def||p.completed[id])return false;
+ const p=prophecyEnsureMeta(),def=prophecyById(id);if(!def||prophecyRunDone)return false;
  p.completed[id]=Date.now();
- let skinUnlocked=false,skinIds=[];
- if(!p.rewardGranted||!META.skins.prophecy_knight){
-  p.rewardGranted=1;META.skins.prophecy_knight=1;META.selectedSkin='prophecy_knight';META.skinLoadout.hero='prophecy_knight';skinUnlocked=true;skinIds.push('prophecy_knight');
- }
- PROPHECY_SKIN_REWARDS.filter(s=>s.requirement===id).forEach(s=>{if(!META.skins[s.id]){META.skins[s.id]=1;skinIds.push(s.id);}});
- skinUnlocked=skinIds.length>0;
- const namedReward=skinIds.map(sid=>sid==='prophecy_knight'?'РЫЦАРЬ ПРЕДНАЧЕРТАНИЯ':(prophecySkinReward(sid)||{}).name).filter(Boolean).join(' · ');
- prophecyRunDone=true;prophecyEvent={type:'completed',id,skinUnlocked,skinId:skinIds[0]||'',skinIds};
- if(typeof banner==='function')banner('ПРЕДНАЧЕРТАНИЕ ИСПОЛНЕНО',skinUnlocked?'ОТКРЫТО: '+namedReward:def.name.toUpperCase());
+ p.completionCounts[id]=(p.completionCounts[id]|0)+1;p.totalCompletions=(p.totalCompletions|0)+1;
+ p.pendingSkinRewards=(p.pendingSkinRewards|0)+1;
+ prophecyRunDone=true;prophecyEvent={type:'completed',id,pendingSkin:true};
+ if(typeof banner==='function')banner('ПРЕДНАЧЕРТАНИЕ ИСПОЛНЕНО','НАГРАДА ЖДЁТ В СВЯТИЛИЩЕ');
  try{sfx.reward();}catch(e){}
  saveMeta();return true;
 }
@@ -1257,14 +1257,28 @@ function prophecyCheckpoint(dt,win){
 }
 function prophecyBeginRun(){
  const p=prophecyEnsureMeta();prophecyRunId=p.selected&&p.offers.includes(p.selected)?p.selected:'';
- prophecyRunWeapon=player.weapon;prophecyRunDone=!!p.completed[prophecyRunId];prophecyTick=0;prophecyEvent=null;
+ prophecyRunWeapon=player.weapon;prophecyRunDone=false;prophecyTick=0;prophecyEvent=null;
 }
 function prophecyFinishRun(win){prophecyCheckpoint(0,!!win);prophecyRunId='';prophecyRunWeapon='';prophecyRunDone=false;}
-function prophecyRotateAfterDeath(){const p=prophecyEnsureMeta();p.offers=prophecyDraw(p.offers);p.selected='';p.rotation=(p.rotation|0)+1;saveMeta();}
+function prophecyGrantPendingSkins(){
+ const p=prophecyEnsureMeta(),granted=[];let pending=Math.max(0,p.pendingSkinRewards|0);
+ p.pendingSkinRewards=0;
+ while(pending-->0){
+  const locked=PROPHECY_SKIN_POOL.filter(s=>!META.skins[s.id]);if(!locked.length)break;
+  const reward=locked[Math.floor(Math.random()*locked.length)];META.skins[reward.id]=1;granted.push(reward);
+ }
+ return granted;
+}
+function prophecyEnterShrine(){
+ const p=prophecyEnsureMeta(),previous=p.offers;p.offers=prophecyDraw(previous);p.selected='';p.rotation=(p.rotation|0)+1;
+ prophecyRunId='';prophecyRunWeapon='';prophecyRunDone=false;prophecyEvent=null;
+ const rewards=prophecyGrantPendingSkins();saveMeta();
+ return {offers:p.offers.slice(),rewards,allOwned:PROPHECY_SKIN_POOL.every(s=>META.skins[s.id])};
+}
 function prophecyCard(def){
  const p=prophecyEnsureMeta(),progress=prophecyRunId===def.id?prophecyProgress(def.id,false):null;
  return {id:def.id,icon:def.icon,name:def.name,desc:def.desc,description:def.desc,
-  completed:!!p.completed[def.id],selected:p.selected===def.id,progress,
+  completed:!!p.completed[def.id],completionCount:p.completionCounts[def.id]|0,selected:p.selected===def.id,progress,
   progressText:progress?progress.text:''};
 }
 const PROPHECY_API={
@@ -1274,7 +1288,7 @@ const PROPHECY_API={
  getSelected:()=>prophecyEnsureMeta().selected||'',
  getActive:()=>prophecyRunId?prophecyCard(prophecyById(prophecyRunId)):null,
  getProgress:id=>prophecyProgress(id||prophecyRunId,false),
- getState:()=>{const p=prophecyEnsureMeta();return {offers:PROPHECY_API.getOffers(),selected:p.selected||'',active:PROPHECY_API.getActive(),completedCount:Object.keys(p.completed).length,total:PROPHECY_POOL.length,rewardGranted:!!p.rewardGranted,skinUnlocked:!!META.skins.prophecy_knight,rotation:p.rotation|0};},
+ getState:()=>{const p=prophecyEnsureMeta();return {offers:PROPHECY_API.getOffers(),selected:p.selected||'',active:PROPHECY_API.getActive(),completedCount:Object.keys(p.completed).length,totalCompletions:p.totalCompletions|0,total:PROPHECY_POOL.length,pendingSkinRewards:p.pendingSkinRewards|0,rotation:p.rotation|0};},
  consumeEvent:()=>{const e=prophecyEvent;prophecyEvent=null;return e;}
 };
 /* Узкие совместимые хелперы для DOM-меню святилища. */
@@ -7081,7 +7095,7 @@ b.classList.remove('show');void b.offsetWidth;b.classList.add('show');
 }
 /* Общая таблица рекордов. Публичный ключ Supabase предназначен для браузера;
    service_role и другие секреты здесь хранить нельзя. */
-const GAME_VERSION=Number('34');
+const GAME_VERSION=Number('35');
 const PUBLIC_LEADERBOARD={
 url:'https://vwcfsummyzoesvxsnnlo.supabase.co',
 anonKey:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ3Y2ZzdW1teXpvZXN2eHNubmxvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc1OTQ4MTEsImV4cCI6MjEwMzE3MDgxMX0.61Fs_MaS7heZiVG5fxp8-Rc5LBnxp2QHJH9G_6pFjos',
@@ -7371,7 +7385,7 @@ const progress=p.progressText||(p.progress&&p.progress.current!=null?p.progress.
 return `<button type="button" class="prophecyCard${active?' active':''}${done?' complete':''}${locked?' locked':''}" data-prophecy="${menuEsc(id)}" role="radio" aria-checked="${active}"${locked?' disabled aria-disabled="true"':''}>
 <span class="prophecySigil">${menuEsc(locked?'🔒':(p.icon||p.sigil||['✦','♜','☽','⚔','♢','✧'][i]))}</span>
 <span class="prophecyCopy"><span class="prophecyName">${menuEsc(p.name||p.title||'НЕИЗВЕСТНАЯ СУДЬБА')}</span><span class="prophecyDesc">${menuEsc(p.desc||p.description||p.condition||'Условие скрыто туманом.')}</span>${progress?`<span class="prophecyProgress">${menuEsc(progress)}</span>`:''}</span>
-<span class="prophecyState">${done?'ИСПОЛНЕНО':(active?'ВЫБРАНО':'ВЫБРАТЬ')}</span></button>`;
+<span class="prophecyState">${active?'ВЫБРАНО':(done?'ПРОЙДЕНО'+(p.completionCount?' ×'+p.completionCount:''):'ВЫБРАТЬ')}</span></button>`;
 }).join('');
 host.querySelectorAll('[data-prophecy]').forEach(card=>card.onclick=()=>{
 if(card.disabled||typeof selectProphecy!=='function')return;
@@ -7382,11 +7396,11 @@ selectProphecy(card.dataset.prophecy);try{sfx.reward();}catch(e){}buildProphecyO
 /* СКИНЧИКИ — два независимых слота: облик героя и облик оружия. */
 const SHRINE_BASE_SKINS=[
 {id:'basic',slot:'hero',icon:'◈',name:'СТРАННИК',tag:'ГЕРОЙ · БАЗОВЫЙ',desc:'Знакомый облик воина, прошедшего первые залы.'},
-{id:'prophecy_knight',slot:'hero',icon:'♜',name:'РЫЦАРЬ ПРЕДНАЧЕРТАНИЯ',tag:'ГЕРОЙ · НАГРАДА',desc:'Детализированная реликтовая броня. Открывается после первого исполненного предначертания.',condition:'Любое предначертание'}
+{id:'prophecy_knight',slot:'hero',icon:'♜',name:'РЫЦАРЬ ПРЕДНАЧЕРТАНИЯ',tag:'ГЕРОЙ · НАГРАДА',desc:'Детализированная реликтовая броня из случайного пула наград.',condition:'Случайная награда'}
 ];
 function shrineSkins(){
 let rewards=[];try{rewards=typeof getSkinRewards==='function'?(getSkinRewards()||[]):[];}catch(e){}
-return SHRINE_BASE_SKINS.concat(rewards.map(s=>Object.assign({},s,{condition:(typeof prophecyById==='function'&&prophecyById(s.requirement)||{}).name||s.requirement})));
+return SHRINE_BASE_SKINS.concat(rewards.map(s=>Object.assign({},s,{condition:'Случайная награда'})));
 }
 let skinsOpen=false;
 function skinUnlocked(id){
@@ -7976,7 +7990,7 @@ pickups=[];challengeSel=false;challengeRoom=false;extraReward=false;act2GatePass
 hudHp=-99;hudKills=-1;hudRoom=-1;hudWpn='';hudDiff='';hudSouls=-1;hudMods='';
 loadRoom(1);
 state='playing';
-/* Локальный стенд художника/баланса: game_34.html?testboss=1..20. */
+/* Локальный стенд художника/баланса: game_35.html?testboss=1..20. */
 const testBoss=+(new URLSearchParams(location.search).get('testboss')||0);
 if(testBoss>=1&&testBoss<=RUN_LEN){room=testBoss;loadRoom(room);mobs=[];projs=[];bossEvents=[];queue=[];spawnBoss();player.hp=Math.max(player.hp,20);S.maxHp=Math.max(S.maxHp,20);if(new URLSearchParams(location.search).has('testberserk'))bossRef.hp=bossRef.maxHp*.24;}
 const testQ=new URLSearchParams(location.search),localTest=location.protocol==='file:'||location.hostname==='localhost'||location.hostname==='127.0.0.1';
@@ -8006,11 +8020,18 @@ if(menuAsc>(META.asc||0))menuAsc=META.asc||0;
 $('overOv').classList.add('hidden');$('winOv').classList.add('hidden');
 $('codexOv').classList.add('hidden');codexOpen=false;$('merchantOv').classList.add('hidden');merchantOpen=false;$('helpOv').classList.add('hidden');helpOpen=false;
 $('startOv').classList.remove('hidden');
+const shrineResult=typeof prophecyEnterShrine==='function'?prophecyEnterShrine():null;
 buildMenu();
+announceShrineReward(shrineResult);
+}
+function announceShrineReward(result){
+if(!result||!Array.isArray(result.rewards)||!result.rewards.length)return;
+const names=result.rewards.map(r=>r.name).join(' · ');
+setTimeout(()=>{banner(result.rewards.length>1?'НАГРАДЫ ПРЕДНАЧЕРТАНИЙ':'НОВЫЙ СКИН ПОЛУЧЕН',names);try{sfx.reward();}catch(e){}},80);
 }
 function showOver(){
 state='over';
-prophecyFinishRun(false);prophecyRotateAfterDeath();
+prophecyFinishRun(false);
 const prophecyResult=PROPHECY_API.consumeEvent();
 let best=1;try{best=+localStorage.getItem('halls-best')||1;}catch(e){}
 if(room>best){best=room;try{localStorage.setItem('halls-best',best);}catch(e){}}
@@ -8020,7 +8041,7 @@ const gain=bankSouls(false);
 $('fRoom').textContent=room+(endless?' (бездна)':'/'+RUN_LEN);
 $('fKills').textContent=kills;$('fBest').textContent=best;$('fSouls').textContent='+'+gain;
 $('fDetails').innerHTML=deathDetailsHtml(gain);
-$('fNote').innerHTML=(prophecyResult?'<b style="color:#ffcc85">✦ Предначертание исполнено'+(prophecyResult.skinUnlocked?' — открыт скин «Рыцарь Предначертания»':'')+'.</b><br>':'')+'Часть душ осела в святилище: всего <b style="color:#bfe6ff">'+(META.souls|0)+'</b> 👻 — трать их на новое оружие, уровни перков и пробуждения.';
+$('fNote').innerHTML=(prophecyResult?'<b style="color:#ffcc85">✦ Предначертание исполнено — случайный скин ждёт возвращения в святилище.</b><br>':'')+'Часть душ осела в святилище: всего <b style="color:#bfe6ff">'+(META.souls|0)+'</b> 👻 — трать их на новое оружие, уровни перков и пробуждения.';
 $('overOv').classList.remove('hidden');
 }
 function showWin(){
@@ -8036,7 +8057,7 @@ $('wSouls').textContent='+'+gain;
 $('winKicker').textContent='ВСЕ 20 ЗАЛОВ ПРОЙДЕНЫ';$('winTitle').textContent='ПОЗДРАВЛЯЕМ!';$('winMedal').textContent='🏅';$('winMedalNote').textContent='Оба уровня покорены — Бездна открыта!';
 $('btnEndless').innerHTML='⬇ В БЕЗДНУ<span>бесконечный босс-раш</span>';
 $('btnEndless').style.display=(mode==='daily')?'none':'';
-$('wNote').innerHTML=(prophecyResult?'<b style="color:#ffcc85">✦ Предначертание исполнено'+(prophecyResult.skinUnlocked?' — открыт скин «Рыцарь Предначертания»':'')+'.</b><br>':'')+'В святилище <b style="color:#bfe6ff">'+(META.souls|0)+'</b> 👻 · открыт <b style="color:#ff9d7a">уровень Тьмы '+(META.asc|0)+'</b>';
+$('wNote').innerHTML=(prophecyResult?'<b style="color:#ffcc85">✦ Предначертание исполнено — случайный скин ждёт возвращения в святилище.</b><br>':'')+'В святилище <b style="color:#bfe6ff">'+(META.souls|0)+'</b> 👻 · открыт <b style="color:#ff9d7a">уровень Тьмы '+(META.asc|0)+'</b>';
 $('winOv').classList.remove('hidden');
 }
 function showActPass(){
@@ -8253,7 +8274,8 @@ try{render();}catch(e){console.error('render',e);}
 try{syncHud();}catch(e){console.error('syncHud',e);}
 watchdog(dt);
 }
-calcStats();buildMenu();syncHud();buildCodex();
+const initialShrineResult=typeof prophecyEnterShrine==='function'?prophecyEnterShrine():null;
+calcStats();buildMenu();syncHud();buildCodex();announceShrineReward(initialShrineResult);
 requestAnimationFrame(loop);
 </script>
 </body>

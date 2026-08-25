@@ -229,7 +229,7 @@ const progress=p.progressText||(p.progress&&p.progress.current!=null?p.progress.
 return `<button type="button" class="prophecyCard${active?' active':''}${done?' complete':''}${locked?' locked':''}" data-prophecy="${menuEsc(id)}" role="radio" aria-checked="${active}"${locked?' disabled aria-disabled="true"':''}>
 <span class="prophecySigil">${menuEsc(locked?'🔒':(p.icon||p.sigil||['✦','♜','☽','⚔','♢','✧'][i]))}</span>
 <span class="prophecyCopy"><span class="prophecyName">${menuEsc(p.name||p.title||'НЕИЗВЕСТНАЯ СУДЬБА')}</span><span class="prophecyDesc">${menuEsc(p.desc||p.description||p.condition||'Условие скрыто туманом.')}</span>${progress?`<span class="prophecyProgress">${menuEsc(progress)}</span>`:''}</span>
-<span class="prophecyState">${done?'ИСПОЛНЕНО':(active?'ВЫБРАНО':'ВЫБРАТЬ')}</span></button>`;
+<span class="prophecyState">${active?'ВЫБРАНО':(done?'ПРОЙДЕНО'+(p.completionCount?' ×'+p.completionCount:''):'ВЫБРАТЬ')}</span></button>`;
 }).join('');
 host.querySelectorAll('[data-prophecy]').forEach(card=>card.onclick=()=>{
 if(card.disabled||typeof selectProphecy!=='function')return;
@@ -240,11 +240,11 @@ selectProphecy(card.dataset.prophecy);try{sfx.reward();}catch(e){}buildProphecyO
 /* СКИНЧИКИ — два независимых слота: облик героя и облик оружия. */
 const SHRINE_BASE_SKINS=[
 {id:'basic',slot:'hero',icon:'◈',name:'СТРАННИК',tag:'ГЕРОЙ · БАЗОВЫЙ',desc:'Знакомый облик воина, прошедшего первые залы.'},
-{id:'prophecy_knight',slot:'hero',icon:'♜',name:'РЫЦАРЬ ПРЕДНАЧЕРТАНИЯ',tag:'ГЕРОЙ · НАГРАДА',desc:'Детализированная реликтовая броня. Открывается после первого исполненного предначертания.',condition:'Любое предначертание'}
+{id:'prophecy_knight',slot:'hero',icon:'♜',name:'РЫЦАРЬ ПРЕДНАЧЕРТАНИЯ',tag:'ГЕРОЙ · НАГРАДА',desc:'Детализированная реликтовая броня из случайного пула наград.',condition:'Случайная награда'}
 ];
 function shrineSkins(){
 let rewards=[];try{rewards=typeof getSkinRewards==='function'?(getSkinRewards()||[]):[];}catch(e){}
-return SHRINE_BASE_SKINS.concat(rewards.map(s=>Object.assign({},s,{condition:(typeof prophecyById==='function'&&prophecyById(s.requirement)||{}).name||s.requirement})));
+return SHRINE_BASE_SKINS.concat(rewards.map(s=>Object.assign({},s,{condition:'Случайная награда'})));
 }
 let skinsOpen=false;
 function skinUnlocked(id){
