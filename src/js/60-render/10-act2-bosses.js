@@ -101,7 +101,8 @@ return;
 }
 ctx.save();ctx.translate(m.x,m.y);ctx.scale(m.face,1);
 if(m.cloaked&&m.state==='walk'&&m.atkCd>.35)ctx.globalAlpha=.2+.08*Math.sin(time*5);
-if(drawAct2BossModel(m)){
+if(drawAct1BossModel(m)){
+}else if(drawAct2BossModel(m)){
 }else if(drawNewMobModel(m)){
 }else if(T==='flyer'){
 const fl=Math.sin(m.anim*16)*.9;
