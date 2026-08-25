@@ -621,6 +621,7 @@ function drawBossEvents(){
 function drawFx(){
 for(const f of fxList){
 const a=f.life/f.max;
+if(typeof drawSkinCombatFx==='function'&&drawSkinCombatFx(f))continue;
 if(f.type==='awakenAlt'){drawAwakenAltFx(f,a);continue;}
 if(f.type==='bossdodge'){
  const q=1-a;ctx.save();ctx.globalCompositeOperation='lighter';ctx.strokeStyle=hexA(f.c||'#bfe6ff',a*.8);ctx.lineWidth=3+5*a;ctx.beginPath();ctx.moveTo(f.x,f.y);ctx.quadraticCurveTo((f.x+f.tx)/2,f.y-35,f.tx,f.ty);ctx.stroke();for(let k=0;k<4;k++){const u=clamp(q-k*.12,0,1);ctx.fillStyle=hexA(f.c||'#bfe6ff',a*(.45-k*.08));ctx.beginPath();ctx.arc(f.x+(f.tx-f.x)*u,f.y+(f.ty-f.y)*u,9-k,0,7);ctx.fill();}ctx.restore();

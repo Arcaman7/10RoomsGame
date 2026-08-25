@@ -237,26 +237,31 @@ selectProphecy(card.dataset.prophecy);try{sfx.reward();}catch(e){}buildProphecyO
 });
 }
 
-/* СКИНЧИКИ — редкая вторичная настройка скрыта в отдельной модалке. */
-const SHRINE_SKINS=[
-{id:'basic',name:'СТРАННИК',tag:'БАЗОВЫЙ',desc:'Знакомый облик воина, прошедшего первые залы.'},
-{id:'prophecy_knight',name:'РЫЦАРЬ ПРЕДНАЧЕРТАНИЯ',tag:'НАГРАДА',desc:'Детализированная реликтовая броня. Откроется после первого исполненного предначертания.'}
+/* СКИНЧИКИ — два независимых слота: облик героя и облик оружия. */
+const SHRINE_BASE_SKINS=[
+{id:'basic',slot:'hero',icon:'◈',name:'СТРАННИК',tag:'ГЕРОЙ · БАЗОВЫЙ',desc:'Знакомый облик воина, прошедшего первые залы.'},
+{id:'prophecy_knight',slot:'hero',icon:'♜',name:'РЫЦАРЬ ПРЕДНАЧЕРТАНИЯ',tag:'ГЕРОЙ · НАГРАДА',desc:'Детализированная реликтовая броня. Открывается после первого исполненного предначертания.',condition:'Любое предначертание'}
 ];
+function shrineSkins(){
+let rewards=[];try{rewards=typeof getSkinRewards==='function'?(getSkinRewards()||[]):[];}catch(e){}
+return SHRINE_BASE_SKINS.concat(rewards.map(s=>Object.assign({},s,{condition:(typeof prophecyById==='function'&&prophecyById(s.requirement)||{}).name||s.requirement})));
+}
 let skinsOpen=false;
 function skinUnlocked(id){
 if(id==='basic')return true;
 try{return typeof isSkinUnlocked==='function'&&isSkinUnlocked(id);}catch(e){return false;}
 }
-function selectedSkin(){
-try{return typeof getSelectedSkinId==='function'?(getSelectedSkinId()||'basic'):'basic';}catch(e){return 'basic';}
+function selectedSkin(slot){
+try{return typeof getSelectedSkinId==='function'?getSelectedSkinId(slot):(slot==='weapon'?'':'basic');}catch(e){return slot==='weapon'?'':'basic';}
 }
 function buildSkins(){
-const host=$('skinsGrid');if(!host)return;const current=selectedSkin();
-host.innerHTML=SHRINE_SKINS.map(s=>{const unlocked=skinUnlocked(s.id),active=current===s.id;
-return `<button type="button" class="skinCard${active?' active':''}${unlocked?'':' locked'}" data-skin="${s.id}"${unlocked?'':' disabled'} aria-pressed="${active}">
-<span class="skinPortrait ${s.id}"><span class="skinGlow"></span>${s.id==='prophecy_knight'?'<img class="skinRaster" alt="Рыцарь Предначертания">':`<span class="skinHelm">◈</span>`}</span>
-<span class="skinInfo"><span class="skinTag">${unlocked?s.tag:'🔒 ЗАКРЫТО'}</span><span class="skinName">${s.name}</span><span class="skinDesc">${s.desc}</span><span class="skinAction">${unlocked?(active?'ВКЛЮЧЁН':'ВКЛЮЧИТЬ'):'ИСПОЛНИ ПРЕДНАЧЕРТАНИЕ'}</span></span></button>`;
-}).join('');
+const host=$('skinsGrid');if(!host)return;const heroCurrent=selectedSkin('hero'),weaponCurrent=selectedSkin('weapon'),all=shrineSkins();
+const group=(slot,title,lead)=>`<section class="skinShelf skinShelf-${slot}"><div class="skinShelfHead"><h3>${title}</h3><span>${lead}</span></div><div class="skinShelfGrid">${all.filter(s=>s.slot===slot).map(s=>{const unlocked=skinUnlocked(s.id),active=(slot==='hero'?heroCurrent:weaponCurrent)===s.id;
+return `<button type="button" class="skinCard skin-${menuEsc(s.id)}${active?' active':''}${unlocked?'':' locked'}" data-skin="${menuEsc(s.id)}"${unlocked?'':' disabled'} aria-pressed="${active}">
+<span class="skinPortrait ${menuEsc(s.id)}"><span class="skinGlow"></span>${s.id==='prophecy_knight'?'<img class="skinRaster" alt="Рыцарь Предначертания">':`<span class="skinHelm">${menuEsc(s.icon||'◈')}</span>`}</span>
+<span class="skinInfo"><span class="skinTag">${unlocked?menuEsc(s.tag):'🔒 ЗАКРЫТО'}</span><span class="skinName">${menuEsc(s.name)}</span><span class="skinDesc">${menuEsc(s.desc)}</span>${s.condition?`<span class="skinCondition">ПРЕДНАЧЕРТАНИЕ · ${menuEsc(s.condition)}</span>`:''}<span class="skinAction">${unlocked?(active?(slot==='weapon'?'ВКЛЮЧЁН · НАЖМИ, ЧТОБЫ СНЯТЬ':'ВКЛЮЧЁН'):'ДОСТУПЕН · ВКЛЮЧИТЬ'):'ИСПОЛНИ ПРЕДНАЧЕРТАНИЕ'}</span></span></button>`;
+}).join('')}</div></section>`;
+host.innerHTML=group('hero','ОБЛИК ГЕРОЯ','один активный облик')+group('weapon','ОБЛИК ОРУЖИЯ','одна активная реликвия');
 const raster=host.querySelector('.skinRaster');if(raster&&typeof PROPHECY_KNIGHT_IMG!=='undefined')raster.src=PROPHECY_KNIGHT_IMG.src;
 host.querySelectorAll('[data-skin]').forEach(card=>card.onclick=()=>{
 if(card.disabled||typeof selectSkin!=='function')return;

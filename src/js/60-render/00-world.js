@@ -196,9 +196,12 @@ ctx.scale(p.face,1);
 const run=p.grounded&&Math.abs(p.vx)>30,lt=p.anim*13;
 const bob=p.grounded?(run?Math.sin(lt)*1.6:Math.sin(time*2)*1):0;
 const flow=clamp(-p.vx*p.face*.045,-6,10)+Math.sin(time*7)*2;
-const selectedSkinId=typeof getSelectedSkinId==='function'?getSelectedSkinId():(META&&META.selectedSkin||'basic');
+let selectedSkinId='basic';
+if(typeof getSelectedSkinId==='function'){try{selectedSkinId=getSelectedSkinId('hero')||getSelectedSkinId()||'basic';}catch(_e){selectedSkinId=getSelectedSkinId()||'basic';}}
+else if(typeof META!=='undefined'&&META)selectedSkinId=(META.skinLoadout&&META.skinLoadout.hero)||META.selectedSkin||'basic';
 const prophecyKnightReady=selectedSkinId==='prophecy_knight'&&typeof PROPHECY_KNIGHT_IMG!=='undefined'&&PROPHECY_KNIGHT_IMG.complete&&PROPHECY_KNIGHT_IMG.naturalWidth>0;
-const playerHandCol=prophecyKnightReady?'#78858d':'#e5b78a';
+const detailedHeroDrawn=typeof drawDetailedHeroSkin==='function'&&drawDetailedHeroSkin(ctx,selectedSkinId,p,{run,lt,bob,flow});
+const playerHandCol=prophecyKnightReady?'#78858d':(selectedSkinId==='astral_mage'?'#bfd3ed':(selectedSkinId==='dusk_ranger'?'#a88368':'#e5b78a'));
 if(prophecyKnightReady){
 ctx.save();
 ctx.translate(0,bob);
@@ -206,7 +209,7 @@ ctx.rotate(run?Math.sin(lt)*.025:Math.sin(time*2)*.008);
 ctx.scale(1,1+Math.sin(time*2)*.008);
 ctx.drawImage(PROPHECY_KNIGHT_IMG,-22,-64,44,66);
 ctx.restore();
-}else{
+}else if(!detailedHeroDrawn){
 ctx.fillStyle='#8a3038';
 ctx.beginPath();ctx.moveTo(-3,-33+bob);ctx.quadraticCurveTo(-14-flow,-22+bob,-10-flow*.6,-4+bob);ctx.lineTo(-4,-10+bob);ctx.closePath();ctx.fill();
 ctx.strokeStyle='#232f2c';ctx.lineWidth=5;ctx.lineCap='round';
@@ -228,6 +231,9 @@ ctx.beginPath();ctx.moveTo(1,-49+bob);ctx.quadraticCurveTo(-8,-51+bob,-13,-42+bo
 }
 ctx.save();
 const aimed=!!WEAPONS[w].aimed;
+const detailedWeaponSkinId=typeof resolveDetailedWeaponSkinId==='function'?resolveDetailedWeaponSkinId(p):'';
+const detailedWeaponDrawn=typeof drawDetailedWeaponSkin==='function'&&drawDetailedWeaponSkin(ctx,detailedWeaponSkinId,p,{la,bob,aimed});
+if(!detailedWeaponDrawn){
 if(cat==='melee'){
 if(w==='thornarmor'){
 const pulse=(p.cast&&String(p.cast.kind).indexOf('armor-')===0)?1+Math.sin(clamp(p.cast.t/p.cast.dur,0,1)*Math.PI)*.18:1;
@@ -334,6 +340,7 @@ if(w==='summoner'){
 ctx.fillStyle='#efe7f7';ctx.beginPath();ctx.arc(28,-.5,4.2,0,7);ctx.fill();ctx.fillRect(25.6,2,4.8,3);
 ctx.fillStyle='#281733';ctx.beginPath();ctx.arc(26.7,-1.2,1,0,7);ctx.arc(29.3,-1.2,1,0,7);ctx.fill();
 ctx.fillRect(27,2.2,.8,2.5);ctx.fillRect(28.6,2.2,.8,2.5);
+}
 }
 }
 ctx.restore();

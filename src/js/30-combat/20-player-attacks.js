@@ -62,7 +62,7 @@ const w=WEAPONS[p.weapon];
 const st=wStat(p.weapon);
 if(p.weapon==='thornarmor'){
 const c=curCfg();
-if(c&&c.lmb)armorAwakenAttack(c);
+if(c&&c.lmb){skinCombatFx('base',{x:p.x,y:p.y-28,ang:p.aim,dir:p.face,weapon:p.weapon,armored:true});armorAwakenAttack(c);}
 else{p.cd=.55;if(!p._armorHint||time-p._armorHint>1.4){p._armorHint=time;popup(p.x,p.y-72,'ЛКМ НЕТ · ПКМ — ТЯЖЁЛЫЙ ПЕРЕКАТ','#b8d08a');}}
 return;
 }
@@ -75,6 +75,7 @@ p.cd=st.cd*cdMulNow()*C.cdMul;
 const finisher=ci===2;
 p.cast={kind:finisher?(p.weapon==='axe'?'spin':'slam'):(p.weapon==='spear'?'thrust':'swing'),t:0,dur:finisher?C.dur:(p.weapon==='axe'?.26:C.dur)};
 p.animT=p.cast.dur;p.animDur=p.cast.dur;
+skinCombatFx('base',{x:p.x,y:p.y-30,ang:p.aim,dir:p.face,weapon:p.weapon,finisher,combo:ci});
 sfx.swing();
 if(finisher){
 if(rareOn('shockwave')){
@@ -95,6 +96,7 @@ p.cd=st.cd*cdMulNow();
 let dx=mouse.x-p.x,dy=mouse.y-(p.y-30);
 const L=Math.hypot(dx,dy)||1;dx/=L;dy/=L;
 p.face=dx>=0?1:-1;
+skinCombatFx('base',{x:p.x,y:p.y-30,ang:Math.atan2(dy,dx),dir:p.face,weapon:p.weapon,category:w.cat});
 if(w.cat==='ranged'){
 p.cast={kind:'shoot',t:0,dur:.14};p.animT=.14;p.animDur=.14;
 const px=p.x+dx*18,py=p.y-30+dy*10;
@@ -199,6 +201,7 @@ const p=player;
 if(state!=='playing'||paused||p.dead||p.parryCd>0||p.roll>0||p.armorRoll>0||(curCfg()||{}).flight)return;
 p.parry=PARRY_T;p.parryWin=PARRY_WIN;p.parryCd=PARRY_CD;
 p.animT=PARRY_T;p.animDur=PARRY_T;p.cast=null;
+skinCombatFx('parry',{x:p.x,y:p.y-28,ang:p.aim,dir:p.face,weapon:p.weapon,phase:'guard'});
 sfx.block();
 spawnParts(5,p.x+Math.cos(p.aim)*22,p.y-28+Math.sin(p.aim)*22,'#9ad0ff',110,.22,'spark',60);
 }
@@ -210,6 +213,7 @@ RUNSTAT.parries++;
 {const c=curCfg();if(c&&c.parryPow)CTR.parryPow=true;if(c&&c.wrath)CTR.wrath=Math.min(3,CTR.wrath+1);}
 p.inv=Math.max(p.inv,.45);
 popup(p.x,p.y-66,'ПАРИРОВАНИЕ!','#9ad0ff',true);
+skinCombatFx('parry',{x:p.x-from*18,y:p.y-28,ang:from>0?Math.PI:0,dir:-from,weapon:p.weapon,phase:'hit'});
 spawnParts(16,p.x-from*18,p.y-28,'#cfeaff',280,.45,'spark',120);
 sfx.parry();addShake(6);hitStop=.09;redFlash=0;
 if(rareOn('parrydash')){p.rollCd=0;p.altCd=0;popup(p.x,p.y-84,'КОНТРАТАКА','#c9a0ff');}
@@ -237,6 +241,7 @@ p.cast=null;p.animT=0;
 rollGhosts=[];ghostT=0;
 dust(p.x,p.y,6);
 spawnParts(6,p.x,p.y-22,'#9ad0ff',160,.3,'spark',80);
+skinCombatFx('roll',{x:p.x,y:p.y-24,ang:dir>0?0:Math.PI,dir,weapon:p.weapon});
 sfx.roll();
 }
 function tryAlt(){
@@ -244,7 +249,7 @@ const p=player;
 if(state!=='playing'||paused||p.dead||p.armorRoll>0)return;
 /* ЭВОЛЮЦИИ: пробуждённое оружие полностью меняет ПКМ */
 if(p.altCd>0)return;
-{const EC=curCfg();if(EC&&EC.alt){evoAlt(EC);return;}}
+{const EC=curCfg();if(EC&&EC.alt){skinCombatFx('alt',{x:p.x,y:p.y-28,ang:p.aim,dir:p.face,weapon:p.weapon,evolved:true});evoAlt(EC);return;}}
 const w=p.weapon;
 const ALT=wPerk(w).altCd*(WEAPONS[w].cat==='magic'&&hasM('g_cd')?0.78:1);
 if(w==='thornarmor'){
@@ -351,6 +356,7 @@ fxList.push({type:'zapwarn',x:tx,life:.4,max:.4});
 strikes.push({x:tx,t:.4,dmg:wDmg('bolt')*1.6});
 sfx.cast();
 }
+if(p.altCd>0)skinCombatFx('alt',{x:p.x,y:p.y-28,ang:Math.atan2(mouse.y-(p.y-28),mouse.x-p.x),dir:p.face,weapon:w});
 }
 function meleeHit(w,C,finisher){
 const p=player,f=p.face;
