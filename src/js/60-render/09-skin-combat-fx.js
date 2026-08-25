@@ -1,6 +1,7 @@
 /* ================= ТЕМАТИЧЕСКИЕ БОЕВЫЕ FX СКИНОВ ================= */
 const SKIN_COMBAT_WEAPON_IDS=new Set(['oathblade','moon_katana','verdant_bow','astral_staff']);
 const SKIN_COMBAT_HERO_IDS=new Set(['astral_mage','dusk_ranger']);
+const SKIN_COMBAT_WEAPON_SLOTS={oathblade:'sword',moon_katana:'katana',verdant_bow:'bow',astral_staff:'magic'};
 const SKIN_COMBAT_PALETTES={
 oathblade:['#fff4c2','#e9bc52','#8b5a22'],moon_katana:['#f5fbff','#82cfff','#7664c9'],
 verdant_bow:['#efffc2','#72d978','#28754c'],astral_staff:['#ffffff','#9ac8ff','#8d63e8'],
@@ -23,7 +24,10 @@ function skinCombatFx(event,data={}){
 if(typeof fxList==='undefined'||!data)return;
 const weapon=data.weapon||(typeof player!=='undefined'?player.weapon:''),slot=skinCombatWeaponSlot(weapon);
 let weaponSkin=slot?skinCombatSelected(slot):'';
-if(!SKIN_COMBAT_WEAPON_IDS.has(weaponSkin)&&slot)weaponSkin=skinCombatSelected('weapon');
+if(!SKIN_COMBAT_WEAPON_IDS.has(weaponSkin)&&slot){
+const selectedWeaponSkin=skinCombatSelected('weapon');
+weaponSkin=SKIN_COMBAT_WEAPON_SLOTS[selectedWeaponSkin]===slot?selectedWeaponSkin:'';
+}
 const heroSkin=skinCombatSelected('hero'),skins=[];
 if(SKIN_COMBAT_WEAPON_IDS.has(weaponSkin))skins.push(weaponSkin);
 if(SKIN_COMBAT_HERO_IDS.has(heroSkin)&&heroSkin!==weaponSkin)skins.push(heroSkin);
