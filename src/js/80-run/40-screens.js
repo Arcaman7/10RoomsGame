@@ -133,7 +133,9 @@ buildMenu();
 announceShrineReward(shrineResult);
 }
 function announceShrineReward(result){
-if(!result||!Array.isArray(result.rewards)||!result.rewards.length)return;
+if(!result)return;
+if(result.resetApplied){setTimeout(()=>banner('ПРОГРЕСС ОБНУЛЁН','ПРЕДНАЧЕРТАНИЯ И НАГРАДНЫЕ СКИНЫ НАЧИНАЮТСЯ ЗАНОВО'),80);return;}
+if(!Array.isArray(result.rewards)||!result.rewards.length)return;
 const names=result.rewards.map(r=>r.name).join(' · ');
 setTimeout(()=>{banner(result.rewards.length>1?'НАГРАДЫ ПРЕДНАЧЕРТАНИЙ':'НОВЫЙ СКИН ПОЛУЧЕН',names);try{sfx.reward();}catch(e){}},80);
 }

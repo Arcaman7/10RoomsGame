@@ -67,6 +67,15 @@ function prophecyEnsureMeta(){
  if(!META.skinLoadout||typeof META.skinLoadout!=='object')META.skinLoadout={};
  if(typeof META.skinLoadout.hero!=='string')META.skinLoadout.hero=typeof META.selectedSkin==='string'?META.selectedSkin:'basic';
  if(typeof META.skinLoadout.weapon!=='string')META.skinLoadout.weapon='';
+ if(!META.migrations||typeof META.migrations!=='object')META.migrations={};
+ /* Одноразовый глобальный сброс версии 36. Флаг хранится в сохранении,
+    поэтому новый прогресс после первого запуска больше не затрагивается. */
+ if(!META.migrations.skinProphecyReset36){
+  p.completed={};p.completionCounts={};p.totalCompletions=0;p.pendingSkinRewards=0;
+  p.selected='';p.offers=prophecyDraw([]);p.rotation=0;p.rewardGranted=0;p.rewardLogicVersion=2;p.resetNoticePending=1;
+  META.skins={};META.skinLoadout={hero:'basic',weapon:''};META.selectedSkin='basic';
+  META.migrations.skinProphecyReset36=Date.now();
+ }
  /* Миграция v34: уже выданные скины сохраняются. Если выполненных
     Предначертаний больше, чем реально открытых наград, недостающее число
     переносится в отложенные награды следующего входа в святилище. */
@@ -149,10 +158,11 @@ function prophecyGrantPendingSkins(){
  return granted;
 }
 function prophecyEnterShrine(){
- const p=prophecyEnsureMeta(),previous=p.offers;p.offers=prophecyDraw(previous);p.selected='';p.rotation=(p.rotation|0)+1;
+ const p=prophecyEnsureMeta(),resetApplied=!!p.resetNoticePending,previous=p.offers;p.offers=prophecyDraw(previous);p.selected='';p.rotation=(p.rotation|0)+1;
+ delete p.resetNoticePending;
  prophecyRunId='';prophecyRunWeapon='';prophecyRunDone=false;prophecyEvent=null;
  const rewards=prophecyGrantPendingSkins();saveMeta();
- return {offers:p.offers.slice(),rewards,allOwned:PROPHECY_SKIN_POOL.every(s=>META.skins[s.id])};
+ return {offers:p.offers.slice(),rewards,resetApplied,allOwned:PROPHECY_SKIN_POOL.every(s=>META.skins[s.id])};
 }
 function prophecyCard(def){
  const p=prophecyEnsureMeta(),progress=prophecyRunId===def.id?prophecyProgress(def.id,false):null;
