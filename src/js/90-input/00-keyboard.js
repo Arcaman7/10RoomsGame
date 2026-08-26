@@ -22,6 +22,7 @@ if(helpOpen){
 if(c==='Escape'||c==='Enter'||c==='Space'){closeHelp();return;}
 return;
 }
+if(secondaryMenuOpen&&c==='Escape'){setSecondaryMenu(false);return;}
 if(leaderboardOpen){
 if(c==='Escape'||c==='Enter'||c==='Space'){closeLeaderboard();return;}
 return;
@@ -83,6 +84,8 @@ $('btnEndless').addEventListener('click',goEndless);
 $('btnStart').addEventListener('click',beginJourney);
 $('btnHelp').addEventListener('click',openHelp);
 $('btnHelpClose').addEventListener('click',closeHelp);
+$('btnSecondaryMenu').addEventListener('click',()=>setSecondaryMenu(true));
+$('btnSecondaryClose').addEventListener('click',()=>setSecondaryMenu(false));
 $('btnLeaderboard').addEventListener('click',openLeaderboard);
 $('btnLeaderboardClose').addEventListener('click',closeLeaderboard);
 $('btnTreatMerchant').addEventListener('click',openMerchant);

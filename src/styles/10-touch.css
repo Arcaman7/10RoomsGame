@@ -101,9 +101,11 @@ gap:5px;padding-top:10px;padding-bottom:10px;overflow-y:auto;scrollbar-width:non
 #startOv::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.34;
 background:repeating-linear-gradient(0deg,transparent 0 43px,rgba(155,184,165,.055) 44px,rgba(0,0,0,.13) 46px),
 linear-gradient(115deg,transparent 0 38%,rgba(180,215,193,.055) 50%,transparent 62%)}
-#startOv>.kicker,#startOv>.title,#startOv>.menuHelp,#startOv>.modeTabs,#startOv>.rwSection{z-index:1}
+#startOv>.kicker,#startOv>.title,#startOv>.startUtilities,#startOv>.modeTabs,#startOv>.rwSection{z-index:1}
 #startOv>.title{margin:0 0 1px}
-#startOv>.menuHelp{margin:0;padding-top:1px;padding-bottom:1px}
+.startUtilities{display:flex;align-items:center;justify-content:center;gap:14px}
+.startUtilities .menuHelp{margin:0;padding-top:1px;padding-bottom:1px}
+.mobileMore{display:none}
 #startOv .rwLabel{color:#b8cec1;text-shadow:0 1px 2px #000,0 0 9px rgba(150,210,178,.22);margin:3px 0 4px}
 #startOv .kicker{color:#b7d0c1;text-shadow:0 1px 3px #000}
 #startOv .dim{color:#8ea79a}
@@ -163,3 +165,22 @@ button.btn span{font-family:'IBM Plex Mono';font-size:10px;opacity:.7;margin-lef
 .deathWide{grid-column:1/-1}.deathBuild{font-size:9px;line-height:1.55;color:#91aa9d}.deathBuild b{color:#d5e4dc;font-weight:500}
 body.touch .deathDetails{grid-template-columns:1fr 1fr;gap:4px}.deathWide{grid-column:1/-1}
 body.touch .deathBlock{padding:5px 7px}body.touch .deathLine,body.touch .deathBuild{font-size:7.5px}body.touch .deathHead{font-size:8px;margin-bottom:3px}
+
+/* Низкие landscape-экраны: меньше постоянного HUD и компактнее сенсорные зоны. */
+@media (max-width:900px) and (max-height:500px){
+:root{--bs:clamp(52px,15vh,64px);--ms:clamp(42px,12vh,52px);--ss:clamp(34px,9vh,42px);--gap:8px;--edge:8px}
+body.touch .hint.tt{display:none}
+body.touch #buffRow{max-width:42vw;margin-top:5px;gap:2px}
+body.touch .chip{max-width:104px;overflow:hidden;text-overflow:ellipsis;padding:1px 5px;font-size:7px}
+body.touch #modRow{max-width:34vw;margin-left:auto;gap:2px}
+body.touch .mchip{max-width:74px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+body.touch #mastBar{font-size:7px}
+body.touch #roomLbl{max-width:34vw;font-size:9px;line-height:1.2}
+body.touch #roomLbl .roomThreat,body.touch #roomLbl .roomAbyss{display:none}
+.tbtn small{bottom:5px;font-size:6px;letter-spacing:.5px}
+#tPause,#tFull{top:6px;width:32px;height:32px}
+#tPause{left:calc(50% - 38px)}#tFull{left:calc(50% + 6px)}
+#bossbar{top:43px;width:48%}
+body.touch #bossbar .bname{font-size:9px;letter-spacing:2px;margin-bottom:2px}
+body.touch #bossbar .btrack{height:7px}
+}

@@ -204,6 +204,14 @@ function closeMerchant(){merchantOpen=false;$('merchantOv').classList.add('hidde
 let helpOpen=false;
 function openHelp(){helpOpen=true;$('helpBody').scrollTop=0;$('helpOv').classList.remove('hidden');}
 function closeHelp(){helpOpen=false;$('helpOv').classList.add('hidden');}
+let secondaryMenuOpen=false;
+function setSecondaryMenu(open){
+secondaryMenuOpen=!!open;
+const start=$('startOv'),panel=$('secondaryMenu'),button=$('btnSecondaryMenu');
+if(start)start.classList.toggle('secondary-open',secondaryMenuOpen);
+if(panel)panel.setAttribute('aria-hidden',String(matchMedia('(max-width:900px) and (max-height:500px)').matches&&!secondaryMenuOpen));
+if(button)button.setAttribute('aria-expanded',String(secondaryMenuOpen));
+}
 
 /* ПРЕДНАЧЕРТАНИЯ — шесть случайных целей текущего цикла святилища. */
 function menuEsc(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}

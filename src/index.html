@@ -59,7 +59,10 @@
 <p class="lead kb">Выбери сложность и стартовое оружие. У каждого оружия есть умение на ПКМ. <b style="color:#ff9d6b">Всё оружие ближнего боя бьёт в сторону курсора</b> — герой сам разворачивается к прицелу. Двойное нажатие A или D (или CTRL, если включено в настройках) — <b style="color:#9ad0ff">кувырок с кадрами неуязвимости</b> (работает и в воздухе, КД 0.9с): сквозь атаку можно проходить насквозь. <b style="color:#ff9d6b">Ближний бой</b> бьёт сильнее дальнего: удары сбивают врагам замах, сильно отбрасывают, а в руках с ближним оружием есть 12% шанс поглотить входящий урон. Между залами восстанавливается только 2 ♥ — лечиться приходится сердечками с элитных тварей и боссов. <b style="color:#9ad0ff">SHIFT/Q — парирование</b>: попал в окно 0.15с — снаряд летит обратно с двойным уроном, а враг в упор получает по зубам и застывает. <b style="color:#ffd23f">Ближний бой идёт цепочкой из 3 ударов</b>: третий бьёт ×2.3 и сносит врага с ног, но дольше восстанавливается. Оружие <b style="color:#ffd23f">растёт в уровнях</b> и берёт модификаторы в слоты (зажигательный, цепной, вампирский…), а при совпадении условий <b style="color:#ffb0f0">пробуждается</b> в одну из 50 эволюций — см. «Кодекс пробуждений». <b style="color:#ffb0f0">Пробуждение никогда не выдаётся автоматически:</b> в походе необходимо одновременно собрать указанные для него бафы, а само пробуждение не должно быть отключено в святилище. Запись кодекса открывается после получения в бою или покупки в святилище. Стартовые баффы святилища качаются <b style="color:#ffd23f">до 20 уровней</b>. Баффы складываются в <b style="color:#ffb0f0">синергии</b> (яд+кровь = гниль, мороз+молния = цепь, шипы+броня = отражение, огонь+молния = перегрузка). Убийства одним классом оружия копят <b style="color:#c9a0ff">мастерство</b> — три бесплатных пассивки под ближний, дальний бой или магию. В наградах попадаются <b style="color:#8fb4ff">редкие</b> и <b style="color:#ffd23f">★ легендарные</b> дары, меняющие правила. У каждого босса — заучиваемые связки атак, три фазы и своя механика зала. С тварей падают <b style="color:#bfe6ff">души</b> — валюта для реролла наград, кузницы и торговца. Между залами — <b style="color:#9db8ff">выбор пути</b>: бой, элитный зал, сокровищница, кузница, лавка или алтарь со сделкой. В каждом зале — смешанные отряды тварей, затем босс, и у каждого зала <b style="color:#ffb45e">своя фишка</b>: грибы-батуты, обвал сталактитов, трясина, колья из пола, мрак, гололёд, струи пламени, порталы, подъёмники и волны огня. С каждым залом растёт <b style="color:#ff9d7a">угроза</b>: у тварей больше HP и скорости, их больше на арене, а боссы атакуют чаще.</p>
 <p class="lead tt">Выбери сложность и оружие. Ближний бой бьёт сильнее дальнего, сбивает врагам замах и даёт 12% шанс поглотить урон. Управление — кнопками на экране, прицел наводится сам. У каждого зала своя фишка, угроза растёт от зала к залу.</p>
 </div>
+<div class="startUtilities">
 <button class="menuHelp" id="btnHelp">Подсказка</button>
+<button class="menuHelp mobileMore" id="btnSecondaryMenu" aria-expanded="false" aria-controls="secondaryMenu">Настройки и Святилище</button>
+</div>
 <div class="modeTabs" id="modeTabs"></div>
 <div class="rwSection"><div class="rwLabel">— СЛОЖНОСТЬ —</div><div class="cards" id="diffCards"></div></div>
 <div class="rwSection"><div class="rwLabel">— СТАРТОВОЕ ОРУЖИЕ —</div><div class="cards" id="startWpnCards"></div></div>
@@ -68,21 +71,24 @@
 <div class="prophecyCards" id="prophecyCards" role="radiogroup" aria-label="Доступные предначертания"></div>
 </div>
 <div class="rwSection" id="startEvoSection" style="display:none"><div class="rwLabel">— СТАРТОВОЕ ПРОБУЖДЕНИЕ —</div><div class="cards" id="startEvoCards"></div></div>
-<div class="rwSection" id="ascSection"><div class="rwLabel">— УРОВЕНЬ ТЬМЫ —</div>
-<div class="ascRow" id="ascRow"></div><div class="ascList" id="ascList"></div>
-<button class="btn small ghost leaderboardOpen" id="btnLeaderboard">🏆 ТАБЛИЦА РЕКОРДОВ</button></div>
 <div class="rwSection" id="lbSection" style="display:none"><div class="rwLabel">— ЛИДЕРБОРД ДНЯ —</div>
 <div class="cards"><div class="lb" id="lbList"></div></div></div>
+<div id="secondaryMenu" aria-hidden="false">
+<div class="mobileMenuHead"><div><span>НАСТРОЙКИ</span><b>СВЯТИЛИЩЕ</b></div><button type="button" id="btnSecondaryClose" aria-label="Закрыть меню">×</button></div>
 <div class="rwSection" id="rollSection"><div class="rwLabel">— УПРАВЛЕНИЕ РЫВКОМ —</div><div class="modeTabs" id="rollTabs"></div></div>
 <div class="rwSection" id="playerNameSection"><label class="rwLabel" for="playerNameInput">— НИКНЕЙМ ИГРОКА —</label>
 <input id="playerNameInput" type="text" maxlength="20" autocomplete="nickname" spellcheck="false" placeholder="СТРАННИК" aria-label="Никнейм игрока"></div>
-<div class="rwSection" id="shrineLaunchSection">
-<div class="shrineActions">
+<div class="rwSection" id="ascSection"><div class="rwLabel">— УРОВЕНЬ ТЬМЫ —</div>
+<div class="ascRow" id="ascRow"></div><div class="ascList" id="ascList"></div>
+<button class="btn small ghost leaderboardOpen" id="btnLeaderboard">🏆 ТАБЛИЦА РЕКОРДОВ</button></div>
 <div class="shrineMenuButtons">
-<button class="btn small ghost" id="btnTreatMerchant">🍬 ТОРГОВЕЦ ВКУСНЯШКАМИ</button>
-<button class="btn small ghost" id="btnCodex">📜 КОДЕКС ПРОБУЖДЕНИЙ</button>
+<button class="btn small ghost" id="btnTreatMerchant">🍬 <span class="labelWide">ТОРГОВЕЦ ВКУСНЯШКАМИ</span><span class="labelShort">ТОРГОВЕЦ</span></button>
+<button class="btn small ghost" id="btnCodex">📜 <span class="labelWide">КОДЕКС ПРОБУЖДЕНИЙ</span><span class="labelShort">КОДЕКС</span></button>
 <button class="btn small ghost" id="btnSkins">🛡 СКИНЧИКИ</button>
 </div>
+</div>
+<div class="rwSection" id="shrineLaunchSection">
+<div class="shrineActions">
 <button class="btn" id="btnStart">НАЧАТЬ ПОХОД<span>[ENTER]</span></button>
 </div></div>
 <div class="journeyLoader hidden" id="journeyLoader" aria-hidden="true">

@@ -30,11 +30,11 @@ else html+='<span class="heart off">♥</span>';
 $('hearts').innerHTML=html;
 $('hearts').classList.remove('pop');void $('hearts').offsetWidth;$('hearts').classList.add('pop');
 }
-if(kills!==hudKills){hudKills=kills;$('killsLbl').textContent='УБИЙСТВ: '+kills;}
+if(kills!==hudKills){hudKills=kills;$('killsLbl').textContent=(TOUCH?'☠ ':'УБИЙСТВ: ')+kills;}
 if(room!==hudRoom||difficulty!==hudDiff||challengeRoom!==hudChal){hudRoom=room;hudDiff=difficulty;hudChal=challengeRoom;
-$('roomLbl').innerHTML=(endless?'БЕЗДНА · ГЛУБИНА '+room:'КОМНАТА '+room+'/'+RUN_LEN)+' · '+(difficulty==='easy'?'ЛЁГКИЙ':'СЛОЖНЫЙ')+
-' <span style="color:#ff9d7a">· HP ×'+fmtMul(RS.hp)+' · УРОН ×'+fmtMul(RS.dmg)+'</span>'+
-(endless?'<br><span style="color:#c9a0ff;font-size:10px">СТЕНЫ ×'+fmtMul(RS.wallHp)+' · АБИЛКИ М/Б ×'+fmtMul(RS.mobAbilityDmg)+'/'+fmtMul(RS.bossAbilityDmg)+' · ДЕБАФЫ ×'+fmtMul(RS.debuffPower)+'</span>':'')+
+$('roomLbl').innerHTML='<span class="roomMain">'+(endless?'БЕЗДНА · '+room:(TOUCH?'ЗАЛ ':'КОМНАТА ')+room+'/'+RUN_LEN)+' · '+(difficulty==='easy'?'ЛЁГКИЙ':'СЛОЖНЫЙ')+'</span>'+
+' <span class="roomThreat" style="color:#ff9d7a">· HP ×'+fmtMul(RS.hp)+' · УРОН ×'+fmtMul(RS.dmg)+'</span>'+
+(endless?'<br><span class="roomAbyss" style="color:#c9a0ff;font-size:10px">СТЕНЫ ×'+fmtMul(RS.wallHp)+' · АБИЛКИ М/Б ×'+fmtMul(RS.mobAbilityDmg)+'/'+fmtMul(RS.bossAbilityDmg)+' · ДЕБАФЫ ×'+fmtMul(RS.debuffPower)+'</span>':'')+
 (challengeRoom?' <span style="color:#ff5d6b">· ЭЛИТНЫЙ</span>':'')+
 (ascLevel>0?' <span style="color:#ff9d7a">· ТЬМА '+ascLevel+'</span>':'')+
 (mode==='daily'?' <span style="color:#ffd23f">· ☀ ДЕНЬ</span>':'');}
