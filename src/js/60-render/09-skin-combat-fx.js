@@ -30,7 +30,9 @@ weaponSkin=SKIN_COMBAT_WEAPON_SLOTS[selectedWeaponSkin]===slot?selectedWeaponSki
 }
 const heroSkin=skinCombatSelected('hero'),skins=[];
 if(SKIN_COMBAT_WEAPON_IDS.has(weaponSkin))skins.push(weaponSkin);
-if(SKIN_COMBAT_HERO_IDS.has(heroSkin)&&heroSkin!==weaponSkin)skins.push(heroSkin);
+/* Скины героя сохраняют отдельные FX только для блока и контрудара.
+   ЛКМ, ПКМ и перекат используют стандартную боевую анимацию. */
+if(event==='parry'&&SKIN_COMBAT_HERO_IDS.has(heroSkin)&&heroSkin!==weaponSkin)skins.push(heroSkin);
 if(!skins.length)return;
 for(const skin of skins){
 const hit=data.phase==='hit',life=event==='alt'?.64:(event==='roll'?.42:(event==='parry'?(hit?.56:.34):(data.finisher?.48:.3)));

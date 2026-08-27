@@ -31,20 +31,19 @@ function skinGlow(x,y,r,col){
  g.addColorStop(0,col);g.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fill();ctx.restore();
 }
 function detailedHeroPose(p,pose){
- const run=pose.run,ph=pose.lt||0,air=!p.grounded,parry=p.parry>0,rolling=p.roll>0||p.armorRoll>0,dead=p.dead;
+ const run=pose.run,ph=pose.lt||0,air=!p.grounded,parry=p.parry>0,dead=p.dead;
  let a1=-4,a2=0,b1=4,b2=0,armF={x:10,y:-25},armB={x:-9,y:-25},lean=0;
  if(run){const s=Math.sin(ph);a1=-4+s*7;a2=Math.min(0,-Math.cos(ph)*3);b1=4-s*7;b2=Math.min(0,Math.cos(ph)*3);armF={x:9-s*5,y:-25+s*3};armB={x:-8+s*5,y:-25-s*3};lean=s*.018;}
  if(air){a1=-6;a2=-5;b1=6;b2=-2;armF={x:11,y:-29};armB={x:-8,y:-20};lean=-.04;}
  if(parry){armF={x:12,y:-38};armB={x:7,y:-29};lean=-.07;}
- if(rolling){a1=-8;a2=-10;b1=8;b2=-8;armF={x:10,y:-14};armB={x:-10,y:-17};lean=.18;}
  if(dead){a1=-4;a2=-1;b1=5;b2=0;armF={x:9,y:-18};armB={x:-7,y:-12};lean=.12;}
  return {a1,a2,b1,b2,armF,armB,lean,bob:pose.bob||0,flow:pose.flow||0};
 }
 function drawAstralMage(p,pose){
- const q=detailedHeroPose(p,pose),b=q.bob,breath=Math.sin(time*2.1)*.7,roll=p.roll>0||p.armorRoll>0;
+ const q=detailedHeroPose(p,pose),b=q.bob,breath=Math.sin(time*2.1)*.7;
  ctx.save();ctx.translate(0,b);ctx.rotate(q.lean);
  // hovering split robe and star-lined mantle
- const hem=roll?-5:0,sw=Math.sin(time*3.2)*1.4-q.flow*.18;
+ const hem=0,sw=Math.sin(time*3.2)*1.4-q.flow*.18;
  ctx.fillStyle='#11152f';ctx.beginPath();ctx.moveTo(-8,-31);ctx.quadraticCurveTo(-15,-16,-13+sw,-2+hem);ctx.lineTo(-2,-8);ctx.lineTo(0,-28);ctx.closePath();ctx.fill();
  ctx.fillStyle='#182455';ctx.beginPath();ctx.moveTo(0,-30);ctx.lineTo(13,-4+hem);ctx.lineTo(2+sw,-8);ctx.lineTo(-2,-27);ctx.closePath();ctx.fill();
  ctx.strokeStyle='#739dff';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(-9,-17);ctx.quadraticCurveTo(0,-12,10,-16);ctx.stroke();
@@ -66,12 +65,11 @@ function drawAstralMage(p,pose){
  ctx.fillStyle='#071022';ctx.beginPath();ctx.ellipse(1,-43,6,5.5,0,0,7);ctx.fill();
  skinGlow(3,-44,8,'rgba(114,210,255,.28)');skinJoint(3,-44,1.5,'#d9fbff');
  ctx.fillStyle='#d3c46e';ctx.beginPath();ctx.moveTo(-2,-52);ctx.lineTo(0,-57);ctx.lineTo(2,-52);ctx.lineTo(0,-49);ctx.closePath();ctx.fill();
- // orbiting idle motes become compressed sparks during roll
- ctx.globalCompositeOperation='lighter';for(let i=0;i<3;i++){const a=time*(roll?7:1.4)+i*2.094,r=roll?12:15;ctx.fillStyle=`rgba(135,205,255,${.45+i*.12})`;ctx.beginPath();ctx.arc(Math.cos(a)*r,-29+Math.sin(a)*7,1.2,0,7);ctx.fill();}ctx.globalCompositeOperation='source-over';
+ ctx.globalCompositeOperation='lighter';for(let i=0;i<3;i++){const a=time*1.4+i*2.094,r=15;ctx.fillStyle=`rgba(135,205,255,${.45+i*.12})`;ctx.beginPath();ctx.arc(Math.cos(a)*r,-29+Math.sin(a)*7,1.2,0,7);ctx.fill();}ctx.globalCompositeOperation='source-over';
  ctx.restore();return true;
 }
 function drawDuskRanger(p,pose){
- const q=detailedHeroPose(p,pose),b=q.bob,run=pose.run,roll=p.roll>0||p.armorRoll>0,tail=(pose.flow||0)+Math.sin(time*5)*1.5;
+ const q=detailedHeroPose(p,pose),b=q.bob,run=pose.run,tail=(pose.flow||0)+Math.sin(time*5)*1.5;
  ctx.save();ctx.translate(0,b);ctx.rotate(q.lean);
  // torn double cape gives a recognisable low, backward silhouette
  ctx.fillStyle='#24172f';ctx.beginPath();ctx.moveTo(-5,-35);ctx.quadraticCurveTo(-19-tail,-27,-18-tail,-8);ctx.lineTo(-9-tail*.4,-14);ctx.lineTo(-5-tail*.2,-5);ctx.lineTo(1,-29);ctx.closePath();ctx.fill();
@@ -98,7 +96,7 @@ function drawDuskRanger(p,pose){
  // quiver and arrow feathers remain readable while running
  ctx.strokeStyle='#7b4d38';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(-8,-31);ctx.lineTo(-13,-45);ctx.stroke();
  for(let i=0;i<3;i++){skinLine(-14+i*2,-44,-15+i*2,-51,1.4,i===1?'#be65dc':'#718b77');}
- if(run&&!roll){ctx.strokeStyle='rgba(183,110,215,.25)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-11,-42);ctx.quadraticCurveTo(-25-tail,-37,-31-tail,-32);ctx.stroke();}
+ if(run){ctx.strokeStyle='rgba(183,110,215,.25)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-11,-42);ctx.quadraticCurveTo(-25-tail,-37,-31-tail,-32);ctx.stroke();}
  ctx.restore();return true;
 }
 function drawDetailedHeroSkin(_ctx,id,p,pose){
