@@ -76,6 +76,8 @@
 <div id="secondaryMenu" aria-hidden="false">
 <div class="mobileMenuHead"><div><span>НАСТРОЙКИ</span><b>СВЯТИЛИЩЕ</b></div><button type="button" id="btnSecondaryClose" aria-label="Закрыть меню">×</button></div>
 <div class="rwSection" id="rollSection"><div class="rwLabel">— УПРАВЛЕНИЕ РЫВКОМ —</div><div class="modeTabs" id="rollTabs"></div></div>
+<div class="rwSection" id="pauseKeySection"><div class="rwLabel">— КНОПКА ПАУЗЫ —</div>
+<button type="button" id="pauseKeyBtn" class="keyBindBtn" aria-label="Назначить кнопку паузы">P</button><div class="keyBindNote" id="pauseKeyNote">НАЖМИ, ЧТОБЫ ИЗМЕНИТЬ</div></div>
 <div class="rwSection" id="playerNameSection"><label class="rwLabel" for="playerNameInput">— НИКНЕЙМ ИГРОКА —</label>
 <input id="playerNameInput" type="text" maxlength="20" autocomplete="nickname" spellcheck="false" placeholder="СТРАННИК" aria-label="Никнейм игрока"></div>
 <div class="rwSection" id="ascSection"><div class="rwLabel">— УРОВЕНЬ ТЬМЫ —</div>
@@ -215,7 +217,7 @@
 </div>
 <div class="overlay hidden" id="pauseOv">
 <h1 class="title" style="font-size:40px">ПАУЗА</h1>
-<div class="prompt kb">НАЖМИ P, ЧТОБЫ ПРОДОЛЖИТЬ</div>
+<div class="prompt kb" id="pausePromptKb">НАЖМИ P, ЧТОБЫ ПРОДОЛЖИТЬ</div>
 <div class="prompt tt">КОСНИСЬ ЭКРАНА, ЧТОБЫ ПРОДОЛЖИТЬ</div>
 <button class="btn small ghost" id="btnPauseCodex">📜 КОДЕКС ПРОБУЖДЕНИЙ<span>[C]</span></button>
 <button class="btn" id="btnResume" style="margin-top:10px">ПРОДОЛЖИТЬ</button>

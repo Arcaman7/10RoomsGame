@@ -579,6 +579,7 @@ else m.rotT=0;
 m.dotAcc+=rate*dt;
 if(m.dotAcc>=1){let d=Math.floor(m.dotAcc);m.dotAcc-=d;
 if(difficulty==='easy'){if(m.type==='boss')d=Math.min(d,1);else d=Math.ceil(m.hp);}
+d=capEnemyDamage(m,d);
 m.hp-=d;m.flash=.08;
 popup(m.x,m.y-m.h-6,'-'+d,rot?'#c8ff5a':(m.burnT>0?'#ff9d45':(m.bleed>0?'#ff7a6b':'#8fe07a')));
 if(rot)spawnParts(3,m.x,m.y-m.h*.6,'#c8ff5a',80,.4,'spark',60);

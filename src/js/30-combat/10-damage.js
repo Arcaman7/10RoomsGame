@@ -1,5 +1,11 @@
 /* ================= УРОН ================= */
 let rageStacks=0,rageT=0;
+function capEnemyDamage(m,d){
+if(!m||!(m.maxHp>0))return d;
+if(m.type==='boss')return Math.min(d,m.maxHp*(difficulty==='easy'?.20:.05));
+if(endless)return Math.min(d,m.maxHp*.30);
+return d;
+}
 function relicMul(m){
 if(!endless){
 let k=1;const p=player;
@@ -74,6 +80,7 @@ const critC=Math.min(endless?.7:1,S.crit+(o.wpn?wPerk(player.weapon).crit:0));
 if(!o.dot&&rand()<critC){d*=S.critMul;crit=true;}
 d=Math.max(.25,d);
 if(difficulty==='easy'){if(m.type==='boss')d=Math.min(d,1);else d=m.hp;}
+d=capEnemyDamage(m,d);
 RUNSTAT.damageDealt+=Math.min(Math.max(0,m.hp),d);
 m.hp-=d;m.flash=.14;
 if(!(m.type==='boss'&&m.kbBlock)){

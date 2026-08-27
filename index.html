@@ -6,7 +6,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#04070a">
-<title>Десять залов тьмы XL — охота боссов</title>
+<title>Десять залов тьмы XLII — охота боссов</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
@@ -409,19 +409,25 @@ body.touch .shrineActions #btnStart{right:8px}
 .merchantPanel #metaGrid{position:relative;z-index:1;flex:1;min-height:0;align-content:flex-start}
 body.touch .merchantPanel{width:calc(100% - 8px)}
 body.touch .merchantBalance{font-size:8px;letter-spacing:2px}
-#rollSection,#playerNameSection,#ascSection{position:absolute;top:14px;z-index:3;margin:0}
+#rollSection,#pauseKeySection,#playerNameSection,#ascSection{position:absolute;top:14px;z-index:3;margin:0}
 #rollSection{left:14px;width:230px}
-#playerNameSection{left:14px;top:76px;width:230px}
+#pauseKeySection{left:14px;top:76px;width:230px}
+#playerNameSection{left:14px;top:143px;width:230px}
 #ascSection{right:14px;width:280px}
-#rollSection .rwLabel,#playerNameSection .rwLabel,#ascSection .rwLabel{display:block;margin-top:0;letter-spacing:3px}
+#rollSection .rwLabel,#pauseKeySection .rwLabel,#playerNameSection .rwLabel,#ascSection .rwLabel{display:block;margin-top:0;letter-spacing:3px}
+.keyBindBtn{min-width:76px;height:30px;padding:4px 12px;border:1px solid #52685c;border-radius:7px;background:#0b120f;color:#ffe9c9;font:10px 'Russo One';letter-spacing:1.5px;cursor:pointer;box-shadow:inset 0 1px 6px rgba(0,0,0,.55)}
+.keyBindBtn:hover,.keyBindBtn:focus{border-color:#ffb45e;outline:none}.keyBindBtn.listening{color:#ffd280;border-color:#ffb45e;box-shadow:0 0 12px rgba(255,180,94,.22)}
+.keyBindNote{display:inline-block;margin-left:7px;color:#657c70;font:7px 'IBM Plex Mono';letter-spacing:.5px;vertical-align:middle}
 #playerNameInput{width:100%;height:28px;box-sizing:border-box;border:1px solid #2c443a;border-radius:7px;
 background:#0b120f;color:#ffe9c9;box-shadow:inset 0 1px 6px rgba(0,0,0,.55);outline:none;padding:5px 9px;
 font:10px 'IBM Plex Mono';letter-spacing:1.5px;text-align:center;text-transform:none}
 #playerNameInput::placeholder{color:#52675c;letter-spacing:2px}
 #playerNameInput:focus{border-color:#ffb45e;box-shadow:0 0 0 1px rgba(255,180,94,.18),inset 0 1px 6px rgba(0,0,0,.55)}
 body.touch #rollSection{left:8px;top:8px;width:205px}
-body.touch #playerNameSection{left:8px;top:65px;width:205px}
+body.touch #pauseKeySection{left:8px;top:65px;width:205px}
+body.touch #playerNameSection{left:8px;top:122px;width:205px}
 body.touch #ascSection{right:8px;top:8px;width:245px}
+body.touch .keyBindBtn{height:23px;font-size:8px;padding:3px 8px}body.touch .keyBindNote{font-size:6px;margin-left:4px}
 body.touch #playerNameInput{height:23px;font-size:8px;padding:3px 7px}
 
 /* На телефоне вторичные настройки раскрываются отдельной панелью. */
@@ -445,9 +451,9 @@ body.touch #playerNameInput{height:23px;font-size:8px;padding:3px 7px}
 .mobileMenuHead{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding-bottom:6px;border-bottom:1px solid #31473c}
 .mobileMenuHead div{display:flex;align-items:baseline;gap:8px}.mobileMenuHead span{color:#8fae9c;font:7px 'IBM Plex Mono';letter-spacing:2px}.mobileMenuHead b{color:#ffe0b1;font:14px 'Russo One';letter-spacing:2px}
 #btnSecondaryClose{width:34px;height:30px;border:1px solid #52685c;border-radius:8px;background:#0b1511;color:#dfe8e2;font:20px/1 'IBM Plex Mono';cursor:pointer}
-#secondaryMenu #rollSection,#secondaryMenu #playerNameSection,#secondaryMenu #ascSection{position:static;width:auto;margin:0}
-#secondaryMenu #rollSection,#secondaryMenu #playerNameSection{grid-column:1}
-#secondaryMenu #ascSection{grid-column:2;grid-row:2/4;text-align:center}
+#secondaryMenu #rollSection,#secondaryMenu #pauseKeySection,#secondaryMenu #playerNameSection,#secondaryMenu #ascSection{position:static;width:auto;margin:0}
+#secondaryMenu #rollSection,#secondaryMenu #pauseKeySection,#secondaryMenu #playerNameSection{grid-column:1}
+#secondaryMenu #ascSection{grid-column:2;grid-row:2/5;text-align:center}
 #secondaryMenu .rwLabel{display:block;color:#a9c2b4!important;text-align:left}
 #secondaryMenu #playerNameInput{height:28px;font-size:9px}
 #secondaryMenu .ascList{max-height:105px;overflow:auto;font-size:7px;line-height:1.35;text-align:left}
@@ -618,7 +624,7 @@ body.touch .skinsPanel{width:calc(100% - 8px);max-height:calc(100% - 6px);paddin
 <div id="bossbar"><div class="bname">БОСС</div><div class="btrack"><div id="bossfill"></div></div></div>
 <div id="waveBanner"></div>
 <div class="overlay" id="startOv">
-<div class="kicker">ВЕРСИЯ XL · 2 УРОВНЯ · 20 КОМНАТ · 20 БОССОВ</div>
+<div class="kicker">ВЕРСИЯ XLII · 2 УРОВНЯ · 20 КОМНАТ · 20 БОССОВ</div>
 <h1 class="title">ДЕСЯТЬ ЗАЛОВ ТЬМЫ</h1>
 <div id="helpSource">
 <p class="lead kb">Выбери сложность и стартовое оружие. У каждого оружия есть умение на ПКМ. <b style="color:#ff9d6b">Всё оружие ближнего боя бьёт в сторону курсора</b> — герой сам разворачивается к прицелу. Двойное нажатие A или D (или CTRL, если включено в настройках) — <b style="color:#9ad0ff">кувырок с кадрами неуязвимости</b> (работает и в воздухе, КД 0.9с): сквозь атаку можно проходить насквозь. <b style="color:#ff9d6b">Ближний бой</b> бьёт сильнее дальнего: удары сбивают врагам замах, сильно отбрасывают, а в руках с ближним оружием есть 12% шанс поглотить входящий урон. Между залами восстанавливается только 2 ♥ — лечиться приходится сердечками с элитных тварей и боссов. <b style="color:#9ad0ff">SHIFT/Q — парирование</b>: попал в окно 0.15с — снаряд летит обратно с двойным уроном, а враг в упор получает по зубам и застывает. <b style="color:#ffd23f">Ближний бой идёт цепочкой из 3 ударов</b>: третий бьёт ×2.3 и сносит врага с ног, но дольше восстанавливается. Оружие <b style="color:#ffd23f">растёт в уровнях</b> и берёт модификаторы в слоты (зажигательный, цепной, вампирский…), а при совпадении условий <b style="color:#ffb0f0">пробуждается</b> в одну из 50 эволюций — см. «Кодекс пробуждений». <b style="color:#ffb0f0">Пробуждение никогда не выдаётся автоматически:</b> в походе необходимо одновременно собрать указанные для него бафы, а само пробуждение не должно быть отключено в святилище. Запись кодекса открывается после получения в бою или покупки в святилище. Стартовые баффы святилища качаются <b style="color:#ffd23f">до 20 уровней</b>. Баффы складываются в <b style="color:#ffb0f0">синергии</b> (яд+кровь = гниль, мороз+молния = цепь, шипы+броня = отражение, огонь+молния = перегрузка). Убийства одним классом оружия копят <b style="color:#c9a0ff">мастерство</b> — три бесплатных пассивки под ближний, дальний бой или магию. В наградах попадаются <b style="color:#8fb4ff">редкие</b> и <b style="color:#ffd23f">★ легендарные</b> дары, меняющие правила. У каждого босса — заучиваемые связки атак, три фазы и своя механика зала. С тварей падают <b style="color:#bfe6ff">души</b> — валюта для реролла наград, кузницы и торговца. Между залами — <b style="color:#9db8ff">выбор пути</b>: бой, элитный зал, сокровищница, кузница, лавка или алтарь со сделкой. В каждом зале — смешанные отряды тварей, затем босс, и у каждого зала <b style="color:#ffb45e">своя фишка</b>: грибы-батуты, обвал сталактитов, трясина, колья из пола, мрак, гололёд, струи пламени, порталы, подъёмники и волны огня. С каждым залом растёт <b style="color:#ff9d7a">угроза</b>: у тварей больше HP и скорости, их больше на арене, а боссы атакуют чаще.</p>
@@ -641,6 +647,8 @@ body.touch .skinsPanel{width:calc(100% - 8px);max-height:calc(100% - 6px);paddin
 <div id="secondaryMenu" aria-hidden="false">
 <div class="mobileMenuHead"><div><span>НАСТРОЙКИ</span><b>СВЯТИЛИЩЕ</b></div><button type="button" id="btnSecondaryClose" aria-label="Закрыть меню">×</button></div>
 <div class="rwSection" id="rollSection"><div class="rwLabel">— УПРАВЛЕНИЕ РЫВКОМ —</div><div class="modeTabs" id="rollTabs"></div></div>
+<div class="rwSection" id="pauseKeySection"><div class="rwLabel">— КНОПКА ПАУЗЫ —</div>
+<button type="button" id="pauseKeyBtn" class="keyBindBtn" aria-label="Назначить кнопку паузы">P</button><div class="keyBindNote" id="pauseKeyNote">НАЖМИ, ЧТОБЫ ИЗМЕНИТЬ</div></div>
 <div class="rwSection" id="playerNameSection"><label class="rwLabel" for="playerNameInput">— НИКНЕЙМ ИГРОКА —</label>
 <input id="playerNameInput" type="text" maxlength="20" autocomplete="nickname" spellcheck="false" placeholder="СТРАННИК" aria-label="Никнейм игрока"></div>
 <div class="rwSection" id="ascSection"><div class="rwLabel">— УРОВЕНЬ ТЬМЫ —</div>
@@ -780,7 +788,7 @@ body.touch .skinsPanel{width:calc(100% - 8px);max-height:calc(100% - 6px);paddin
 </div>
 <div class="overlay hidden" id="pauseOv">
 <h1 class="title" style="font-size:40px">ПАУЗА</h1>
-<div class="prompt kb">НАЖМИ P, ЧТОБЫ ПРОДОЛЖИТЬ</div>
+<div class="prompt kb" id="pausePromptKb">НАЖМИ P, ЧТОБЫ ПРОДОЛЖИТЬ</div>
 <div class="prompt tt">КОСНИСЬ ЭКРАНА, ЧТОБЫ ПРОДОЛЖИТЬ</div>
 <button class="btn small ghost" id="btnPauseCodex">📜 КОДЕКС ПРОБУЖДЕНИЙ<span>[C]</span></button>
 <button class="btn" id="btnResume" style="margin-top:10px">ПРОДОЛЖИТЬ</button>
@@ -947,13 +955,14 @@ const ASC_DESC=[
 'Цены торговца и кузницы ×1.6',
 'Обычные враги не роняют сердца'
 ];
-let META={souls:0,unlocked:{},evoSeen:{},evoOff:{},bestRoom:1,bestEndless:0,asc:0,wins:0,act2Pass:0,rollKey:'double',playerName:''};
+let META={souls:0,unlocked:{},evoSeen:{},evoOff:{},bestRoom:1,bestEndless:0,asc:0,wins:0,act2Pass:0,rollKey:'double',pauseKey:'KeyP',playerName:''};
 function loadMeta(){
 try{const r=localStorage.getItem(META_KEY);if(r)META=Object.assign(META,JSON.parse(r));}catch(e){}
 if(!META.unlocked)META.unlocked={};
 if(!META.evoSeen)META.evoSeen={};
 if(!META.evoOff)META.evoOff={};
 if(META.rollKey!=='ctrl')META.rollKey='double';
+if(typeof META.pauseKey!=='string'||!/^[A-Za-z0-9]{1,32}$/.test(META.pauseKey))META.pauseKey='KeyP';
 META.playerName=typeof META.playerName==='string'?META.playerName.slice(0,20):'';
 }
 function saveMeta(){try{localStorage.setItem(META_KEY,JSON.stringify(META));}catch(e){}}
@@ -2784,6 +2793,7 @@ else m.rotT=0;
 m.dotAcc+=rate*dt;
 if(m.dotAcc>=1){let d=Math.floor(m.dotAcc);m.dotAcc-=d;
 if(difficulty==='easy'){if(m.type==='boss')d=Math.min(d,1);else d=Math.ceil(m.hp);}
+d=capEnemyDamage(m,d);
 m.hp-=d;m.flash=.08;
 popup(m.x,m.y-m.h-6,'-'+d,rot?'#c8ff5a':(m.burnT>0?'#ff9d45':(m.bleed>0?'#ff7a6b':'#8fe07a')));
 if(rot)spawnParts(3,m.x,m.y-m.h*.6,'#c8ff5a',80,.4,'spark',60);
@@ -3230,6 +3240,12 @@ ctx.restore();
 }
 /* ================= УРОН ================= */
 let rageStacks=0,rageT=0;
+function capEnemyDamage(m,d){
+if(!m||!(m.maxHp>0))return d;
+if(m.type==='boss')return Math.min(d,m.maxHp*(difficulty==='easy'?.20:.05));
+if(endless)return Math.min(d,m.maxHp*.30);
+return d;
+}
 function relicMul(m){
 if(!endless){
 let k=1;const p=player;
@@ -3304,6 +3320,7 @@ const critC=Math.min(endless?.7:1,S.crit+(o.wpn?wPerk(player.weapon).crit:0));
 if(!o.dot&&rand()<critC){d*=S.critMul;crit=true;}
 d=Math.max(.25,d);
 if(difficulty==='easy'){if(m.type==='boss')d=Math.min(d,1);else d=m.hp;}
+d=capEnemyDamage(m,d);
 RUNSTAT.damageDealt+=Math.min(Math.max(0,m.hp),d);
 m.hp-=d;m.flash=.14;
 if(!(m.type==='boss'&&m.kbBlock)){
@@ -7330,7 +7347,7 @@ b.classList.remove('show');void b.offsetWidth;b.classList.add('show');
 }
 /* Общая таблица рекордов. Публичный ключ Supabase предназначен для браузера;
    service_role и другие секреты здесь хранить нельзя. */
-const GAME_VERSION=Number('40');
+const GAME_VERSION=Number('42');
 const PUBLIC_LEADERBOARD={
 url:'https://vwcfsummyzoesvxsnnlo.supabase.co',
 anonKey:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ3Y2ZzdW1teXpvZXN2eHNubmxvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc1OTQ4MTEsImV4cCI6MjEwMzE3MDgxMX0.61Fs_MaS7heZiVG5fxp8-Rc5LBnxp2QHJH9G_6pFjos',
@@ -7414,6 +7431,29 @@ META.rollKey=t.dataset.r==='ctrl'?'ctrl':'double';saveMeta();buildRollTabs();upd
 try{sfx.reward();}catch(e){}
 });
 }
+let pauseKeyCapture=false;
+function pauseKeyLabel(code){
+const named={Space:'ПРОБЕЛ',Enter:'ENTER',Tab:'TAB',Backspace:'BACKSPACE',Delete:'DELETE',Insert:'INSERT',Home:'HOME',End:'END',PageUp:'PAGE UP',PageDown:'PAGE DOWN',ArrowUp:'↑',ArrowDown:'↓',ArrowLeft:'←',ArrowRight:'→',ShiftLeft:'SHIFT',ShiftRight:'SHIFT',ControlLeft:'CTRL',ControlRight:'CTRL',AltLeft:'ALT',AltRight:'ALT'};
+if(named[code])return named[code];
+if(/^Key[A-Z]$/.test(code))return code.slice(3);
+if(/^Digit[0-9]$/.test(code))return code.slice(5);
+if(/^Numpad[0-9]$/.test(code))return 'NUM '+code.slice(6);
+return code.replace(/(Left|Right)$/,' $1').toUpperCase();
+}
+function buildPauseKey(){
+const btn=$('pauseKeyBtn'),note=$('pauseKeyNote');if(!btn||!note)return;
+btn.textContent=pauseKeyCapture?'…':pauseKeyLabel(META.pauseKey);
+btn.classList.toggle('listening',pauseKeyCapture);
+note.textContent=pauseKeyCapture?'НАЖМИ КЛАВИШУ · ESC — ОТМЕНА':'НАЖМИ, ЧТОБЫ ИЗМЕНИТЬ';
+btn.onclick=()=>{pauseKeyCapture=true;buildPauseKey();btn.focus();};
+btn.onblur=()=>{if(pauseKeyCapture){pauseKeyCapture=false;buildPauseKey();}};
+}
+function capturePauseKey(e){
+if(!pauseKeyCapture)return false;
+e.preventDefault();e.stopPropagation();
+if(e.code!=='Escape'){META.pauseKey=e.code;saveMeta();try{sfx.reward();}catch(err){}}
+pauseKeyCapture=false;buildPauseKey();updHint();return true;
+}
 function buildPlayerName(){
 const input=$('playerNameInput');if(!input)return;
 input.value=META.playerName||'';
@@ -7426,6 +7466,8 @@ if(META.playerName!==name){META.playerName=name;saveMeta();}
 }
 function updHint(){
 const el=$('hintKb');if(!el)return;
+const pause=pauseKeyLabel(META.pauseKey);
+const pausePrompt=$('pausePromptKb');if(pausePrompt)pausePrompt.textContent='НАЖМИ '+pause+', ЧТОБЫ ПРОДОЛЖИТЬ';
 const armor=(state==='menu'?menuWpn:player.weapon)==='thornarmor';
 const tel=$('hintTt');if(tel)tel.textContent=armor
 ?'Кнопки внизу · ⚔ не атакует до пробуждения · ✦ — тяжёлый перекат с неуязвимостью и уроном · 🛡 — парирование'
@@ -7434,8 +7476,8 @@ const atk=armor
 ?'ЛКМ — нет атаки до пробуждения · ПКМ — тяжёлый перекат с неуязвимостью и уроном'
 :'ЛКМ — атака в сторону курсора (комбо из 3: третий — финишер) · ПКМ — умение';
 el.textContent=META.rollKey==='ctrl'
-?'A D — движение · CTRL — кувырок · W / ПРОБЕЛ — прыжок ×2 · S — спуск · '+atk+' · SHIFT / Q — парирование · P — пауза · R — выйти в святилище'
-:'A D — движение (×2 нажатия — кувырок) · W / ПРОБЕЛ — прыжок ×2 · S — спуск · '+atk+' · SHIFT / Q — парирование · P — пауза · R — выйти в святилище';
+?'A D — движение · CTRL — кувырок · W / ПРОБЕЛ — прыжок ×2 · S — спуск · '+atk+' · SHIFT / Q — парирование · '+pause+' — пауза · R — выйти в святилище'
+:'A D — движение (×2 нажатия — кувырок) · W / ПРОБЕЛ — прыжок ×2 · S — спуск · '+atk+' · SHIFT / Q — парирование · '+pause+' — пауза · R — выйти в святилище';
 }
 function buildAsc(){
 const max=META.asc||0;
@@ -7707,6 +7749,7 @@ document.querySelectorAll('#startEvoCards .card').forEach(c=>c.onclick=()=>{menu
 buildAsc();
 buildMetaShop();
 buildRollTabs(); /* НОВОЕ: настройка кувырка */
+buildPauseKey();
 buildPlayerName();
 bindSkinMenu();
 updHint();
@@ -8233,7 +8276,7 @@ pickups=[];challengeSel=false;challengeRoom=false;extraReward=false;act2GatePass
 hudHp=-99;hudKills=-1;hudRoom=-1;hudWpn='';hudDiff='';hudSouls=-1;hudMods='';
 loadRoom(1);
 state='playing';
-/* Локальный стенд художника/баланса: game_40.html?testboss=1..20. */
+/* Локальный стенд художника/баланса: game_42.html?testboss=1..20. */
 const testBoss=+(new URLSearchParams(location.search).get('testboss')||0);
 if(testBoss>=1&&testBoss<=RUN_LEN){room=testBoss;loadRoom(room);mobs=[];projs=[];bossEvents=[];queue=[];spawnBoss();player.hp=Math.max(player.hp,20);S.maxHp=Math.max(S.maxHp,20);if(new URLSearchParams(location.search).has('testberserk'))bossRef.hp=bossRef.maxHp*.24;}
 const testQ=new URLSearchParams(location.search),localTest=location.protocol==='file:'||location.hostname==='localhost'||location.hostname==='127.0.0.1';
@@ -8332,6 +8375,7 @@ openMap();
 /* ================= ВВОД ================= */
 addEventListener('keydown',e=>{
 const c=e.code;
+if(capturePauseKey(e))return;
 if(e.target&&e.target.matches('input,textarea,[contenteditable="true"]')){
 if(c==='Enter'){e.preventDefault();e.target.blur();}
 return;
@@ -8339,6 +8383,7 @@ return;
 if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(c))e.preventDefault();
 if(keys[c])return void(keys[c]=true);
 keys[c]=true;initAudio();
+if(c===META.pauseKey&&state==='playing'){togglePause();return;}
 /* КУВЫРОК: режим «двойное нажатие» */
 if(state==='playing'&&!paused&&(c==='KeyA'||c==='KeyD')&&META.rollKey!=='ctrl'){
 if(time-tapMemo[c]<.28)tryStrafe(c==='KeyA'?-1:1);
@@ -8373,7 +8418,6 @@ if(c==='Space'||c==='Enter'){beginJourney();return;}
 }
 if((state==='over'||state==='win')&&(c==='Space'||c==='Enter'||c==='KeyR')){backToMenu();return;}
 if(c==='KeyR'&&state==='playing'){backToMenu();return;}
-if(c==='KeyP'&&state==='playing'){togglePause();return;}
 if(c==='KeyC'&&state==='playing'&&paused){openCodex();return;}
 if(state==='reward'){
 if(c==='Enter')confirmReward(false);

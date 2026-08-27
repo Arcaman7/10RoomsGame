@@ -91,19 +91,25 @@ body.touch .shrineActions #btnStart{right:8px}
 .merchantPanel #metaGrid{position:relative;z-index:1;flex:1;min-height:0;align-content:flex-start}
 body.touch .merchantPanel{width:calc(100% - 8px)}
 body.touch .merchantBalance{font-size:8px;letter-spacing:2px}
-#rollSection,#playerNameSection,#ascSection{position:absolute;top:14px;z-index:3;margin:0}
+#rollSection,#pauseKeySection,#playerNameSection,#ascSection{position:absolute;top:14px;z-index:3;margin:0}
 #rollSection{left:14px;width:230px}
-#playerNameSection{left:14px;top:76px;width:230px}
+#pauseKeySection{left:14px;top:76px;width:230px}
+#playerNameSection{left:14px;top:143px;width:230px}
 #ascSection{right:14px;width:280px}
-#rollSection .rwLabel,#playerNameSection .rwLabel,#ascSection .rwLabel{display:block;margin-top:0;letter-spacing:3px}
+#rollSection .rwLabel,#pauseKeySection .rwLabel,#playerNameSection .rwLabel,#ascSection .rwLabel{display:block;margin-top:0;letter-spacing:3px}
+.keyBindBtn{min-width:76px;height:30px;padding:4px 12px;border:1px solid #52685c;border-radius:7px;background:#0b120f;color:#ffe9c9;font:10px 'Russo One';letter-spacing:1.5px;cursor:pointer;box-shadow:inset 0 1px 6px rgba(0,0,0,.55)}
+.keyBindBtn:hover,.keyBindBtn:focus{border-color:#ffb45e;outline:none}.keyBindBtn.listening{color:#ffd280;border-color:#ffb45e;box-shadow:0 0 12px rgba(255,180,94,.22)}
+.keyBindNote{display:inline-block;margin-left:7px;color:#657c70;font:7px 'IBM Plex Mono';letter-spacing:.5px;vertical-align:middle}
 #playerNameInput{width:100%;height:28px;box-sizing:border-box;border:1px solid #2c443a;border-radius:7px;
 background:#0b120f;color:#ffe9c9;box-shadow:inset 0 1px 6px rgba(0,0,0,.55);outline:none;padding:5px 9px;
 font:10px 'IBM Plex Mono';letter-spacing:1.5px;text-align:center;text-transform:none}
 #playerNameInput::placeholder{color:#52675c;letter-spacing:2px}
 #playerNameInput:focus{border-color:#ffb45e;box-shadow:0 0 0 1px rgba(255,180,94,.18),inset 0 1px 6px rgba(0,0,0,.55)}
 body.touch #rollSection{left:8px;top:8px;width:205px}
-body.touch #playerNameSection{left:8px;top:65px;width:205px}
+body.touch #pauseKeySection{left:8px;top:65px;width:205px}
+body.touch #playerNameSection{left:8px;top:122px;width:205px}
 body.touch #ascSection{right:8px;top:8px;width:245px}
+body.touch .keyBindBtn{height:23px;font-size:8px;padding:3px 8px}body.touch .keyBindNote{font-size:6px;margin-left:4px}
 body.touch #playerNameInput{height:23px;font-size:8px;padding:3px 7px}
 
 /* На телефоне вторичные настройки раскрываются отдельной панелью. */
@@ -127,9 +133,9 @@ body.touch #playerNameInput{height:23px;font-size:8px;padding:3px 7px}
 .mobileMenuHead{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding-bottom:6px;border-bottom:1px solid #31473c}
 .mobileMenuHead div{display:flex;align-items:baseline;gap:8px}.mobileMenuHead span{color:#8fae9c;font:7px 'IBM Plex Mono';letter-spacing:2px}.mobileMenuHead b{color:#ffe0b1;font:14px 'Russo One';letter-spacing:2px}
 #btnSecondaryClose{width:34px;height:30px;border:1px solid #52685c;border-radius:8px;background:#0b1511;color:#dfe8e2;font:20px/1 'IBM Plex Mono';cursor:pointer}
-#secondaryMenu #rollSection,#secondaryMenu #playerNameSection,#secondaryMenu #ascSection{position:static;width:auto;margin:0}
-#secondaryMenu #rollSection,#secondaryMenu #playerNameSection{grid-column:1}
-#secondaryMenu #ascSection{grid-column:2;grid-row:2/4;text-align:center}
+#secondaryMenu #rollSection,#secondaryMenu #pauseKeySection,#secondaryMenu #playerNameSection,#secondaryMenu #ascSection{position:static;width:auto;margin:0}
+#secondaryMenu #rollSection,#secondaryMenu #pauseKeySection,#secondaryMenu #playerNameSection{grid-column:1}
+#secondaryMenu #ascSection{grid-column:2;grid-row:2/5;text-align:center}
 #secondaryMenu .rwLabel{display:block;color:#a9c2b4!important;text-align:left}
 #secondaryMenu #playerNameInput{height:28px;font-size:9px}
 #secondaryMenu .ascList{max-height:105px;overflow:auto;font-size:7px;line-height:1.35;text-align:left}

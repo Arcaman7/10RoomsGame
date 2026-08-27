@@ -1,6 +1,7 @@
 /* ================= ВВОД ================= */
 addEventListener('keydown',e=>{
 const c=e.code;
+if(capturePauseKey(e))return;
 if(e.target&&e.target.matches('input,textarea,[contenteditable="true"]')){
 if(c==='Enter'){e.preventDefault();e.target.blur();}
 return;
@@ -8,6 +9,7 @@ return;
 if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(c))e.preventDefault();
 if(keys[c])return void(keys[c]=true);
 keys[c]=true;initAudio();
+if(c===META.pauseKey&&state==='playing'){togglePause();return;}
 /* КУВЫРОК: режим «двойное нажатие» */
 if(state==='playing'&&!paused&&(c==='KeyA'||c==='KeyD')&&META.rollKey!=='ctrl'){
 if(time-tapMemo[c]<.28)tryStrafe(c==='KeyA'?-1:1);
@@ -42,7 +44,6 @@ if(c==='Space'||c==='Enter'){beginJourney();return;}
 }
 if((state==='over'||state==='win')&&(c==='Space'||c==='Enter'||c==='KeyR')){backToMenu();return;}
 if(c==='KeyR'&&state==='playing'){backToMenu();return;}
-if(c==='KeyP'&&state==='playing'){togglePause();return;}
 if(c==='KeyC'&&state==='playing'&&paused){openCodex();return;}
 if(state==='reward'){
 if(c==='Enter')confirmReward(false);

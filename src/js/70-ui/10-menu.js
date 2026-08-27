@@ -23,6 +23,29 @@ META.rollKey=t.dataset.r==='ctrl'?'ctrl':'double';saveMeta();buildRollTabs();upd
 try{sfx.reward();}catch(e){}
 });
 }
+let pauseKeyCapture=false;
+function pauseKeyLabel(code){
+const named={Space:'ПРОБЕЛ',Enter:'ENTER',Tab:'TAB',Backspace:'BACKSPACE',Delete:'DELETE',Insert:'INSERT',Home:'HOME',End:'END',PageUp:'PAGE UP',PageDown:'PAGE DOWN',ArrowUp:'↑',ArrowDown:'↓',ArrowLeft:'←',ArrowRight:'→',ShiftLeft:'SHIFT',ShiftRight:'SHIFT',ControlLeft:'CTRL',ControlRight:'CTRL',AltLeft:'ALT',AltRight:'ALT'};
+if(named[code])return named[code];
+if(/^Key[A-Z]$/.test(code))return code.slice(3);
+if(/^Digit[0-9]$/.test(code))return code.slice(5);
+if(/^Numpad[0-9]$/.test(code))return 'NUM '+code.slice(6);
+return code.replace(/(Left|Right)$/,' $1').toUpperCase();
+}
+function buildPauseKey(){
+const btn=$('pauseKeyBtn'),note=$('pauseKeyNote');if(!btn||!note)return;
+btn.textContent=pauseKeyCapture?'…':pauseKeyLabel(META.pauseKey);
+btn.classList.toggle('listening',pauseKeyCapture);
+note.textContent=pauseKeyCapture?'НАЖМИ КЛАВИШУ · ESC — ОТМЕНА':'НАЖМИ, ЧТОБЫ ИЗМЕНИТЬ';
+btn.onclick=()=>{pauseKeyCapture=true;buildPauseKey();btn.focus();};
+btn.onblur=()=>{if(pauseKeyCapture){pauseKeyCapture=false;buildPauseKey();}};
+}
+function capturePauseKey(e){
+if(!pauseKeyCapture)return false;
+e.preventDefault();e.stopPropagation();
+if(e.code!=='Escape'){META.pauseKey=e.code;saveMeta();try{sfx.reward();}catch(err){}}
+pauseKeyCapture=false;buildPauseKey();updHint();return true;
+}
 function buildPlayerName(){
 const input=$('playerNameInput');if(!input)return;
 input.value=META.playerName||'';
@@ -35,6 +58,8 @@ if(META.playerName!==name){META.playerName=name;saveMeta();}
 }
 function updHint(){
 const el=$('hintKb');if(!el)return;
+const pause=pauseKeyLabel(META.pauseKey);
+const pausePrompt=$('pausePromptKb');if(pausePrompt)pausePrompt.textContent='НАЖМИ '+pause+', ЧТОБЫ ПРОДОЛЖИТЬ';
 const armor=(state==='menu'?menuWpn:player.weapon)==='thornarmor';
 const tel=$('hintTt');if(tel)tel.textContent=armor
 ?'Кнопки внизу · ⚔ не атакует до пробуждения · ✦ — тяжёлый перекат с неуязвимостью и уроном · 🛡 — парирование'
@@ -43,8 +68,8 @@ const atk=armor
 ?'ЛКМ — нет атаки до пробуждения · ПКМ — тяжёлый перекат с неуязвимостью и уроном'
 :'ЛКМ — атака в сторону курсора (комбо из 3: третий — финишер) · ПКМ — умение';
 el.textContent=META.rollKey==='ctrl'
-?'A D — движение · CTRL — кувырок · W / ПРОБЕЛ — прыжок ×2 · S — спуск · '+atk+' · SHIFT / Q — парирование · P — пауза · R — выйти в святилище'
-:'A D — движение (×2 нажатия — кувырок) · W / ПРОБЕЛ — прыжок ×2 · S — спуск · '+atk+' · SHIFT / Q — парирование · P — пауза · R — выйти в святилище';
+?'A D — движение · CTRL — кувырок · W / ПРОБЕЛ — прыжок ×2 · S — спуск · '+atk+' · SHIFT / Q — парирование · '+pause+' — пауза · R — выйти в святилище'
+:'A D — движение (×2 нажатия — кувырок) · W / ПРОБЕЛ — прыжок ×2 · S — спуск · '+atk+' · SHIFT / Q — парирование · '+pause+' — пауза · R — выйти в святилище';
 }
 function buildAsc(){
 const max=META.asc||0;
@@ -316,6 +341,7 @@ document.querySelectorAll('#startEvoCards .card').forEach(c=>c.onclick=()=>{menu
 buildAsc();
 buildMetaShop();
 buildRollTabs(); /* НОВОЕ: настройка кувырка */
+buildPauseKey();
 buildPlayerName();
 bindSkinMenu();
 updHint();

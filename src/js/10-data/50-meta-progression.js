@@ -27,13 +27,14 @@ const ASC_DESC=[
 'Цены торговца и кузницы ×1.6',
 'Обычные враги не роняют сердца'
 ];
-let META={souls:0,unlocked:{},evoSeen:{},evoOff:{},bestRoom:1,bestEndless:0,asc:0,wins:0,act2Pass:0,rollKey:'double',playerName:''};
+let META={souls:0,unlocked:{},evoSeen:{},evoOff:{},bestRoom:1,bestEndless:0,asc:0,wins:0,act2Pass:0,rollKey:'double',pauseKey:'KeyP',playerName:''};
 function loadMeta(){
 try{const r=localStorage.getItem(META_KEY);if(r)META=Object.assign(META,JSON.parse(r));}catch(e){}
 if(!META.unlocked)META.unlocked={};
 if(!META.evoSeen)META.evoSeen={};
 if(!META.evoOff)META.evoOff={};
 if(META.rollKey!=='ctrl')META.rollKey='double';
+if(typeof META.pauseKey!=='string'||!/^[A-Za-z0-9]{1,32}$/.test(META.pauseKey))META.pauseKey='KeyP';
 META.playerName=typeof META.playerName==='string'?META.playerName.slice(0,20):'';
 }
 function saveMeta(){try{localStorage.setItem(META_KEY,JSON.stringify(META));}catch(e){}}
